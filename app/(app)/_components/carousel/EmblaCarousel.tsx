@@ -29,7 +29,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
             <div key={item.id_image} className='w-full flex-none transform' style={{ height: '480px' }}>
               <div>
                 <Image
-                  src={`https://datn-backend-1.onrender.com/${item.url}`}
+                  src={item.url}
                   alt={item.id_image}
                   className='w-screen object-cover lg:h-[480px]'
                   width={100}
