@@ -10,23 +10,23 @@ export const NAV_ITEMS: NavItem[] = [
         label: "GIỚI THIỆU",
         href: "#about",
         children: [
-            { label: "Giới thiệu chung", href: "#about" },
-            { label: "Sứ mệnh & Tầm nhìn", href: "#mission" },
-            { label: "Cơ sở vật chất", href: "#facility" },
+            { label: "Giới thiệu chung", href: "/introduce/general" },
+            { label: "Sứ mệnh & Tầm nhìn", href: "/introduce/mission-and-vision" },
+            { label: "Cơ sở vật chất", href: "/introduce/facility" },
         ],
     },
-    { label: "THÔNG BÁO", href: "#notice" },
-    { label: "TIN TỨC", href: "#news" },
+    { label: "THÔNG BÁO", href: "/notice" },
+    { label: "TIN TỨC", href: "/news" },
     {
         label: "THƯ VIỆN",
         href: "#library",
         children: [
-            { label: "Hình ảnh", href: "#gallery" },
-            { label: "Video", href: "#video" },
+            { label: "Hình ảnh", href: "/gallery" },
+            { label: "Video", href: "/video" },
         ],
     },
-    { label: "TUYỂN DỤNG", href: "#recruit" },
-    { label: "LIÊN HỆ", href: "#contact" },
+    { label: "TUYỂN DỤNG", href: "/recruit" },
+    { label: "LIÊN HỆ", href: "/contact" },
 ]
 
 export const ROUTES = {
