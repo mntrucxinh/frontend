@@ -1,16 +1,26 @@
 ﻿"use client"
 
 import React, { useState } from "react"
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { BRAND_ASSETS, CONTACT_INFO } from "@/assets/infomations"
 import { ChevronDown, Mail, Menu, Phone, X } from "lucide-react"
 import { NAV_ITEMS } from "@/constants/routes"
 
 const Header = () => {
+  const router = useRouter()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [mobileOpenKey, setMobileOpenKey] = useState<string | null>(null)
 
   const phoneHref = CONTACT_INFO.phone.replace(/\D+/g, "")
+
+  const handleNavigation = (href: string) => {
+    // Đóng tất cả menu trước khi chuyển trang
+    setIsMenuOpen(false)
+    setMobileOpenKey(null)
+    
+    // Thực hiện chuyển trang bằng router.push
+    router.push(href)
+  }
 
   const closeMobileMenu = () => {
     setIsMenuOpen(false)
@@ -71,9 +81,9 @@ const Header = () => {
         {/* main bar height fixed */}
         <div className="container mx-auto px-4 h-16 lg:h-20 flex items-center justify-between">
           {/* Logo */}
-          <Link
-            href="/"
-            className="flex items-center flex-shrink-0 overflow-visible"
+          <div 
+            onClick={() => handleNavigation("/")} 
+            className="flex items-center flex-shrink-0 cursor-pointer"
           >
             <div className="w-[120px] lg:w-[170px] flex items-center overflow-visible">
               <img
@@ -89,20 +99,20 @@ const Header = () => {
                 "
               />
             </div>
-          </Link>
+          </div>
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-6 text-[15px] font-semibold text-primary">
             {NAV_ITEMS.map((item) => {
               if (!item.children?.length) {
                 return (
-                  <Link
+                  <button
                     key={item.label}
-                    href={item.href}
+                    onClick={() => handleNavigation(item.href)}
                     className="hover:text-primary/70 transition-colors"
                   >
                     {item.label}
-                  </Link>
+                  </button>
                 )
               }
 
@@ -127,13 +137,13 @@ const Header = () => {
                   >
                     <div className="py-2">
                       {item.children.map((c) => (
-                        <Link
+                        <button
                           key={c.label}
-                          href={c.href}
-                          className="block px-4 py-2 text-[15px] text-primary hover:text-primary/70 hover:bg-primary/5 transition-colors"
+                          onClick={() => handleNavigation(c.href)}
+                          className="w-full text-left block px-4 py-2 hover:bg-primary/5 transition-colors"
                         >
                           {c.label}
-                        </Link>
+                        </button>
                       ))}
                     </div>
                   </div>
@@ -178,14 +188,13 @@ const Header = () => {
 
                 if (!hasChildren) {
                   return (
-                    <Link
+                    <button
                       key={item.label}
-                      href={item.href}
-                      onClick={closeMobileMenu}
-                      className="px-3 py-3 rounded-lg hover:bg-primary/5 transition"
+                      onClick={() => handleNavigation(item.href)}
+                      className="text-left px-3 py-3 rounded-lg hover:bg-primary/5 font-semibold text-primary"
                     >
                       {item.label}
-                    </Link>
+                    </button>
                   )
                 }
 
@@ -208,14 +217,13 @@ const Header = () => {
                     {isOpen && (
                       <div className="pl-3 pb-2">
                         {item.children!.map((c) => (
-                          <Link
+                          <button
                             key={c.label}
-                            href={c.href}
-                            onClick={closeMobileMenu}
-                            className="block px-3 py-2 rounded-lg text-[14px] text-primary hover:text-primary/70 hover:bg-primary/5 transition-colors"
+                            onClick={() => handleNavigation(c.href)}
+                            className="text-left py-2 text-sm text-primary/80 hover:text-primary"
                           >
                             {c.label}
-                          </Link>
+                          </button>
                         ))}
                       </div>
                     )}
