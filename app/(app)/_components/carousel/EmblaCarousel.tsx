@@ -1,0 +1,48 @@
+'use client'
+
+import type React from 'react'
+import { type EmblaOptionsType } from 'embla-carousel'
+import useEmblaCarousel from 'embla-carousel-react'
+import Image from 'next/image'
+
+import { NextButton, PrevButton, usePrevNextButtons } from './EmblaCarouselArrowButtons'
+
+export type ListObject = {
+  id_image: string
+  url: string
+}
+
+export type PropType = {
+  slides: ListObject[]
+  options?: EmblaOptionsType
+}
+
+const EmblaCarousel: React.FC<PropType> = (props) => {
+  const { slides, options } = props
+  const [emblaRef, emblaApi] = useEmblaCarousel(options, [])
+
+  return (
+    <div className='relative flex h-full w-full flex-col items-center gap-5'>
+      <div className='pinch-zoom touch-pan-y overflow-hidden' ref={emblaRef}>
+        <div className='embla__container flex'>
+          {slides.map((item) => (
+            <div key={item.id_image} className='w-full flex-none transform' style={{ height: '480px' }}>
+              <div>
+                <Image
+                  src={`https://datn-backend-1.onrender.com/${item.url}`}
+                  alt={item.id_image}
+                  className='w-screen object-cover lg:h-[480px]'
+                  width={100}
+                  height={100}
+                  unoptimized
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default EmblaCarousel
