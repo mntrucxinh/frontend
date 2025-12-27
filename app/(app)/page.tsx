@@ -5,7 +5,8 @@ import React from "react"
 import ImageInstruction from "@/app/(app)/_components/sections/ImageInstruction"
 import Method from "./_components/sections/Method"
 import Schedule from "./_components/sections/Schedule"
-import FAQ from "./_components/sections/FAQ"
+import Notification from "./_components/sections/Notification"
+import Activity  from "./_components/sections/Activity"
 
 const LandingPage = () => {
   return (
@@ -13,7 +14,8 @@ const LandingPage = () => {
       <ImageInstruction />
       <Method />
       <Schedule />
-      <FAQ />
+      <Notification />
+      <Activity />
     </div>
   )
 }
