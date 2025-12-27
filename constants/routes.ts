@@ -21,8 +21,8 @@ export const NAV_ITEMS: NavItem[] = [
         label: "THƯ VIỆN",
         href: "#library",
         children: [
-            { label: "Hình ảnh", href: "/gallery" },
-            { label: "Video", href: "/video" },
+            { label: "Hình ảnh", href: "/library/gallery" },
+            { label: "Video", href: "/library/video" },
         ],
     },
     { label: "TUYỂN DỤNG", href: "/recruit" },
