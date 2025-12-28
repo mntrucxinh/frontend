@@ -1,12 +1,13 @@
+import React from 'react'
 
+import ImageInstruction from '@/app/(app)/_components/sections/ImageInstruction'
 
-import React from "react"
+import Activity from './_components/sections/Activity'
+import Method from './_components/sections/Method'
+import Notification from './_components/sections/Notification'
+import Schedule from './_components/sections/Schedule'
 
-import ImageInstruction from "@/app/(app)/_components/sections/ImageInstruction"
-import Method from "./_components/sections/Method"
-import Schedule from "./_components/sections/Schedule"
-import Notification from "./_components/sections/Notification"
-import Activity  from "./_components/sections/Activity"
+const IMAGES = ['/assets/images/ex1.jpg', '/assets/images/ex2.jpg', '/assets/images/ex3.jpg']
 
 const LandingPage = () => {
   return (

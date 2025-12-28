@@ -4,6 +4,7 @@ import React, { useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import Link from "next/link"
 import { CalendarDays, ChevronRight } from "lucide-react"
+import Image from "next/image"
 
 type Post = {
   id: string
@@ -28,7 +29,7 @@ export default function NoticeNewsGreen() {
         excerpt:
           "Để chuẩn bị tốt cho năm học 2025-2026, nhà trường xin kính báo đến các bậc phụ huynh...",
         dateText: "Thứ 5, 26/09/24 lúc 07:47",
-        image: "/images/notice-cover.jpg",
+        image: "/assets/images/notice-cover.jpg",
         href: "/thong-bao/1",
       },
       {
@@ -38,7 +39,7 @@ export default function NoticeNewsGreen() {
         excerpt:
           "Căn cứ kế hoạch phát triển Giáo dục năm học 2025-2026 của Phòng Giáo dục-Đào tạo...",
         dateText: "Thứ 5, 26/09/24 lúc 07:11",
-        image: "/images/notice-cover.jpg",
+        image: "/assets/images/notice-cover.jpg",
         href: "/thong-bao/2",
       },
       {
@@ -48,7 +49,7 @@ export default function NoticeNewsGreen() {
         excerpt:
           "Một vài mẹo nhỏ giúp con thích nghi môi trường mới, kết nối bạn bè và vui học mỗi ngày...",
         dateText: "Thứ 3, 10/10/24 lúc 09:20",
-        image: "/images/news-cover.jpg",
+        image: "/assets/images/news-cover.jpg",
         href: "/tin-tuc/3",
       },
       {
@@ -58,7 +59,7 @@ export default function NoticeNewsGreen() {
         excerpt:
           "Dinh dưỡng cân bằng là nền tảng để bé phát triển khỏe mạnh, vui vẻ và tràn đầy năng lượng...",
         dateText: "Thứ 7, 12/10/24 lúc 08:05",
-        image: "/images/news-cover.jpg",
+        image: "/assets/images/news-cover.jpg",
         href: "/tin-tuc/4",
       },
     ],
@@ -89,8 +90,9 @@ export default function NoticeNewsGreen() {
       </div>
 
       {/* Decorative giraffe corner (optional) */}
-      <img
-        src="/images/giraffe.png"
+      <Image
+        width={100} height={100}
+        src="/assets/images/giraffe.png"
         alt=""
         className="absolute right-6 -top-6 w-24 opacity-90 pointer-events-none"
         onError={(e) => {
@@ -162,7 +164,8 @@ export default function NoticeNewsGreen() {
               >
                 {/* image */}
                 <div className="relative h-[240px] bg-slate-100 overflow-hidden">
-                  <img
+                  <Image
+                    width={100} height={100}
                     src={post.image}
                     alt={post.title}
                     className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"

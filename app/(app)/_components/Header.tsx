@@ -1,16 +1,17 @@
-﻿"use client"
+﻿'use client'
 
-import React, { useState } from "react"
-import Link from "next/link"
-import { BRAND_ASSETS, CONTACT_INFO } from "@/assets/infomations"
-import { ChevronDown, Mail, Menu, Phone, X } from "lucide-react"
-import { NAV_ITEMS } from "@/constants/routes"
+import React, { useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { BRAND_ASSETS, CONTACT_INFO } from '@/constants/infomations'
+import { NAV_ITEMS } from '@/constants/routes'
+import { ChevronDown, Mail, Menu, Phone, X } from 'lucide-react'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [mobileOpenKey, setMobileOpenKey] = useState<string | null>(null)
 
-  const phoneHref = CONTACT_INFO.phone.replace(/\D+/g, "")
+  const phoneHref = CONTACT_INFO.phone.replace(/\D+/g, '')
 
   const closeMobileMenu = () => {
     setIsMenuOpen(false)
@@ -18,88 +19,68 @@ const Header = () => {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-white">
+    <header className='sticky top-0 z-50 bg-white'>
       {/* Top contact bar */}
-      <div className="w-full bg-primary text-white">
-        <div className="container mx-auto flex items-center justify-between px-4 py-2 text-sm">
-          <div className="flex flex-col leading-tight text-white gap-1">
+      <div className='w-full bg-primary text-white'>
+        <div className='container mx-auto flex items-center justify-between px-4 py-2 text-sm'>
+          <div className='flex flex-col gap-1 leading-tight text-white'>
             <a
               href={`mailto:${CONTACT_INFO.email}`}
-              className="inline-flex items-center gap-2 hover:opacity-90"
+              className='inline-flex items-center gap-2 hover:opacity-90'
             >
-              <Mail className="w-4 h-4" />
+              <Mail className='size-4' />
               {CONTACT_INFO.email}
             </a>
             <a
               href={`tel:${phoneHref}`}
-              className="inline-flex items-center gap-2 hover:opacity-90"
+              className='inline-flex items-center gap-2 hover:opacity-90'
             >
-              <Phone className="w-4 h-4" />
+              <Phone className='size-4' />
               {CONTACT_INFO.phone}
             </a>
           </div>
 
-          <div className="hidden md:flex items-center gap-4">
-            <span className="text-base font-semibold">Theo dõi</span>
-            <a href="#" className="hover:opacity-90">
-              <img
-                src={BRAND_ASSETS.social.facebook}
-                alt="Facebook"
-                className="w-8 h-8"
-              />
+          <div className='hidden items-center gap-4 md:flex'>
+            <span className='text-base font-semibold'>Theo dõi</span>
+            <a href='#' className='hover:opacity-90'>
+              <Image width={32} height={32} src={BRAND_ASSETS.social.facebook} alt='Facebook' />
             </a>
-            <a href="#" className="hover:opacity-90">
-              <img
-                src={BRAND_ASSETS.social.youtube}
-                alt="YouTube"
-                className="w-8 h-8"
-              />
+            <a href='#' className='hover:opacity-90'>
+              <Image width={32} height={32} src={BRAND_ASSETS.social.youtube} alt='YouTube' />
             </a>
-            <a href="#" className="hover:opacity-90">
-              <img
-                src={BRAND_ASSETS.social.zalo}
-                alt="Zalo"
-                className="w-8 h-8"
-              />
+            <a href='#' className='hover:opacity-90'>
+              <Image width={32} height={32} src={BRAND_ASSETS.social.zalo} alt='Zalo' />
             </a>
           </div>
         </div>
       </div>
 
       {/* Main nav */}
-      <div className="bg-white shadow-sm">
+      <div className='bg-white shadow-sm'>
         {/* main bar height fixed */}
-        <div className="container mx-auto px-4 h-16 lg:h-20 flex items-center justify-between">
+        <div className='container mx-auto flex h-16 items-center justify-between px-4 lg:h-20'>
           {/* Logo */}
-          <Link
-            href="/"
-            className="flex items-center flex-shrink-0 overflow-visible"
-          >
-            <div className="w-[120px] lg:w-[170px] flex items-center overflow-visible">
-              <img
+          <Link href='/' className='flex shrink-0 items-center overflow-visible'>
+            <div className='flex w-[120px] items-center overflow-visible lg:w-[170px]'>
+              <Image
                 src={BRAND_ASSETS.logo}
-                alt="Trúc Xinh"
-                className="
-                  h-10 lg:h-12 w-auto object-contain
-                  origin-left
-                  scale-[6] lg:scale-[5]
-                  -translate-x-[100px] lg:-translate-x-[100px]
-                  translate-y-[10px] lg:translate-y-[8px]
-                  [clip-path:inset(30%_20%_40%_25%)]
-                "
+                width={200}
+                height={200}
+                alt='Trúc Xinh'
+                className='h-10 w-auto origin-left -translate-x-[100px] translate-y-[10px] scale-[6] object-contain [clip-path:inset(30%_20%_40%_25%)] lg:h-12 lg:-translate-x-[100px] lg:translate-y-[8px] lg:scale-[5]'
               />
             </div>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-6 text-[15px] font-semibold text-primary">
+          <nav className='hidden items-center gap-6 text-[15px] font-semibold text-primary lg:flex'>
             {NAV_ITEMS.map((item) => {
               if (!item.children?.length) {
                 return (
                   <Link
                     key={item.label}
                     href={item.href}
-                    className="hover:text-primary/70 transition-colors"
+                    className='transition-colors hover:text-primary/70'
                   >
                     {item.label}
                   </Link>
@@ -107,30 +88,20 @@ const Header = () => {
               }
 
               return (
-                <div key={item.label} className="relative group">
-                  <div
-                    className="inline-flex items-center gap-1 hover:text-primary/70 transition-colors cursor-pointer select-none"
-                  >
+                <div key={item.label} className='group relative'>
+                  <div className='inline-flex cursor-pointer select-none items-center gap-1 transition-colors hover:text-primary/70'>
                     {item.label}
-                    <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                    <ChevronDown className='size-4 transition-transform group-hover:rotate-180' />
                   </div>
 
                   {/* Dropdown */}
-                  <div
-                    className="
-                      absolute left-0 top-full mt-3 w-64
-                      rounded-xl bg-white shadow-lg ring-1 ring-black/5
-                      opacity-0 invisible translate-y-2
-                      group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
-                      transition-all duration-200 ease-out
-                    "
-                  >
-                    <div className="py-2">
+                  <div className='invisible absolute left-0 top-full mt-3 w-64 translate-y-2 rounded-xl bg-white opacity-0 shadow-lg ring-1 ring-black/5 transition-all duration-200 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100'>
+                    <div className='py-2'>
                       {item.children.map((c) => (
                         <Link
                           key={c.label}
                           href={c.href}
-                          className="block px-4 py-2 text-[15px] text-primary hover:text-primary/70 hover:bg-primary/5 transition-colors"
+                          className='block px-4 py-2 text-[15px] text-primary transition-colors hover:bg-primary/5 hover:text-primary/70'
                         >
                           {c.label}
                         </Link>
@@ -144,91 +115,75 @@ const Header = () => {
 
           {/* Mobile hamburger */}
           <button
-            className="
-              lg:hidden inline-flex items-center justify-center
-              w-10 h-10 rounded-full
-              border border-primary/25 text-primary
-              hover:bg-primary/5 active:scale-95 transition
-            "
+            className='inline-flex size-10 items-center justify-center rounded-full border border-primary/25 text-primary transition hover:bg-primary/5 active:scale-95 lg:hidden'
             onClick={() => setIsMenuOpen((v) => !v)}
-            aria-label="Toggle menu"
+            aria-label='Toggle menu'
             aria-expanded={isMenuOpen}
           >
-            {isMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
+            {isMenuOpen ? <X className='size-6' /> : <Menu className='size-6' />}
           </button>
         </div>
 
-        {/* Mobile menu OVERLAY (không làm header cao lên) */}
-        <div
-          className={`lg:hidden absolute left-0 right-0 top-full bg-white shadow-lg border-t transform transition-all duration-300 ease-out origin-top ${
-            isMenuOpen
-              ? "opacity-100 translate-y-0 pointer-events-auto"
-              : "opacity-0 -translate-y-2 pointer-events-none"
-          }`}
-        >
-          <nav className="container mx-auto px-4 py-3">
-            <div className="flex flex-col gap-1 text-primary font-semibold">
-              {NAV_ITEMS.map((item) => {
-                const hasChildren = !!item.children?.length
-                const isOpen = mobileOpenKey === item.label
+        {/* Mobile menu OVERLAY */}
+        {isMenuOpen && (
+          <div className='pointer-events-auto absolute inset-x-0 top-full origin-top translate-y-0 border-t bg-white opacity-100 shadow-lg transition-all duration-300 ease-out lg:hidden'>
+            <nav className='container mx-auto px-4 py-3'>
+              <div className='flex flex-col gap-1 font-semibold text-primary'>
+                {NAV_ITEMS.map((item) => {
+                  const hasChildren = !!item.children?.length
+                  const isOpen = mobileOpenKey === item.label
 
-                if (!hasChildren) {
+                  if (!hasChildren) {
+                    return (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        onClick={closeMobileMenu}
+                        className='rounded-lg p-3 transition hover:bg-primary/5'
+                      >
+                        {item.label}
+                      </Link>
+                    )
+                  }
+
                   return (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      onClick={closeMobileMenu}
-                      className="px-3 py-3 rounded-lg hover:bg-primary/5 transition"
-                    >
-                      {item.label}
-                    </Link>
+                    <div key={item.label} className='rounded-lg'>
+                      <button
+                        type='button'
+                        onClick={() => setMobileOpenKey(isOpen ? null : item.label)}
+                        className='flex w-full items-center justify-between rounded-lg p-3 transition hover:bg-primary/5'
+                        aria-expanded={isOpen}
+                      >
+                        <span>{item.label}</span>
+                        <ChevronDown
+                          className={`size-5 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                        />
+                      </button>
+
+                      {isOpen && (
+                        <div className='pb-2 pl-3'>
+                          {item.children!.map((c) => (
+                            <Link
+                              key={c.label}
+                              href={c.href}
+                              onClick={closeMobileMenu}
+                              className='block rounded-lg px-3 py-2 text-[14px] text-primary transition-colors hover:bg-primary/5 hover:text-primary/70'
+                            >
+                              {c.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   )
-                }
-
-                return (
-                  <div key={item.label} className="rounded-lg">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setMobileOpenKey(isOpen ? null : item.label)
-                      }
-                      className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-primary/5 transition"
-                      aria-expanded={isOpen}
-                    >
-                      <span>{item.label}</span>
-                      <ChevronDown
-                        className={`w-5 h-5 transition-transform ${isOpen ? "rotate-180" : ""}`}
-                      />
-                    </button>
-
-                    {isOpen && (
-                      <div className="pl-3 pb-2">
-                        {item.children!.map((c) => (
-                          <Link
-                            key={c.label}
-                            href={c.href}
-                            onClick={closeMobileMenu}
-                            className="block px-3 py-2 rounded-lg text-[14px] text-primary hover:text-primary/70 hover:bg-primary/5 transition-colors"
-                          >
-                            {c.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
-          </nav>
-        </div>
+                })}
+              </div>
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   )
 }
 
 export default Header
-

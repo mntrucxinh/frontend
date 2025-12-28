@@ -2,6 +2,7 @@
 
 import React, { useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
+import Image from "next/image"
 
 type AgeKey = "2-3" | "3-4" | "4-5" | "5-6"
 
@@ -21,7 +22,7 @@ export default function ActivitiesAtSchool() {
         key: "2-3",
         label: "2-3 tuổi",
         badge: "2-3 tuổi",
-        img: "/images/activities-23.jpg",
+        img: "/assets/images/activities-23.jpg",
         activities: [
           "Lễ giáo",
           "Làm quen môi trường lớp",
@@ -48,7 +49,7 @@ export default function ActivitiesAtSchool() {
         key: "3-4",
         label: "3-4 tuổi",
         badge: "3-4 tuổi",
-        img: "/images/activities-34.jpg",
+        img: "/assets/images/activities-34.jpg",
         activities: [
           "Lễ giáo",
           "Khám phá khoa học",
@@ -75,7 +76,7 @@ export default function ActivitiesAtSchool() {
         key: "4-5",
         label: "4-5 tuổi",
         badge: "4-5 tuổi",
-        img: "/images/activities-45.jpg",
+        img: "/assets/images/activities-45.jpg",
         activities: [
           "Lễ giáo",
           "Khám phá khoa học",
@@ -105,7 +106,7 @@ export default function ActivitiesAtSchool() {
         key: "5-6",
         label: "5-6 tuổi",
         badge: "5-6 tuổi",
-        img: "/images/activities-56.jpg",
+        img: "/assets/images/activities-56.jpg",
         activities: [
           "Lễ giáo",
           "Khám phá khoa học",
@@ -152,8 +153,9 @@ export default function ActivitiesAtSchool() {
 
       {/* Bottom light area + giraffe (optional) */}
       <div className="absolute bottom-0 left-0 right-0 h-28 bg-white/90" />
-      <img
-        src="/images/giraffe.png"
+      <Image
+        width={100} height={100}
+        src="/assets/images/giraffe.png"
         alt=""
         className="hidden md:block absolute bottom-0 right-10 w-24 opacity-90 pointer-events-none"
         onError={(e) => {

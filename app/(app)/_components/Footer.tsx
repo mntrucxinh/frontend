@@ -1,7 +1,6 @@
-﻿"use client"
-
-import React from "react"
-import { BRAND_ASSETS, CONTACT_INFO } from "@/assets/infomations"
+﻿import React from "react"
+import { BRAND_ASSETS, CONTACT_INFO } from "@/constants/infomations"
+import Image from "next/image"
 
 const Footer = () => {
   const phoneHref = CONTACT_INFO.phone.replace(/\D+/g, "")
@@ -47,9 +46,9 @@ const Footer = () => {
           <div className="md:pl-6">
             <h3 className="text-lg font-extrabold text-white mb-5">Theo doi chung toi</h3>
             <div className="flex items-center gap-4">
-              <a href="#" className="hover:opacity-90" aria-label="Facebook"><img src={BRAND_ASSETS.social.facebook} alt="Facebook" className="w-10 h-10" /></a>
-              <a href="#" className="hover:opacity-90" aria-label="YouTube"><img src={BRAND_ASSETS.social.youtube} alt="YouTube" className="w-10 h-10" /></a>
-              <a href="#" className="hover:opacity-90" aria-label="Zalo"><img src={BRAND_ASSETS.social.zalo} alt="Zalo" className="w-10 h-10" /></a>
+              <a href="#" className="hover:opacity-90" aria-label="Facebook"><Image width={40} height={40} src={BRAND_ASSETS.social.facebook} alt="Facebook"/></a>
+              <a href="#" className="hover:opacity-90" aria-label="YouTube"><Image width={40} height={40} src={BRAND_ASSETS.social.youtube} alt="YouTube"/></a>
+              <a href="#" className="hover:opacity-90" aria-label="Zalo"><Image width={40} height={40} src={BRAND_ASSETS.social.zalo} alt="Zalo"/></a>
             </div>
           </div>
         </div>

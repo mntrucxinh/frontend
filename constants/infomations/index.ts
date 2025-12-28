@@ -4,11 +4,11 @@ export const CONTACT_INFO = {
 }
 
 export const BRAND_ASSETS = {
-  logo: "/LogoTrucXinh.png",
+  logo: "/assets/images/LogoTrucXinh.png",
   social: {
-    facebook: "/FacebookIcon.png",
-    youtube: "/YouTubeIcon.png",
-    zalo: "/ZaloIcon.png",
+    facebook: "/assets/images/FacebookIcon.png",
+    youtube: "/assets/images/YouTubeIcon.png",
+    zalo: "/assets/images/ZaloIcon.png",
   },
 }
 
