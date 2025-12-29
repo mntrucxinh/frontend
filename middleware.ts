@@ -1,12 +1,14 @@
-import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
-export function middleware(request: NextRequest) {
-  const accessToken = request.cookies.get("accessToken")?.value
+export { auth as middleware } from '@/auth'
+
+export function middleware2(request: NextRequest) {
+  const accessToken = request.cookies.get('accessToken')?.value
 
   if (!accessToken) {
     const url = request.nextUrl.clone()
-    url.pathname = "/" // Redirect to login
+    url.pathname = '/' // Redirect to login
     return NextResponse.redirect(url)
   }
 
@@ -14,5 +16,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/profile/:path*"],
+  matcher: ['/dashboard/:path*', '/profile/:path*'],
 }

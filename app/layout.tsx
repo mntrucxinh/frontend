@@ -1,13 +1,13 @@
-import "@/styles/globals.css"
+import '@/styles/globals.css'
 
-import { Metadata, Viewport } from "next"
-import { Toaster } from "react-hot-toast"
+import { Metadata, Viewport } from 'next'
+import { Toaster } from 'react-hot-toast'
 
-import { siteConfig } from "@/config/site"
-import { fontSans } from "@/lib/fonts"
-import { cn } from "@/lib/utils"
-import { ThemeProvider } from "@/components/theme-provider"
-import Providers from "@/app/provider"
+import { siteConfig } from '@/config/site'
+import { fontSans } from '@/lib/fonts'
+import { cn } from '@/lib/utils'
+import { ThemeProvider } from '@/components/theme-provider'
+import Providers from '@/app/provider'
 
 export const metadata: Metadata = {
   title: {
@@ -16,17 +16,17 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
   },
 }
 
 export const viewport: Viewport = {
-  width: "device-width",
+  width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#ffffff",
+  themeColor: '#ffffff',
 }
 
 interface RootLayoutProps {
@@ -35,19 +35,14 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
-      >
+    <html lang='en' suppressHydrationWarning>
+      <body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
         <Toaster />
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-          <div className="relative flex min-h-screen flex-col">
-            <div className="flex-1">
+        <ThemeProvider attribute='class' defaultTheme='light' enableSystem={false}>
+          <div className='relative flex min-h-screen flex-col'>
+            <div className='flex-1'>
               <Providers>
-                <div className="">{children}</div>
+                <div className=''>{children}</div>
               </Providers>
             </div>
           </div>

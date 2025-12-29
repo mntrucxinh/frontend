@@ -26,7 +26,9 @@ export default function TeachingMethodsSection() {
         <div className='relative z-10 mx-auto max-w-6xl px-6 pb-28 pt-20'>
           {/* Title */}
           <div className='relative mb-12 flex items-center justify-center gap-5'>
-            <h2 className='text-3xl font-extrabold text-emerald-700 md:text-5xl'>Phương pháp dạy học</h2>
+            <h2 className='text-3xl font-extrabold text-emerald-700 md:text-5xl'>
+              Phương pháp dạy học
+            </h2>
 
             <CurvedDashedLine className='h-16 w-40' />
           </div>
@@ -62,7 +64,13 @@ export default function TeachingMethodsSection() {
                     className='mx-auto h-[140px] rounded-2xl bg-emerald-50 shadow-md ring-2'
                     style={{ borderColor: m.accent }}
                   >
-                    <Image width={100} height={100} src={m.img} alt={m.name} className='size-full object-contain p-2' />
+                    <Image
+                      width={100}
+                      height={100}
+                      src={m.img}
+                      alt={m.name}
+                      className='size-full object-contain p-2'
+                    />
                   </div>
 
                   {/* name */}
@@ -79,35 +87,35 @@ export default function TeachingMethodsSection() {
         {/* BOTTOM WAVES (FULL WEB + ANIM) */}
         <div className='pointer-events-none absolute inset-x-0 bottom-0 w-screen'>
           {/* Back wave (light green) - subtle horizontal drift */}
-          <motion.svg
+          <svg
             viewBox='0 0 1440 120'
             preserveAspectRatio='none'
-            className='block h-16 w-screen sm:h-20'
-            initial={{ x: 0 }}
-            animate={{ x: [0, -22, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+            className='block h-16 w-screen overflow-hidden sm:h-20'
           >
-            <path
+            <motion.path
               d='M0,60 C80,20 160,20 240,60 C320,100 400,100 480,60 C560,20 640,20 720,60 C800,100 880,100 960,60 C1040,20 1120,20 1200,60 C1280,100 1360,100 1440,60 L1440,120 L0,120 Z'
               fill='#A7F3D0'
               opacity='0.9'
+              initial={{ scaleX: 1.03 }}
+              animate={{ x: [0, -20, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
             />
-          </motion.svg>
+          </svg>
 
           {/* Front wave (dark green) - opposite drift */}
-          <motion.svg
+          <svg
             viewBox='0 0 1440 120'
             preserveAspectRatio='none'
-            className='-mt-10 block h-16 w-screen sm:h-20'
-            initial={{ x: 0 }}
-            animate={{ x: [0, 18, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+            className='-mt-10 block h-16 w-screen overflow-hidden sm:h-20'
           >
-            <path
+            <motion.path
               d='M0,70 C90,30 180,30 270,70 C360,110 450,110 540,70 C630,30 720,30 810,70 C900,110 990,110 1080,70 C1170,30 1260,30 1350,70 C1400,92 1420,98 1440,100 L1440,120 L0,120 Z'
               fill='#16A34A'
+              initial={{ scaleX: 1.03 }}
+              animate={{ x: [0, 18, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
             />
-          </motion.svg>
+          </svg>
         </div>
       </motion.section>
     </section>
