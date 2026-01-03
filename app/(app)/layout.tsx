@@ -1,7 +1,6 @@
 // app/layout.tsx
 import type { Metadata } from 'next'
 
-import { AuthProvider } from '@/components/context/auth-context'
 import Footer from '@/app/(app)/_components/Footer'
 import Header from '@/app/(app)/_components/Header'
 
@@ -12,10 +11,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <AuthProvider>
+    <>
       <Header />
       <main className='flex-1'>{children}</main>
       {/* <Footer /> */}
-    </AuthProvider>
+    </>
   )
 }

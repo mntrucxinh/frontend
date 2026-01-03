@@ -9,7 +9,11 @@ export interface LoginResponse {
 }
 
 export interface GoogleLoginRequest {
-  accessToken: string
+  idToken?: string
+  accessToken?: string
+  accessTokenExpiresIn?: number
+  refreshToken?: string
+  scope?: string
 }
 
 export interface SignUpRequest {

@@ -1,4 +1,6 @@
 import { auth, signIn, signOut } from '@/auth'
+import GoogleLoginButton from '@/components/GoogleLoginButton'
+import GoogleBackendBridge from '@/components/GoogleBackendBridge'
 
 export default async function SignIn() {
   const session = await auth()
@@ -16,6 +18,10 @@ export default async function SignIn() {
       >
         <button type='submit'>Sign Out</button>
       </form>
+      <div style={{ marginTop: '12px' }}>
+        <GoogleLoginButton />
+      </div>
+      <GoogleBackendBridge />
     </>
   ) : (
     <>
@@ -23,11 +29,15 @@ export default async function SignIn() {
       <form
         action={async () => {
           'use server'
-          await signIn('google')
+          await signIn('google', { callbackUrl: '/testing' })
         }}
       >
         <button type='submit'>Signin with Google</button>
       </form>
+      <div style={{ marginTop: '12px' }}>
+        <GoogleLoginButton />
+      </div>
+      <GoogleBackendBridge />
     </>
   )
 }
