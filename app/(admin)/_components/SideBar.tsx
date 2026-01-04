@@ -33,7 +33,7 @@ const MainSidebar = () => {
   }, [pathName])
 
   const itemTextClass = (isActive: boolean) =>
-    cn('text-white transition-colors group-hover:text-content1', isActive && 'text-content1')
+    cn('text-white/80 transition-colors group-hover:text-white', isActive && 'text-white')
 
   const renderIcon = (icon: React.ReactNode, isActive: boolean) => {
     const classes = cn('size-5', itemTextClass(isActive))
@@ -67,8 +67,10 @@ const MainSidebar = () => {
           <Link
             href={item.path}
             className={cn(
-              'hover:bg-default-100 group flex items-center whitespace-nowrap rounded p-2 transition',
-              isActive && 'bg-default-100',
+              'group flex items-center whitespace-nowrap rounded-xl px-3 py-2 transition',
+              'text-white/75',
+              'hover:bg-white/15 hover:text-white',
+              isActive && 'bg-white/20 text-white shadow-sm ring-1 ring-white/20',
               isExpanded ? 'justify-start gap-3' : 'justify-center'
             )}
           >
@@ -82,7 +84,7 @@ const MainSidebar = () => {
 
             <span
               className={cn(
-                'text-sm font-medium',
+                'text-sm font-medium tracking-wide',
                 !isExpanded && 'hidden',
                 itemTextClass(isActive)
               )}
@@ -109,13 +111,14 @@ const MainSidebar = () => {
             key={item.label}
             classNames={{
               title: cn(
-                'whitespace-nowrap text-sm font-medium transition-colors',
+                'whitespace-nowrap text-sm font-medium tracking-wide transition-colors',
                 itemTextClass(isActive),
                 !isExpanded && 'w-0 opacity-0'
               ),
               trigger: cn(
-                'group gap-2 py-0 transition hover:bg-default-100',
-                isActive && 'bg-default-100'
+                'group gap-2 rounded-xl py-0 transition',
+                'hover:bg-white/15',
+                isActive && 'bg-white/20 shadow-sm ring-1 ring-white/20'
               ),
               heading: 'p-2 group',
               content: cn('space-y-2', isExpanded ? 'ml-2' : 'py-0'),
@@ -144,12 +147,17 @@ const MainSidebar = () => {
   return (
     <div
       className={cn(
-        'bg-content1 light:border-gray-200 relative flex h-full min-h-0 w-[200px] flex-col border-r px-2 pt-2 transition-all duration-300 dark:border-gray-700',
+        'relative flex h-full min-h-0 w-[200px] flex-col border-r px-2 pt-2 transition-all duration-300',
+        'border-default-200/30 bg-gradient-to-b from-primary/95 via-primary to-primary/90',
+        'dark:border-default-100/20',
         !isExpanded && 'w-14'
       )}
     >
       <div
-        className='bg-content1 light:border-gray-200 absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-1/2 cursor-pointer rounded-full border p-2 dark:border-gray-700'
+        className={cn(
+          'absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-1/2 cursor-pointer rounded-full border p-2 transition',
+          'border-white/20 bg-primary/90 shadow-sm hover:bg-primary'
+        )}
         role='button'
         aria-label={isExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
         onClick={() => setIsExpanded((v) => !v)}
@@ -162,7 +170,7 @@ const MainSidebar = () => {
       </div>
 
       {/* List scroll riêng khi dài */}
-      <div className='my-2 flex min-h-0 flex-1 flex-col space-y-2 overflow-y-auto overflow-x-hidden [&>p]:hidden'>
+      <div className='my-2 flex min-h-0 flex-1 flex-col space-y-2 overflow-y-auto overflow-x-hidden px-0.5 [&>p]:hidden'>
         {MAIN_SIDEBAR_ITEMS.map((item, idx) => renderSidebarItem(item, idx))}
       </div>
     </div>
