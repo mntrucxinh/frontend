@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import LoginForm from '@/components/LoginForm'
@@ -21,20 +21,26 @@ export default function LoginPage() {
   if (!mounted) return null // Ngăn server render trước
 
   return (
-    <main className='fixed inset-0 flex flex-col items-center justify-center gap-4 bg-primary'>
-      <header className='absolute left-0 top-0 flex w-full items-center px-6 py-4'>
-        <button onClick={() => router.push('/')} className='flex items-center gap-2'>
-          <span className='text-lg font-semibold text-white'>Trúc Xinh</span>
+    <main
+      className='relative min-h-screen flex items-center justify-center px-4'
+      style={{
+        background: 'linear-gradient(135deg, #d7f5e0 0%, #a7e7bd 100%)',
+      }}
+    >
+      <div className='w-full max-w-2xl bg-white rounded-3xl shadow-2xl px-10 pb-10 pt-5 flex flex-col'>
+        <button onClick={() => router.push('/')} className='self-center flex items-center gap-2'>
+          <Image
+            src='/assets/images/logo_truc_xinh.png'
+            alt='Truc Xinh logo'
+            width={260}
+            height={78}
+            priority
+            className='h-auto w-auto'
+          />
         </button>
-      </header>
-      <LoginForm />
 
-      <p className='text-sm text-white'>
-        Not registered?{' '}
-        <Link href='/register' className='text-white underline hover:text-gray-300'>
-          Create an account
-        </Link>
-      </p>
+        <LoginForm />
+      </div>
     </main>
   )
 }

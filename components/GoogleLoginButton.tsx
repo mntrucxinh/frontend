@@ -1,13 +1,15 @@
 // src/components/GoogleLoginButton.tsx
 "use client"
 
-import { Button } from "@/components/ui/button"
+import Image from "next/image"
 import { signIn } from "next-auth/react"
+
+import { Button } from "@/components/ui/button"
 
 const GoogleLoginButton = () => {
   const login = () => {
     // Dùng NextAuth redirect tới Google
-    signIn("google", { callbackUrl: "/testing" })
+    signIn("google", { callbackUrl: "/" })
   }
 
   return (
@@ -15,7 +17,12 @@ const GoogleLoginButton = () => {
       onClick={() => login()}
       className="rounded-full bg-white text-black border border-gray-300 hover:bg-gray-100 flex items-center justify-center gap-2 w-full py-3 font-medium text-sm"
     >
-      <span className="text-lg">🔑</span>
+      <Image
+        src="/assets/images/GoogleIcon.png"
+        alt="Google"
+        width={20}
+        height={20}
+      />
       <span>Sign in with Google</span>
     </Button>
   )
