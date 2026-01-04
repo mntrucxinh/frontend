@@ -3,6 +3,20 @@ const nextConfig = {
   productionBrowserSourceMaps: true,
   reactStrictMode: true,
   experimental: {},
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '8000',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
   eslint: {
     // Bật kiểm tra ESLint khi build
     ignoreDuringBuilds: false,
