@@ -44,9 +44,7 @@ export default function HeaderAdmin() {
           </DropdownTrigger>
 
           <DropdownMenu>
-            <DropdownItem key='logout' className='text-danger'>
-              Logout
-            </DropdownItem>
+            <DropdownItem key='logout'>Logout</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </div>
