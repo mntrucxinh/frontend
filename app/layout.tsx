@@ -1,6 +1,7 @@
 import '@/styles/globals.css'
 
 import { Metadata, Viewport } from 'next'
+import { HeroUIProvider } from '@heroui/react'
 import { Toaster } from 'react-hot-toast'
 
 import { siteConfig } from '@/config/site'
@@ -39,13 +40,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
         <Toaster />
         <ThemeProvider attribute='class' defaultTheme='light' enableSystem={false}>
-          <div className='relative flex min-h-screen flex-col'>
-            <div className='flex-1'>
-              <Providers>
-                <div className=''>{children}</div>
-              </Providers>
+          <HeroUIProvider>
+            <div className='relative flex min-h-screen flex-col'>
+              <div className='flex-1'>
+                <Providers>
+                  <div className=''>{children}</div>
+                </Providers>
+              </div>
             </div>
-          </div>
+          </HeroUIProvider>
         </ThemeProvider>
       </body>
     </html>

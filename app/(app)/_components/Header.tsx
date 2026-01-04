@@ -3,9 +3,10 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BRAND_ASSETS, CONTACT_INFO } from '@/constants/infomations'
-import { NAV_ITEMS } from '@/config/routes'
 import { ChevronDown, Mail, Menu, Phone, X } from 'lucide-react'
+
+import { BRAND_ASSETS, CONTACT_INFO } from '@/types/constants/infomations'
+import { NAV_ITEMS } from '@/config/route'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)

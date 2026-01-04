@@ -2,10 +2,11 @@
 
 import React from 'react'
 import Image from 'next/image'
-import { METHODS } from '@/constants/methods'
 import CurvedDashedLine from '@icons/curved-dashed-line.svg'
 import WaveHeader from '@icons/wave-header.svg'
 import { motion } from 'framer-motion'
+
+import { METHODS } from '@/types/constants/methods'
 
 export default function TeachingMethodsSection() {
   return (
