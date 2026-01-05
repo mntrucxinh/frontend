@@ -65,13 +65,13 @@ export default function ImageInstruction() {
       </div>
 
       {/* grass background */}
-      <div className='absolute bottom-0 left-0 z-0 h-[200px] w-full sm:h-[230px] md:h-[260px]'>
+      <div className='absolute bottom-0 left-0 z-0 h-[200px] w-full sm:h-[230px] md:h-[350px]'>
         <Image
           width={2000}
           height={2000}
           src='/assets/images/grass.png'
           alt=''
-          className='h-full w-full object-cover object-bottom'
+          className='size-full object-cover object-bottom'
         />
       </div>
     </section>
