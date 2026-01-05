@@ -4,141 +4,247 @@ import Link from 'next/link'
 import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { noticeData } from './mock'
-import { Calendar, ChevronRight, Search } from 'lucide-react'
-import Image from '@/components/Image'
+import { Calendar, ChevronRight, Search, Bell } from 'lucide-react'
+import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 9
+
+const getTypeLabel = (type: string) => {
+  const labels: Record<string, string> = {
+    general: 'Thông báo chung',
+    bee: 'Khối Bee (Nhà trẻ)',
+    mouse: 'Khối Mouse (Mầm)',
+    bear: 'Khối Bear (Chồi)',
+    dolphin: 'Khối Dolphin (Lá)',
+  }
+  return labels[type] || 'Thông báo'
+}
 
 const NoticePage = () => {
   const searchParams = useSearchParams()
   const type = searchParams.get('type') || 'general'
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
-  
-  // Reset to page 1 when type or search query changes
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [type, searchQuery]);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [currentPage, type, searchQuery]);
+    setCurrentPage(1)
+  }, [type, searchQuery])
 
-  const parseDate = (dateString: string) => {
-    const parts = dateString.split(', ')[1].split('/');
-    return new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
-  };
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [currentPage, type, searchQuery])
+
+  const parseDate = (dateString: string | undefined) => {
+    if (!dateString) return new Date(0)
+    const parts = dateString.split(', ')[1]?.split('/') || []
+    if (parts.length !== 3) return new Date(0)
+    return new Date(`${parts[2]}-${parts[1]}-${parts[0]}`)
+  }
 
   const filteredNotices = useMemo(() => {
     return noticeData
       .filter((notice) => {
-        const typeMatch = notice.type === type;
-        if (!searchQuery) return typeMatch;
+        const typeMatch = notice.type === type
+        if (!searchQuery) return typeMatch
 
-        const searchMatch = 
-          notice.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          notice.shortDescription.toLowerCase().includes(searchQuery.toLowerCase());
-        
-        return typeMatch && searchMatch;
+        const searchMatch =
+          notice.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          notice.shortDescription?.toLowerCase().includes(searchQuery.toLowerCase())
+
+        return typeMatch && searchMatch
       })
-      .sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime());
-  }, [type, searchQuery]);
+      .sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime())
+  }, [type, searchQuery])
 
-  const totalPages = Math.ceil(filteredNotices.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filteredNotices.length / ITEMS_PER_PAGE)
 
   const paginatedNotices = useMemo(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
-    return filteredNotices.slice(startIndex, endIndex);
-  }, [filteredNotices, currentPage]);
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+    const endIndex = startIndex + ITEMS_PER_PAGE
+    return filteredNotices.slice(startIndex, endIndex)
+  }, [filteredNotices, currentPage])
 
   const handlePageChange = (page: number) => {
     if (page > 0 && page <= totalPages) {
-      setCurrentPage(page);
+      setCurrentPage(page)
     }
-  };
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
+  }
 
   return (
     <div className='space-y-8'>
-
-      <div className="w-full max-w-md relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search className="w-5 h-5 text-gray-400" />
+      {/* Header Section */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className='flex flex-col gap-6 md:flex-row md:items-center md:justify-between'
+      >
+        <div>
+          <h1 className='text-4xl font-black tracking-tight md:text-5xl'>
+            <span className='text-[#33B54A]'>{getTypeLabel(type)}</span>
+          </h1>
+          <p className='mt-2 text-gray-600'>
+            {filteredNotices.length} thông báo
+          </p>
         </div>
-        <input
-            type="text"
-            placeholder="Tìm kiếm thông báo..."
+
+        {/* Search Bar */}
+        <div className='relative w-full md:max-w-md'>
+          <div className='absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none'>
+            <Search className='w-5 h-5 text-gray-400' />
+          </div>
+          <input
+            type='text'
+            placeholder='Tìm kiếm thông báo...'
             value={searchQuery}
-            onChange={handleSearchChange}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-        />
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {paginatedNotices.map((notice, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl">
-              <Link href={`/notice/${notice.slug}?type=${notice.type}`}>
-                <div className="relative h-56">
-                  <Image
-                    src={notice.thumbnail}
-                    alt={notice.title}
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                </div>
-              </Link>
-              <div className="p-6">
-                <h2 className="text-xl font-semibold text-gray-800 mb-2 truncate">
-                  <Link href={`/notice/${notice.slug}?type=${notice.type}`}>
-                    {notice.title}
-                  </Link>
-                </h2>
-                <p className="text-gray-600 mb-4 line-clamp-3">
-                  {notice.shortDescription}
-                </p>
-              </div>
-            </div>
-          ))}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className='w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#33B54A] focus:border-transparent transition-all duration-300 shadow-sm hover:shadow-md'
+          />
         </div>
+      </motion.div>
 
-        {filteredNotices.length === 0 && (
-          <p className='py-4 text-center text-muted-foreground'>Không tìm thấy thông báo nào.</p>
+      {/* Notice Cards Grid */}
+      <AnimatePresence mode='wait'>
+        {paginatedNotices.length > 0 ? (
+          <motion.div
+            key={`${type}-${currentPage}-${searchQuery}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
+          >
+            {paginatedNotices.map((notice, index) => (
+              <motion.div
+                key={notice.slug}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.4,
+                  delay: index * 0.05,
+                  type: 'spring',
+                  stiffness: 100,
+                  damping: 20,
+                }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className='group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl ring-1 ring-gray-200/50'
+              >
+                <Link href={`/notice/${notice.slug}`}>
+                  <div className='relative h-48 overflow-hidden bg-gray-100'>
+                    {notice.thumbnail ? (
+                      <Image
+                        src={notice.thumbnail}
+                        alt={notice.title || 'Thông báo'}
+                        fill
+                        className='object-cover transition-transform duration-500 group-hover:scale-110'
+                      />
+                    ) : (
+                      <div className='flex items-center justify-center h-full bg-gradient-to-br from-[#33B54A]/10 to-[#F78F1E]/10'>
+                        <Bell className='w-12 h-12 text-gray-300' />
+                      </div>
+                    )}
+                    <div className='absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
+
+                    {/* Date Badge */}
+                    {notice.date && (
+                      <div className='absolute top-4 left-4 flex items-center gap-2 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg'>
+                        <Calendar className='w-4 h-4 text-[#33B54A]' />
+                        <span className='text-xs font-semibold text-gray-700'>
+                          {notice.date.split(', ')[0]}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </Link>
+
+                <div className='p-6'>
+                  <h2 className='text-lg font-black text-gray-900 mb-2 line-clamp-2 group-hover:text-[#33B54A] transition-colors duration-300'>
+                    <Link href={`/notice/${notice.slug}`}>
+                      {notice.title || 'Thông báo'}
+                    </Link>
+                  </h2>
+                  {notice.shortDescription && (
+                    <p className='text-gray-600 mb-4 line-clamp-2 text-sm leading-relaxed'>
+                      {notice.shortDescription}
+                    </p>
+                  )}
+
+                  <Link
+                    href={`/notice/${notice.slug}`}
+                    className='inline-flex items-center gap-2 text-sm font-bold text-[#33B54A] hover:text-[#F78F1E] transition-colors duration-300'
+                  >
+                    Xem chi tiết
+                    <ChevronRight className='w-4 h-4 transition-transform group-hover:translate-x-1' />
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4 }}
+            className='py-20 text-center'
+          >
+            <div className='inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-100 mb-4'>
+              <Search className='w-10 h-10 text-gray-400' />
+            </div>
+            <p className='text-xl font-semibold text-gray-700 mb-2'>
+              Không tìm thấy thông báo nào
+            </p>
+            <p className='text-sm text-gray-500'>
+              Vui lòng thử lại với từ khóa khác hoặc chọn danh mục khác
+            </p>
+          </motion.div>
         )}
+      </AnimatePresence>
 
+      {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-center items-center pt-8 space-x-2">
-          <button
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className='flex justify-center items-center pt-8 gap-2'
+        >
+          <motion.button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 hover:bg-gray-300"
+            whileHover={{ scale: currentPage === 1 ? 1 : 1.05 }}
+            whileTap={{ scale: currentPage === 1 ? 1 : 0.95 }}
+            className='px-4 py-2 bg-white border-2 border-gray-200 text-gray-700 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 hover:border-[#33B54A] transition-all duration-300 font-semibold shadow-sm'
           >
-            Trang trước
-          </button>
+            Trước
+          </motion.button>
+
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <button
+            <motion.button
               key={page}
               onClick={() => handlePageChange(page)}
-              className={`px-4 py-2 rounded-lg ${
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className={`px-4 py-2 rounded-xl font-semibold transition-all duration-300 shadow-sm ${
                 currentPage === page
-                  ? "bg-primary text-white"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  ? 'bg-[#33B54A] text-white shadow-lg'
+                  : 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-[#33B54A]'
               }`}
             >
               {page}
-            </button>
+            </motion.button>
           ))}
-          <button
+
+          <motion.button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50 hover:bg-gray-300"
+            whileHover={{ scale: currentPage === totalPages ? 1 : 1.05 }}
+            whileTap={{ scale: currentPage === totalPages ? 1 : 0.95 }}
+            className='px-4 py-2 bg-white border-2 border-gray-200 text-gray-700 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 hover:border-[#33B54A] transition-all duration-300 font-semibold shadow-sm'
           >
-            Trang tiếp
-          </button>
-        </div>
+            Sau
+          </motion.button>
+        </motion.div>
       )}
     </div>
   )

@@ -2,9 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
-
+import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
-import { buttonVariants } from '@/components/ui/button'
 
 const sidebarNavItems = [
   {
@@ -40,25 +39,45 @@ export function SidebarNav() {
   const type = searchParams.get('type') || 'general'
 
   return (
-    <div className="border rounded-lg p-4 bg-card">
-        <h3 className="text-lg font-semibold mb-4">Danh mục</h3>
-        <nav className='flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1'>
-        {sidebarNavItems.map((item) => (
-            <Link
-            key={item.href}
-            href={item.href}
-            className={cn(
-                buttonVariants({ variant: 'ghost' }),
-                type === item.type
-                ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-                : 'hover:bg-accent hover:text-accent-foreground',
-                'justify-start'
-            )}
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.4 }}
+      className="rounded-2xl bg-white p-6 shadow-xl ring-1 ring-gray-200/50"
+    >
+      <h3 className="text-xl font-black text-gray-900 mb-6">Danh mục</h3>
+      <nav className='flex flex-col space-y-2'>
+        {sidebarNavItems.map((item, index) => {
+          const isActive = type === item.type
+          return (
+            <motion.div
+              key={item.href}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: index * 0.05 }}
             >
-            {item.title}
-            </Link>
-        ))}
-        </nav>
-    </div>
+              <Link
+                href={item.href}
+                className={cn(
+                  'relative block px-4 py-3 rounded-xl font-semibold transition-all duration-300',
+                  isActive
+                    ? 'bg-gradient-to-r from-[#33B54A] to-[#2EA043] text-white shadow-lg'
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-[#33B54A]'
+                )}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#33B54A] to-[#2EA043]"
+                    transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{item.title}</span>
+              </Link>
+            </motion.div>
+          )
+        })}
+      </nav>
+    </motion.div>
   )
 }
