@@ -9,7 +9,8 @@ import { Button } from "@/components/ui/button"
 const GoogleLoginButton = () => {
   const login = () => {
     // Dùng NextAuth redirect tới Google
-    signIn("google", { callbackUrl: "/" })
+    // callbackUrl sẽ được NextAuth sử dụng, nhưng GoogleBackendBridge sẽ override sau khi sync token
+    signIn("google", { callbackUrl: "/news-management" })
   }
 
   return (

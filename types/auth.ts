@@ -58,3 +58,25 @@ export interface UpdatePasswordRequest {
 export interface UpdatePasswordResponse {
   message: string;
 }
+
+// Facebook Integration Types
+export interface FacebookLinkRequest {
+  user_access_token: string;
+}
+
+export interface FacebookLinkResponse {
+  message: string;
+  linked: boolean;
+}
+
+export interface FacebookStatusResponse {
+  linked: boolean;
+  pageName?: string;
+  pageId?: string;
+  tokenExpired?: boolean;
+}
+
+export interface FacebookError {
+  code: string;
+  message: string;
+}

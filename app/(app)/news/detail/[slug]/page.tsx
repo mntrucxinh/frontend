@@ -107,19 +107,21 @@ const NewsDetailPage = () => {
         (asset: any) => asset.asset?.mime_type?.startsWith('video/')
     );
     
-    // Get thumbnail from content_assets (image) or thumbnail field
-    const imageAsset = contentAssets.find(
-        (asset: any) => asset.asset?.mime_type?.startsWith('image/')
-    );
+    // Get all images from content_assets, sorted by position
+    const imageAssets = contentAssets
+        .filter((asset: any) => asset.asset?.mime_type?.startsWith('image/'))
+        .sort((a: any, b: any) => (a.position || 0) - (b.position || 0));
     
+    // Get thumbnail from content_assets (first image) or thumbnail field
     const thumbnail = newsItem.thumbnail || 
-                      (imageAsset ? imageAsset.asset.url : '');
+                      (imageAssets.length > 0 ? imageAssets[0].asset.url : '');
 
     // Debug: log to see what fields are available
     console.log('News item data:', newsItem);
     console.log('Content value:', content);
     console.log('Content assets:', contentAssets);
     console.log('Video asset:', videoAsset);
+    console.log('Image assets:', imageAssets);
     console.log('Thumbnail value:', thumbnail);
 
     // Get date from various possible fields and format it
@@ -157,10 +159,10 @@ const NewsDetailPage = () => {
                                 </div>
                             )}
 
-                            {/* Video hoặc Image - hiển thị sau content */}
+                            {/* Video hoặc Images - hiển thị sau content */}
                             {videoAsset ? (
                                 <div className="mb-8 max-w-4xl mx-auto">
-                                    <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-black">
+                                    <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-black shadow-lg">
                                         <video 
                                             src={buildAssetUrl(videoAsset.asset.url)}
                                             controls
@@ -170,28 +172,134 @@ const NewsDetailPage = () => {
                                         </video>
                                     </div>
                                     {videoAsset.caption && (
-                                        <p className="text-sm text-gray-600 mt-2 text-center italic">
+                                        <p className="text-sm text-gray-600 mt-3 text-center italic">
                                             {videoAsset.caption}
                                         </p>
                                     )}
                                 </div>
+                            ) : imageAssets.length > 0 ? (
+                                <div className="mb-8 max-w-4xl mx-auto">
+                                    {imageAssets.length === 1 ? (
+                                        // Single image - full width
+                                        <div className="w-full">
+                                            <div className="relative w-full rounded-xl overflow-hidden shadow-lg bg-gray-100">
+                                                <Image 
+                                                    src={buildAssetUrl(imageAssets[0].asset.url)}
+                                                    alt={imageAssets[0].caption || `${title} - Hình 1`} 
+                                                    width={1200} 
+                                                    height={800} 
+                                                    className="w-full h-auto object-contain"
+                                                    unoptimized
+                                                />
+                                            </div>
+                                            {imageAssets[0].caption && (
+                                                <p className="text-sm text-gray-600 mt-3 text-center italic">
+                                                    {imageAssets[0].caption}
+                                                </p>
+                                            )}
+                                        </div>
+                                    ) : imageAssets.length === 2 ? (
+                                        // Two images - side by side
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            {imageAssets.map((imageAsset: any, index: number) => (
+                                                <div key={imageAsset.asset?.public_id || index} className="w-full">
+                                                    <div className="relative w-full rounded-xl overflow-hidden shadow-lg bg-gray-100 aspect-[4/3]">
+                                                        <Image 
+                                                            src={buildAssetUrl(imageAsset.asset.url)}
+                                                            alt={imageAsset.caption || `${title} - Hình ${index + 1}`} 
+                                                            width={800} 
+                                                            height={600} 
+                                                            className="w-full h-full object-cover"
+                                                            unoptimized
+                                                        />
+                                                    </div>
+                                                    {imageAsset.caption && (
+                                                        <p className="text-xs text-gray-600 mt-2 text-center italic">
+                                                            {imageAsset.caption}
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : imageAssets.length === 3 ? (
+                                        // Three images - first large, two below
+                                        <div className="space-y-4">
+                                            <div className="w-full">
+                                                <div className="relative w-full rounded-xl overflow-hidden shadow-lg bg-gray-100">
+                                                    <Image 
+                                                        src={buildAssetUrl(imageAssets[0].asset.url)}
+                                                        alt={imageAssets[0].caption || `${title} - Hình 1`} 
+                                                        width={1200} 
+                                                        height={600} 
+                                                        className="w-full h-auto object-contain"
+                                                        unoptimized
+                                                    />
+                                                </div>
+                                                {imageAssets[0].caption && (
+                                                    <p className="text-sm text-gray-600 mt-2 text-center italic">
+                                                        {imageAssets[0].caption}
+                                                    </p>
+                                                )}
+                                            </div>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                {imageAssets.slice(1).map((imageAsset: any, index: number) => (
+                                                    <div key={imageAsset.asset?.public_id || index + 1} className="w-full">
+                                                        <div className="relative w-full rounded-xl overflow-hidden shadow-lg bg-gray-100 aspect-[4/3]">
+                                                            <Image 
+                                                                src={buildAssetUrl(imageAsset.asset.url)}
+                                                                alt={imageAsset.caption || `${title} - Hình ${index + 2}`} 
+                                                                width={800} 
+                                                                height={600} 
+                                                                className="w-full h-full object-cover"
+                                                                unoptimized
+                                                            />
+                                                        </div>
+                                                        {imageAsset.caption && (
+                                                            <p className="text-xs text-gray-600 mt-2 text-center italic">
+                                                                {imageAsset.caption}
+                                                            </p>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        // Four or more images - grid layout
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            {imageAssets.map((imageAsset: any, index: number) => (
+                                                <div key={imageAsset.asset?.public_id || index} className="w-full group">
+                                                    <div className="relative w-full rounded-xl overflow-hidden shadow-lg bg-gray-100 aspect-[4/3] transition-transform duration-300 group-hover:shadow-xl">
+                                                        <Image 
+                                                            src={buildAssetUrl(imageAsset.asset.url)}
+                                                            alt={imageAsset.caption || `${title} - Hình ${index + 1}`} 
+                                                            width={800} 
+                                                            height={600} 
+                                                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                                            unoptimized
+                                                        />
+                                                    </div>
+                                                    {imageAsset.caption && (
+                                                        <p className="text-xs text-gray-600 mt-2 text-center italic">
+                                                            {imageAsset.caption}
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
                             ) : thumbnail ? (
                                 <div className="mb-8 max-w-4xl mx-auto">
-                                    <div className="relative w-full rounded-lg overflow-hidden">
+                                    <div className="relative w-full rounded-xl overflow-hidden shadow-lg bg-gray-100">
                                         <Image 
                                             src={buildAssetUrl(thumbnail)}
                                             alt={title} 
                                             width={1200} 
                                             height={600} 
-                                            className="w-full h-auto rounded-lg object-cover"
+                                            className="w-full h-auto object-contain"
                                             unoptimized
                                         />
                                     </div>
-                                    {imageAsset?.caption && (
-                                        <p className="text-sm text-gray-600 mt-2 text-center italic">
-                                            {imageAsset.caption}
-                                        </p>
-                                    )}
                                 </div>
                             ) : null}
 
