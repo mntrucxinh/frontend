@@ -12,6 +12,7 @@ import {
   Input,
 } from '@heroui/react'
 import { Bell, ChevronDown, Search } from 'lucide-react'
+import FacebookHeaderButton from './FacebookHeaderButton'
 
 export default function HeaderAdmin() {
   return (
@@ -28,6 +29,8 @@ export default function HeaderAdmin() {
       </Link>
 
       <div className='flex items-center gap-2'>
+        <FacebookHeaderButton />
+        
         <Dropdown placement='bottom-end'>
           <DropdownTrigger>
             <Button

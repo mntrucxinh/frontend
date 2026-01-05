@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 import { useMutationLoginWithGoogle } from "@/hook/auth/use-login"
 
 /**
@@ -10,6 +11,7 @@ import { useMutationLoginWithGoogle } from "@/hook/auth/use-login"
  */
 const GoogleBackendBridge = () => {
   const { data: session, status } = useSession()
+  const router = useRouter()
   const hasSynced = useRef(false)
   const { mutate: loginWithGoogle } = useMutationLoginWithGoogle()
 
@@ -31,6 +33,14 @@ const GoogleBackendBridge = () => {
       {
         onSuccess: () => {
           console.log("Đã sync Google token sang BE, cookie accessToken đã set")
+          // Redirect to news-management page after successful login
+          // Use window.location to ensure redirect happens even if router.push doesn't work
+          const currentPath = window.location.pathname
+          if (currentPath !== "/news-management") {
+            window.location.href = "/news-management"
+          } else {
+            router.push("/news-management")
+          }
         },
         onError: (err) => {
           const error: any = err
@@ -39,7 +49,7 @@ const GoogleBackendBridge = () => {
         },
       }
     )
-  }, [status, session, loginWithGoogle])
+  }, [status, session, loginWithGoogle, router])
 
   return null
 }
