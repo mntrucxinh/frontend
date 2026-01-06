@@ -59,8 +59,8 @@ const Header = () => {
             </a>
           </div>
 
-          {/* Social Media - Floating Style */}
-          <div className='flex items-center gap-3'>
+          {/* Social Media - Floating Style (hide on mobile) */}
+          <div className='hidden items-center gap-3 md:flex'>
             <span className='hidden text-xs font-semibold uppercase tracking-wider text-white/90 md:inline-block md:text-sm'>
               Kết nối:
             </span>

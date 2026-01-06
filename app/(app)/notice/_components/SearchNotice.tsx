@@ -113,7 +113,7 @@ export default function SearchNotice() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
+            className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch'
           >
             {paginatedNotices.map((notice, index) => (
               <motion.div
@@ -128,7 +128,7 @@ export default function SearchNotice() {
                   damping: 20,
                 }}
                 whileHover={{ y: -8, scale: 1.02 }}
-                className='group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl ring-1 ring-gray-200/50'
+                className='group relative flex h-full min-h-[430px] flex-col bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl ring-1 ring-gray-200/50'
               >
                 <Link href={`/notice/${notice.slug}`}>
                   <div className='relative h-48 overflow-hidden bg-gray-100'>
@@ -158,25 +158,29 @@ export default function SearchNotice() {
                   </div>
                 </Link>
 
-                <div className='p-6'>
-                  <h2 className='text-lg font-black text-gray-900 mb-2 line-clamp-2 group-hover:text-[#33B54A] transition-colors duration-300'>
+                <div className='flex flex-1 flex-col p-6'>
+                  <h2 className='text-lg font-black text-gray-900 mb-2 line-clamp-2 min-h-[56px] group-hover:text-[#33B54A] transition-colors duration-300'>
                     <Link href={`/notice/${notice.slug}`}>
                       {notice.title || 'Thông báo'}
                     </Link>
                   </h2>
-                  {notice.shortDescription && (
-                    <p className='text-gray-600 mb-4 line-clamp-2 text-sm leading-relaxed'>
-                      {notice.shortDescription}
-                    </p>
-                  )}
+                  <div className='min-h-[48px] mb-4'>
+                    {notice.shortDescription && (
+                      <p className='text-gray-600 line-clamp-2 text-sm leading-relaxed'>
+                        {notice.shortDescription}
+                      </p>
+                    )}
+                  </div>
 
-                  <Link
-                    href={`/notice/${notice.slug}`}
-                    className='inline-flex items-center gap-2 text-sm font-bold text-[#33B54A] hover:text-[#F78F1E] transition-colors duration-300'
-                  >
-                    Xem chi tiết
-                    <ChevronRight className='w-4 h-4 transition-transform group-hover:translate-x-1' />
-                  </Link>
+                  <div className='mt-auto'>
+                    <Link
+                      href={`/notice/${notice.slug}`}
+                      className='inline-flex items-center gap-2 text-sm font-bold text-[#33B54A] hover:text-[#F78F1E] transition-colors duration-300'
+                    >
+                      Xem chi tiết
+                      <ChevronRight className='w-4 h-4 transition-transform group-hover:translate-x-1' />
+                    </Link>
+                  </div>
                 </div>
               </motion.div>
             ))}

@@ -16,6 +16,10 @@ import {
 } from "@heroui/react"
 
 export default function FacebookHeaderButton() {
+  if (typeof window === "undefined") {
+    return null
+  }
+
   const { data, isLoading, error } = useFacebookStatus()
   const [showRelinkModal, setShowRelinkModal] = useState(false)
   const [isLinking, setIsLinking] = useState(false)

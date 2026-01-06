@@ -10,6 +10,10 @@ import { useMutationLoginWithGoogle } from "@/hook/auth/use-login"
  * bằng idToken từ session để lấy JWT của BE và set cookie accessToken.
  */
 const GoogleBackendBridge = () => {
+  if (typeof window === "undefined") {
+    return null
+  }
+
   const { data: session, status } = useSession()
   const router = useRouter()
   const hasSynced = useRef(false)

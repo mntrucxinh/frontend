@@ -1,4 +1,6 @@
+import { api } from "@/lib/axios"
 import { NewsListResponse, NewsDetailResponse } from "@/types/news"
+import { AxiosError } from "axios"
 
 export class NewsServiceError extends Error {
   constructor(
@@ -11,23 +13,20 @@ export class NewsServiceError extends Error {
   }
 }
 
-const handleApiResponse = async <T>(response: Response): Promise<T> => {
-  if (!response.ok) {
-    let errorMessage = "Failed to fetch data"
-    let errorData: any = null
+const normalizeError = (error: unknown): NewsServiceError => {
+  if (error instanceof NewsServiceError) return error
 
-    try {
-      errorData = await response.json()
-      errorMessage = errorData.error || errorData.message || errorMessage
-    } catch {
-      // If response is not JSON, use status text
-      errorMessage = response.statusText || errorMessage
-    }
-
-    throw new NewsServiceError(errorMessage, response.status, errorData)
+  if (error instanceof AxiosError) {
+    const status = error.response?.status
+    const message =
+      (error.response?.data as any)?.message ||
+      (error.response?.data as any)?.error ||
+      error.message ||
+      "Failed to fetch data"
+    return new NewsServiceError(message, status, error)
   }
 
-  return response.json()
+  return new NewsServiceError("Network error occurred", 0, error)
 }
 
 const getNewsList = async (
@@ -35,31 +34,15 @@ const getNewsList = async (
   pageSize: number = 20
 ): Promise<NewsListResponse> => {
   try {
-    const res = await fetch(
-      `/api/news?page=${page}&page_size=${pageSize}`,
-      {
-        method: "GET",
-        headers: {
-          accept: "application/json",
-        },
-        // Add timeout for client-side requests
-        signal: AbortSignal.timeout(10000),
-      }
-    )
-
-    return handleApiResponse<NewsListResponse>(res)
+    const res = await api.get<NewsListResponse>("/public/news", {
+      params: {
+        page,
+        page_size: pageSize,
+      },
+    })
+    return res.data
   } catch (error) {
-    if (error instanceof NewsServiceError) {
-      throw error
-    }
-    if (error instanceof Error && error.name === "TimeoutError") {
-      throw new NewsServiceError("Request timeout", 408, error)
-    }
-    throw new NewsServiceError(
-      "Network error occurred",
-      0,
-      error
-    )
+    throw normalizeError(error)
   }
 }
 
@@ -69,27 +52,10 @@ const getNewsDetail = async (slug: string): Promise<NewsDetailResponse> => {
   }
 
   try {
-    const res = await fetch(`/api/news/${encodeURIComponent(slug)}`, {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-      },
-      signal: AbortSignal.timeout(10000),
-    })
-
-    return handleApiResponse<NewsDetailResponse>(res)
+    const res = await api.get<NewsDetailResponse>(`/public/news/${encodeURIComponent(slug)}`)
+    return res.data
   } catch (error) {
-    if (error instanceof NewsServiceError) {
-      throw error
-    }
-    if (error instanceof Error && error.name === "TimeoutError") {
-      throw new NewsServiceError("Request timeout", 408, error)
-    }
-    throw new NewsServiceError(
-      "Network error occurred",
-      0,
-      error
-    )
+    throw normalizeError(error)
   }
 }
 
