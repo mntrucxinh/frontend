@@ -187,7 +187,7 @@ export default function ImageInstruction() {
             >
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className='flex-shrink-0'>
                 <button
-                  onClick={() => router.push('/introduce/general')}
+                  onClick={() => router.push('/introduce')}
                   className='group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-[#33B54A] px-6 py-5 text-base font-bold text-white shadow-xl shadow-[#33B54A]/30 transition-all duration-300 hover:bg-[#F78F1E] hover:shadow-[#F78F1E]/30 sm:px-10 sm:py-6 sm:text-lg sm:gap-3'
                 >
                   <span className='relative z-10 flex items-center gap-2 whitespace-nowrap'>

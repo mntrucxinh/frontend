@@ -41,7 +41,7 @@ const Footer = () => {
             <ul className='space-y-3 text-sm text-white/95'>
               <li className='flex items-start gap-3'>
                 <span className='mt-0.5 text-[#F78F1E]'>•</span>
-                <span>17 Do Quang, Thanh Khe, Da Nang</span>
+                <span>614 Tôn Đức Thắng, Liên Chiểu, Da Nang</span>
               </li>
               <li className='flex items-start gap-3'>
                 <span className='mt-0.5 text-[#F78F1E]'>•</span>

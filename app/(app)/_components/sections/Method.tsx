@@ -5,10 +5,12 @@ import Image from 'next/image'
 import CurvedDashedLine from '@icons/curved-dashed-line.svg'
 import WaveHeader from '@icons/wave-header.svg'
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 
 import { METHODS } from '@/types/constants/methods'
 
 export default function TeachingMethodsSection() {
+  const router = useRouter()
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -137,6 +139,7 @@ export default function TeachingMethodsSection() {
                   <div className='relative z-10 w-full pb-6 pt-2'>
                     <motion.button
                       type='button'
+                      onClick={() => router.push('/program')}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       transition={{

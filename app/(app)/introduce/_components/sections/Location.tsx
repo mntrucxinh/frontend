@@ -3,9 +3,11 @@
 import React from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 import { MapPin, Building2, Users } from 'lucide-react'
 
 export default function Location() {
+  const router = useRouter()
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -115,6 +117,7 @@ export default function Location() {
               }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => router.push('/contact')}
               className='rounded-full bg-[#33B54A] px-8 py-3.5 text-base font-black text-white shadow-lg transition-all duration-300 hover:bg-[#F78F1E] hover:shadow-xl'
             >
               Tìm hiểu thêm

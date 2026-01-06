@@ -7,6 +7,7 @@ export type NavItem = {
 export const NAV_ITEMS: NavItem[] = [
   { label: 'TRANG CHỦ', href: '/' },
   { label: 'GIỚI THIỆU', href: '/introduce' },
+  { label: 'CHƯƠNG TRÌNH HỌC', href: '/program' },
   { label: 'THÔNG BÁO', href: '/notice' },
   { label: 'TIN TỨC', href: '/news' },
   {
@@ -17,6 +18,6 @@ export const NAV_ITEMS: NavItem[] = [
       { label: 'Video', href: '/library/video' },
     ],
   },
-  { label: 'TUYỂN DỤNG', href: '/recruit' },
+  { label: 'TRUC XINH CAFE', href: '/cafe' },
   { label: 'LIÊN HỆ', href: '/contact' },
 ]

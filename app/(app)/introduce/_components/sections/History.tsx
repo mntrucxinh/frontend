@@ -81,7 +81,7 @@ export default function History() {
               <div className='relative mb-6 size-64 overflow-hidden rounded-full border-4 border-[#33B54A]/30 shadow-2xl ring-4 ring-[#F78F1E]/20 md:size-80'>
                 <Image
                   src='/assets/images/founder.jpg'
-                  alt='Nhà giáo Ưu tú Lê Thị Nga'
+                  alt='Nhà giáo Ưu tú Lê Thị A'
                   fill
                   className='object-cover'
                 />
@@ -89,7 +89,7 @@ export default function History() {
               </div>
               <div className='text-center'>
                 <h3 className='text-xl font-black text-[#F78F1E] md:text-2xl'>
-                  Nhà giáo Ưu tú Lê Thị Nga
+                  Nhà giáo Ưu tú Lê Thị A
                 </h3>
                 <p className='mt-2 text-sm font-black text-gray-700 md:text-base'>
                   Hiệu trưởng Nhà trường
