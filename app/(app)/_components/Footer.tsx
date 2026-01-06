@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import React from 'react'
 import { useRouter } from 'next/navigation'
@@ -9,7 +9,12 @@ import { Icons } from '@/components/icons'
 
 const Footer = () => {
   const router = useRouter()
+
   const phoneHref = CONTACT_INFO.phone.replace(/\D+/g, '')
+
+  // Google Maps embed (không cần API key)
+  const mapAddress = '614 Tôn Đức Thắng, Liên Chiểu, Đà Nẵng, Việt Nam'
+  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapAddress)}&output=embed`
 
   return (
     <footer className='relative bg-[#33B54A] text-white'>
@@ -29,19 +34,19 @@ const Footer = () => {
         </svg>
       </div>
 
-      <div className='mx-auto max-w-6xl px-6 pb-12 pt-24'>
-        <div className='grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-14'>
+      <div className='mx-auto max-w-6xl px-6 pb-16 pt-24'>
+        <div className='grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-14'>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className='mb-6 text-xl font-black text-white'>Trúc Xinh Preschool</h3>
-            <ul className='space-y-3 text-sm text-white/95'>
+            <h3 className='mb-6 text-2xl font-black text-white'>Trúc Xinh Preschool</h3>
+            <ul className='space-y-3 text-lg leading-relaxed text-white/95'>
               <li className='flex items-start gap-3'>
                 <span className='mt-0.5 text-[#F78F1E]'>•</span>
-                <span>614 Tôn Đức Thắng, Liên Chiểu, Da Nang</span>
+                <span>{mapAddress}</span>
               </li>
               <li className='flex items-start gap-3'>
                 <span className='mt-0.5 text-[#F78F1E]'>•</span>
@@ -63,12 +68,14 @@ const Footer = () => {
               </li>
               <li className='flex items-start gap-3'>
                 <span className='mt-0.5 text-[#F78F1E]'>•</span>
-                <button
-                  onClick={() => router.push('/')}
-                  className='transition-colors hover:text-[#F78F1E] hover:underline text-left'
+                <a
+                  href='https://trucxinh.edu.vn'
+                  target='_blank'
+                  rel='noreferrer'
+                  className='transition-colors hover:text-[#F78F1E] hover:underline'
                 >
                   Website: trucxinh.edu.vn
-                </button>
+                </a>
               </li>
             </ul>
           </motion.div>
@@ -79,14 +86,14 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <h3 className='mb-6 text-xl font-black text-white'>Liên kết nhanh</h3>
+            <h3 className='mb-6 text-2xl font-black text-white'>Liên kết nhanh</h3>
             <div className='grid grid-cols-2 gap-x-10'>
-              <ul className='space-y-3 text-sm text-white/95'>
+              <ul className='space-y-3 text-lg leading-relaxed text-white/95'>
                 <li className='flex items-center gap-2'>
                   <span className='text-[#F78F1E]'>•</span>
                   <button
                     onClick={() => router.push('/')}
-                    className='transition-colors hover:text-[#F78F1E] hover:underline text-left'
+                    className='text-left transition-colors hover:text-[#F78F1E] hover:underline'
                   >
                     Trang chủ
                   </button>
@@ -95,7 +102,7 @@ const Footer = () => {
                   <span className='text-[#F78F1E]'>•</span>
                   <button
                     onClick={() => router.push('/recruit')}
-                    className='transition-colors hover:text-[#F78F1E] hover:underline text-left'
+                    className='text-left transition-colors hover:text-[#F78F1E] hover:underline'
                   >
                     Tuyển dụng
                   </button>
@@ -104,7 +111,7 @@ const Footer = () => {
                   <span className='text-[#F78F1E]'>•</span>
                   <button
                     onClick={() => router.push('/introduce/general')}
-                    className='transition-colors hover:text-[#F78F1E] hover:underline text-left'
+                    className='text-left transition-colors hover:text-[#F78F1E] hover:underline'
                   >
                     Giới thiệu
                   </button>
@@ -113,18 +120,19 @@ const Footer = () => {
                   <span className='text-[#F78F1E]'>•</span>
                   <button
                     onClick={() => router.push('/contact')}
-                    className='transition-colors hover:text-[#F78F1E] hover:underline text-left'
+                    className='text-left transition-colors hover:text-[#F78F1E] hover:underline'
                   >
                     Liên hệ
                   </button>
                 </li>
               </ul>
-              <ul className='space-y-3 text-sm text-white/95'>
+
+              <ul className='space-y-3 text-lg leading-relaxed text-white/95'>
                 <li className='flex items-center gap-2'>
                   <span className='text-[#F78F1E]'>•</span>
                   <button
                     onClick={() => router.push('/notice')}
-                    className='transition-colors hover:text-[#F78F1E] hover:underline text-left'
+                    className='text-left transition-colors hover:text-[#F78F1E] hover:underline'
                   >
                     Tuyển sinh
                   </button>
@@ -133,7 +141,7 @@ const Footer = () => {
                   <span className='text-[#F78F1E]'>•</span>
                   <button
                     onClick={() => router.push('/news')}
-                    className='transition-colors hover:text-[#F78F1E] hover:underline text-left'
+                    className='text-left transition-colors hover:text-[#F78F1E] hover:underline'
                   >
                     Tin tức
                   </button>
@@ -142,7 +150,7 @@ const Footer = () => {
                   <span className='text-[#F78F1E]'>•</span>
                   <button
                     onClick={() => router.push('/library/gallery')}
-                    className='transition-colors hover:text-[#F78F1E] hover:underline text-left'
+                    className='text-left transition-colors hover:text-[#F78F1E] hover:underline'
                   >
                     Thư viện
                   </button>
@@ -156,10 +164,22 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className='md:pl-6'
+            className='flex flex-col gap-6 md:pl-6'
           >
-            <h3 className='mb-6 text-xl font-black text-white'>Theo dõi chúng tôi</h3>
-            <div className='flex items-center gap-3'>
+            <h3 className='mb-1 text-2xl font-black text-white'>Bản đồ liên hệ</h3>
+
+            <div className='overflow-hidden rounded-2xl shadow-2xl ring-2 ring-white/30'>
+              <iframe
+                title='Google Map - Trúc Xinh Preschool'
+                src={mapSrc}
+                loading='lazy'
+                className='h-64 w-full border-0'
+                referrerPolicy='no-referrer-when-downgrade'
+                allowFullScreen
+              />
+            </div>
+
+            <div className='flex flex-wrap items-center gap-3'>
               <motion.a
                 href='#'
                 whileHover={{ scale: 1.1, y: -4 }}
@@ -170,6 +190,7 @@ const Footer = () => {
                 <Icons.facebook className='size-5 transition-transform group-hover:rotate-12' />
                 <span className='absolute -top-1 -right-1 flex size-2 rounded-full bg-white/80 ring-2 ring-white' />
               </motion.a>
+
               <motion.a
                 href='#'
                 whileHover={{ scale: 1.1, y: -4 }}
@@ -180,6 +201,7 @@ const Footer = () => {
                 <Icons.youtube className='size-5 transition-transform group-hover:rotate-12' />
                 <span className='absolute -top-1 -right-1 flex size-2 rounded-full bg-white/80 ring-2 ring-white' />
               </motion.a>
+
               <motion.a
                 href='#'
                 whileHover={{ scale: 1.1, y: -4 }}
@@ -195,14 +217,15 @@ const Footer = () => {
         </div>
 
         <div className='mt-12 border-t border-white/30' />
+
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className='py-6 text-center text-sm text-white/90'
+          className='py-6 text-center text-lg font-semibold text-white/90'
         >
-          Copyright 2025 © Trúc Xinh Preschool
+          Copyright {new Date().getFullYear()} © Trúc Xinh Preschool
         </motion.div>
       </div>
 

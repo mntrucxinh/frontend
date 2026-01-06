@@ -36,6 +36,8 @@ export default function ImageInstruction() {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      // Chỉ áp dụng parallax trên màn hình lớn để tránh giật trên mobile
+      if (window.innerWidth < 1024) return
       setMousePosition({
         x: (e.clientX / window.innerWidth - 0.5) * 20,
         y: (e.clientY / window.innerHeight - 0.5) * 20,
@@ -48,12 +50,12 @@ export default function ImageInstruction() {
 
 
   return (
-    <section className='relative min-h-screen overflow-hidden bg-gradient-to-br from-[#E8F5E9] via-white to-[#FFF3E0]'>
+    <section className='relative min-h-[70vh] md:min-h-[85vh] overflow-hidden bg-gradient-to-br from-[#E8F5E9] via-white to-[#FFF3E0]'>
       {/* Animated background with multiple layers */}
       <div className='pointer-events-none absolute inset-0'>
         {/* Floating orbs */}
         <motion.div
-          className='absolute right-[10%] top-[20%] h-96 w-96 rounded-full bg-gradient-to-br from-[#33B54A]/20 to-[#33B54A]/5 blur-3xl'
+          className='absolute right-[10%] top-[20%] hidden h-96 w-96 rounded-full bg-gradient-to-br from-[#33B54A]/20 to-[#33B54A]/5 blur-3xl md:block'
           animate={{
             x: [0, 30, 0],
             y: [0, -20, 0],
@@ -66,7 +68,7 @@ export default function ImageInstruction() {
           }}
         />
         <motion.div
-          className='absolute bottom-[15%] left-[10%] h-96 w-96 rounded-full bg-gradient-to-br from-[#F78F1E]/20 to-[#F78F1E]/5 blur-3xl'
+          className='absolute bottom-[15%] left-[10%] hidden h-96 w-96 rounded-full bg-gradient-to-br from-[#F78F1E]/20 to-[#F78F1E]/5 blur-3xl md:block'
           animate={{
             x: [0, -30, 0],
             y: [0, 20, 0],
@@ -79,7 +81,7 @@ export default function ImageInstruction() {
           }}
         />
         <motion.div
-          className='absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-[#33B54A]/10 to-[#F78F1E]/10 blur-3xl'
+          className='absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-[#33B54A]/10 to-[#F78F1E]/10 blur-3xl sm:h-[500px] sm:w-[500px]'
           animate={{
             scale: [1, 1.15, 1],
             opacity: [0.3, 0.5, 0.3],
@@ -115,8 +117,8 @@ export default function ImageInstruction() {
         ))}
       </div>
 
-      <div className='relative z-10 mx-auto max-w-7xl px-4 py-20 md:px-6 md:py-32'>
-        <div className='grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center lg:gap-20'>
+      <div className='relative z-10 mx-auto max-w-6xl px-4 py-14 sm:px-6 md:py-20'>
+        <div className='grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center lg:gap-16 xl:gap-20'>
           {/* Left: Content with enhanced animations */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
@@ -125,7 +127,7 @@ export default function ImageInstruction() {
               duration: 0.9,
               ease: [0.4, 0, 0.2, 1],
             }}
-            className='space-y-8'
+            className='space-y-8 text-center lg:text-left'
           >
             {/* Title with staggered animation */}
             <div className='space-y-3'>
@@ -133,7 +135,7 @@ export default function ImageInstruction() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.7 }}
-                className='text-5xl font-black leading-[1.1] tracking-tight text-gray-900 md:text-6xl lg:text-7xl'
+                className='text-3xl font-black leading-[1.1] tracking-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl'
               >
                 Trường Mầm Non
               </motion.h1>
@@ -141,7 +143,7 @@ export default function ImageInstruction() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.7 }}
-                className='text-[#33B54A] text-5xl font-black leading-[1.1] tracking-tight md:text-6xl lg:text-7xl'
+                className='text-[#33B54A] text-3xl font-black leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl'
               >
                 Trúc Xinh
               </motion.h1>
@@ -183,24 +185,24 @@ export default function ImageInstruction() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.7 }}
-              className='flex flex-nowrap items-center gap-3 pt-4 sm:gap-4'
+              className='flex flex-wrap justify-center lg:justify-start items-center gap-3 pt-3 sm:gap-4'
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className='flex-shrink-0'>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className='flex-shrink-0 w-full sm:w-auto'>
                 <button
                   onClick={() => router.push('/introduce')}
-                  className='group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-[#33B54A] px-6 py-5 text-base font-bold text-white shadow-xl shadow-[#33B54A]/30 transition-all duration-300 hover:bg-[#F78F1E] hover:shadow-[#F78F1E]/30 sm:px-10 sm:py-6 sm:text-lg sm:gap-3'
+                  className='group relative inline-flex w-[280px] justify-center items-center gap-2 overflow-hidden rounded-full bg-[#33B54A] px-6 py-4 text-base font-bold text-white shadow-xl shadow-[#33B54A]/30 transition-all duration-300 hover:shadow-2xl sm:min-w-[240px] sm:px-9 sm:py-5 sm:text-lg sm:gap-3'
                 >
                   <span className='relative z-10 flex items-center gap-2 whitespace-nowrap'>
                     Tìm hiểu về trường
-                    <ArrowRight className='h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:translate-x-1' />
+                    <ChevronRight className='ml-2 h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:translate-x-1' />
                   </span>
                 </button>
               </motion.div>
 
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className='flex-shrink-0'>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className='flex-shrink-0 w-full sm:w-auto'>
                 <button
                   onClick={() => router.push('/notice')}
-                  className='group inline-flex items-center rounded-full bg-[#F78F1E] px-6 py-5 text-base font-bold text-white shadow-lg transition-all duration-300 hover:bg-[#33B54A] hover:shadow-xl sm:px-10 sm:py-6 sm:text-lg'
+                  className='group inline-flex w-[280px] justify-center items-center rounded-full bg-[#F78F1E] px-6 py-4 text-base font-bold text-white shadow-lg transition-all duration-300 hover:shadow-2xl sm:min-w-[240px] sm:px-9 sm:py-5 sm:text-lg'
                 >
                   <span className='whitespace-nowrap'>Thông báo tuyển sinh</span>
                   <ChevronRight className='ml-2 h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:translate-x-1' />
@@ -217,7 +219,7 @@ export default function ImageInstruction() {
               duration: 0.9,
               ease: [0.4, 0, 0.2, 1],
             }}
-            className='relative'
+            className='relative mx-auto w-full max-w-4xl lg:mx-0 lg:max-w-[700px] xl:max-w-[820px] 2xl:max-w-[900px]'
             style={{
               transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
             }}
@@ -313,7 +315,7 @@ export default function ImageInstruction() {
       </div>
 
       {/* Animated bottom wave */}
-      <div className='absolute bottom-0 left-0 right-0 h-40 overflow-hidden'>
+      <div className='absolute bottom-0 left-0 right-0 h-56 overflow-hidden'>
         <svg
           viewBox='0 0 1440 160'
           className='h-full w-full'
