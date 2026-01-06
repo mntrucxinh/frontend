@@ -16,6 +16,18 @@ export const getAccessToken = () => {
   return undefined
 }
 
+export const getRefreshToken = () => {
+  const cookieToken = Cookies.get("refreshToken")
+  if (cookieToken) return cookieToken
+
+  if (typeof window !== "undefined") {
+    const localToken = localStorage.getItem("refreshToken")
+    if (localToken) return localToken
+  }
+
+  return undefined
+}
+
 export const setAccessToken = (token: string) => {
   // Set in both cookie and localStorage for better compatibility
   Cookies.set("accessToken", token, {
@@ -30,9 +42,23 @@ export const setAccessToken = (token: string) => {
   }
 }
 
+export const setRefreshToken = (token: string) => {
+  Cookies.set("refreshToken", token, {
+    expires: 30,
+    path: "/",
+    sameSite: "lax",
+  })
+
+  if (typeof window !== "undefined") {
+    localStorage.setItem("refreshToken", token)
+  }
+}
+
 export const clearTokens = () => {
   if (typeof window !== "undefined") {
     localStorage.removeItem("accessToken")
+    localStorage.removeItem("refreshToken")
   }
   Cookies.remove("accessToken", { path: "/" })
+  Cookies.remove("refreshToken", { path: "/" })
 }

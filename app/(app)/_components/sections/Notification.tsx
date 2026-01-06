@@ -29,7 +29,7 @@ export default function NoticeNewsGreen() {
         excerpt:
           'Để chuẩn bị tốt cho năm học 2025-2026, nhà trường xin kính báo đến các bậc phụ huynh...',
         dateText: 'Thứ 5, 26/09/24 lúc 07:47',
-        image: '/assets/images/notice-cover.jpg',
+        image: '/assets/images/notice-cover.png',
         href: '/notice/thong-bao-cac-khoan-thu-dau-nam-hoc-2025-2026',
       },
       {
@@ -39,7 +39,7 @@ export default function NoticeNewsGreen() {
         excerpt:
           'Căn cứ kế hoạch phát triển Giáo dục năm học 2025-2026 của Phòng Giáo dục-Đào tạo...',
         dateText: 'Thứ 5, 26/09/24 lúc 07:11',
-        image: '/assets/images/notice-cover.jpg',
+        image: '/assets/images/notice-cover.png',
         href: '/notice/thong-bao-tuyen-sinh-nam-hoc-2025-2026',
       },
       {
@@ -49,7 +49,7 @@ export default function NoticeNewsGreen() {
         excerpt:
           'Một vài mẹo nhỏ giúp con thích nghi môi trường mới, kết nối bạn bè và vui học mỗi ngày...',
         dateText: 'Thứ 3, 10/10/24 lúc 09:20',
-        image: '/assets/images/news-cover.jpg',
+        image: '/assets/images/ex1.jpg',
         href: '/news/detail/bi-quyet-giup-be-tu-tin-khi-den-lop',
       },
       {
@@ -59,7 +59,7 @@ export default function NoticeNewsGreen() {
         excerpt:
           'Dinh dưỡng cân bằng là nền tảng để bé phát triển khỏe mạnh, vui vẻ và tràn đầy năng lượng...',
         dateText: 'Thứ 7, 12/10/24 lúc 08:05',
-        image: '/assets/images/news-cover.jpg',
+        image: '/assets/images/ex2.jpg',
         href: '/news/detail/goi-y-thuc-don-dinh-duong-cho-be-mam-non',
       },
     ],
@@ -235,7 +235,7 @@ export default function NoticeNewsGreen() {
         </motion.div>
 
         {/* Cards */}
-        <div className='mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2'>
+        <div className='mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2 items-stretch'>
           <AnimatePresence mode='popLayout'>
             {filtered.map((post, index) => (
               <motion.article
@@ -251,7 +251,7 @@ export default function NoticeNewsGreen() {
                   type: 'tween',
                 }}
                 whileHover={{ y: -8, scale: 1.01 }}
-                className='group relative overflow-hidden rounded-3xl bg-white shadow-md ring-1 ring-gray-100/50 transition-all duration-300 ease-out hover:shadow-xl hover:ring-[#33B54A]/30 gpu-accelerate'
+                className='group relative flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-md ring-1 ring-gray-100/50 transition-all duration-300 ease-out hover:shadow-xl hover:ring-[#33B54A]/30 gpu-accelerate'
               >
                 {/* Image */}
                 <button
@@ -302,7 +302,7 @@ export default function NoticeNewsGreen() {
                 </button>
 
                 {/* Content */}
-                <div className='relative p-6 md:p-7'>
+                <div className='relative flex flex-1 flex-col p-6 md:p-7'>
                   {/* Date */}
                   <motion.div
                     initial={{ opacity: 0, x: -10 }}
@@ -348,6 +348,7 @@ export default function NoticeNewsGreen() {
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 + 0.7 }}
+                    className='mt-auto'
                   >
                     <button
                       onClick={() => router.push(post.href)}
