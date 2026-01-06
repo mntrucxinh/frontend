@@ -1,4 +1,4 @@
-import { clearTokens, setAccessToken } from "@/utils/storage"
+import { clearTokens, setAccessToken, setRefreshToken } from "@/utils/storage"
 
 import {
   GoogleLoginRequest,
@@ -13,9 +13,12 @@ export default {
     payload: GoogleLoginRequest
   ): Promise<LoginResponse> => {
     const { data } = await api.post("/auth/google/login", payload)
-    const { accessToken } = data
+    const { accessToken, refreshToken } = data
     if (accessToken) {
       setAccessToken(accessToken)
+    }
+    if (refreshToken) {
+      setRefreshToken(refreshToken)
     }
     return data
   },
