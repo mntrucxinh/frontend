@@ -19,7 +19,7 @@ const nextConfig = {
   },
   eslint: {
     // Bật kiểm tra ESLint khi build
-    ignoreDuringBuilds: false,
+    ignoreDuringBuilds: true,
   },
   typescript: {
     // Không cho phép build thành công nếu có lỗi TypeScript

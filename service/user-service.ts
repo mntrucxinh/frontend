@@ -1,4 +1,4 @@
-import { UserInfo, UserLinkedAccount } from "@/types/user"
+import { UserInfo, UserLinkedAccount } from "@/types/interface/user"
 import { api } from "@/lib/axios"
 
 const getUserInfo = async (): Promise<UserInfo> => {

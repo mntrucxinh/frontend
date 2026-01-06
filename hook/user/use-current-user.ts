@@ -1,7 +1,7 @@
 import userService from "@/service/user-service"
 import { useQuery } from "@tanstack/react-query"
 
-import { UserInfo } from "@/types/user"
+import { UserInfo } from "@/types/interface/user"
 
 export const useUserInfo = () => {
   return useQuery<UserInfo>({

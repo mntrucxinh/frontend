@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { noticeData } from './mock'
+import { noticeData } from '../mock'
 import { Calendar, ChevronRight, Search, Bell } from 'lucide-react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -21,57 +21,57 @@ const getTypeLabel = (type: string) => {
   return labels[type] || 'Thông báo'
 }
 
-const NoticePage = () => {
-  const searchParams = useSearchParams()
-  const type = searchParams.get('type') || 'general'
-  const [currentPage, setCurrentPage] = useState(1)
-  const [searchQuery, setSearchQuery] = useState('')
+export default function SearchNotice() {
+    const searchParams = useSearchParams()
+    const type = searchParams.get('type') || 'general'
+    const [currentPage, setCurrentPage] = useState(1)
+    const [searchQuery, setSearchQuery] = useState('')
 
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [type, searchQuery])
+    useEffect(() => {
+        setCurrentPage(1)
+    }, [type, searchQuery])
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [currentPage, type, searchQuery])
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, [currentPage, type, searchQuery])
 
-  const parseDate = (dateString: string | undefined) => {
-    if (!dateString) return new Date(0)
-    const parts = dateString.split(', ')[1]?.split('/') || []
-    if (parts.length !== 3) return new Date(0)
-    return new Date(`${parts[2]}-${parts[1]}-${parts[0]}`)
-  }
-
-  const filteredNotices = useMemo(() => {
-    return noticeData
-      .filter((notice) => {
-        const typeMatch = notice.type === type
-        if (!searchQuery) return typeMatch
-
-        const searchMatch =
-          notice.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          notice.shortDescription?.toLowerCase().includes(searchQuery.toLowerCase())
-
-        return typeMatch && searchMatch
-      })
-      .sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime())
-  }, [type, searchQuery])
-
-  const totalPages = Math.ceil(filteredNotices.length / ITEMS_PER_PAGE)
-
-  const paginatedNotices = useMemo(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-    const endIndex = startIndex + ITEMS_PER_PAGE
-    return filteredNotices.slice(startIndex, endIndex)
-  }, [filteredNotices, currentPage])
-
-  const handlePageChange = (page: number) => {
-    if (page > 0 && page <= totalPages) {
-      setCurrentPage(page)
+    const parseDate = (dateString: string | undefined) => {
+        if (!dateString) return new Date(0)
+        const parts = dateString.split(', ')[1]?.split('/') || []
+        if (parts.length !== 3) return new Date(0)
+        return new Date(`${parts[2]}-${parts[1]}-${parts[0]}`)
     }
-  }
 
-  return (
+    const filteredNotices = useMemo(() => {
+        return noticeData
+        .filter((notice) => {
+            const typeMatch = notice.type === type
+            if (!searchQuery) return typeMatch
+
+            const searchMatch =
+            notice.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            notice.shortDescription?.toLowerCase().includes(searchQuery.toLowerCase())
+
+            return typeMatch && searchMatch
+        })
+        .sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime())
+    }, [type, searchQuery])
+
+    const totalPages = Math.ceil(filteredNotices.length / ITEMS_PER_PAGE)
+
+    const paginatedNotices = useMemo(() => {
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+        const endIndex = startIndex + ITEMS_PER_PAGE
+        return filteredNotices.slice(startIndex, endIndex)
+    }, [filteredNotices, currentPage])
+
+    const handlePageChange = (page: number) => {
+        if (page > 0 && page <= totalPages) {
+        setCurrentPage(page)
+        }
+    }
+
+    return (
     <div className='space-y-8'>
       {/* Header Section */}
       <motion.div
@@ -249,5 +249,3 @@ const NoticePage = () => {
     </div>
   )
 }
-
-export default NoticePage;

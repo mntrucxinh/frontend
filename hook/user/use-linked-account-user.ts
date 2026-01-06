@@ -1,7 +1,7 @@
 import userService from "@/service/user-service"
 import { useQuery } from "@tanstack/react-query"
 
-import { UserLinkedAccount } from "@/types/user"
+import { UserLinkedAccount } from "@/types/interface/user"
 
 export const useLinkedAccountUser = () => {
   return useQuery<UserLinkedAccount>({

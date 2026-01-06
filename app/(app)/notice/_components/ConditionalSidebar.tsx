@@ -1,9 +1,9 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { SidebarNav } from './SidebarNav'
+import SidebarNav from './SidebarNav'
 
-export function ConditionalSidebar() {
+export default function ConditionalSidebar() {
   const pathname = usePathname()
   
   // Không hiển thị SidebarNav cho route detail

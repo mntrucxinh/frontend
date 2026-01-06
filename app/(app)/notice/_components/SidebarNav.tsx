@@ -33,7 +33,7 @@ const sidebarNavItems = [
   },
 ]
 
-export function SidebarNav() {
+export default function SidebarNav() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const type = searchParams.get('type') || 'general'
