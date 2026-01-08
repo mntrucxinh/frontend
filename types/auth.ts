@@ -8,6 +8,11 @@ export interface LoginResponse {
   refreshToken: string
 }
 
+export interface LogoutResponse {
+  message: string
+  email?: string | null
+}
+
 export interface GoogleLoginRequest {
   idToken?: string
   accessToken?: string

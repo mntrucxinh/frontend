@@ -40,10 +40,10 @@ const GoogleBackendBridge = () => {
           // Redirect to news-management page after successful login
           // Use window.location to ensure redirect happens even if router.push doesn't work
           const currentPath = window.location.pathname
-          if (currentPath !== "/news-management") {
-            window.location.href = "/news-management"
+          if (currentPath !== "/admin/news-management") {
+            window.location.href = "/admin/news-management"
           } else {
-            router.push("/news-management")
+            router.push("/admin/news-management")
           }
         },
         onError: (err) => {

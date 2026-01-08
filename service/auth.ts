@@ -3,6 +3,7 @@ import { clearTokens, setAccessToken, setRefreshToken } from "@/utils/storage"
 import {
   GoogleLoginRequest,
   LoginResponse,
+  LogoutResponse,
 } from "@/types/auth"
 import { api } from "@/lib/axios"
 
@@ -24,9 +25,13 @@ export default {
   },
 
   // Logout Method
-  logout: async (): Promise<void> => {
-    await api.post("/auth/logout")
-    clearTokens()
+  logout: async (): Promise<LogoutResponse> => {
+    try {
+      const { data } = await api.post<LogoutResponse>("/auth/logout")
+      return data
+    } finally {
+      clearTokens()
+    }
   },
 
 
