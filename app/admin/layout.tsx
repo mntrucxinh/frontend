@@ -11,7 +11,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <HeaderAdmin />
       <div className='flex min-h-0 flex-1 overflow-hidden'>
         <SideBar />
-        <main className='bg-default-50 min-h-0 flex-1 overflow-y-auto p-4'>{children}</main>
+        <main className='min-h-0 flex-1 overflow-y-auto bg-default-50 p-10'>{children}</main>
       </div>
     </section>
   )

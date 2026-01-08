@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
-import HeaderAdmin from '../_components/HeaderAdmin'
-import AsideBar from '../_components/SideBar'
+import NewsManagementTable from './_components/news-management-table'
+import NewsManagementTabs from './_components/news-management-tabs'
 
 export const metadata: Metadata = {
   title: 'Quản lý bài đăng',
@@ -9,8 +9,9 @@ export const metadata: Metadata = {
 
 export default function PostManagementsPage() {
   return (
-    <section>
-      <div>Content Page under Post Management</div>
-    </section>
+    <main>
+      <NewsManagementTabs />
+      <NewsManagementTable />
+    </main>
   )
 }
