@@ -45,7 +45,7 @@ export function openFacebookOAuthPopup(
   }
 
   // Facebook OAuth configuration
-  const redirectUri = `${window.location.origin}/auth/facebook/callback`
+  const redirectUri = `${window.location.origin}/admin/auth/facebook/callback`
   const authUrl = `https://www.facebook.com/${FACEBOOK_OAUTH_VERSION}/dialog/oauth?client_id=${appId}&redirect_uri=${encodeURIComponent(
     redirectUri
   )}&scope=${FACEBOOK_SCOPES}&response_type=token`
