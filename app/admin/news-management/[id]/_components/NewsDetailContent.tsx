@@ -1,7 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { Card, CardBody, CardHeader, Chip, Divider } from '@heroui/react'
+import { formatDate, formatDateTime } from '@/utils/date'
+import { Button, Card, CardBody, CardHeader, Chip } from '@heroui/react'
 import { FileText, Globe, ImageIcon, Info } from 'lucide-react'
 
 type ContentAsset = {
@@ -38,26 +39,6 @@ const STATUS_MAP = {
   archived: { label: 'Lưu trữ', color: 'default' },
 } as const
 
-const formatDate = (value?: string | null) => {
-  if (!value) return '—'
-  const d = new Date(value)
-  if (Number.isNaN(d.getTime())) return '—'
-  return d.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })
-}
-
-const formatDateTime = (value?: string | null) => {
-  if (!value) return '—'
-  const d = new Date(value)
-  if (Number.isNaN(d.getTime())) return '—'
-  return d.toLocaleString('vi-VN', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  })
-}
-
 export default function NewsDetailContent({ news }: { news: NewsDetailContentProps }) {
   const status = STATUS_MAP[news.status]
   const assets = (news.content_assets ?? []).slice().sort((a, b) => a.position - b.position)
@@ -68,9 +49,10 @@ export default function NewsDetailContent({ news }: { news: NewsDetailContentPro
       {/* ===== TIÊU ĐỀ CHÍNH ===== */}
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <h1 className='text-2xl font-semibold'>{news.title}</h1>
-        <Chip color={status.color} variant='flat' size='sm'>
-          {status.label}
-        </Chip>
+        <div className='flex gap-2'>
+          <Button color='primary'>Sửa bài</Button>
+          <Button color='warning'>Xóa bài</Button>
+        </div>
       </div>
 
       {/* ===== 2 CỘT CHÍNH ===== */}
@@ -84,7 +66,7 @@ export default function NewsDetailContent({ news }: { news: NewsDetailContentPro
               <h2 className='text-base font-medium'>Mô tả ngắn</h2>
             </CardHeader>
             <CardBody>
-              <p className='text-sm text-default-700'>{news.excerpt || '—'}</p>
+              <p className='text-justify text-sm text-default-700'>{news.excerpt || '—'}</p>
             </CardBody>
           </Card>
 
@@ -96,7 +78,7 @@ export default function NewsDetailContent({ news }: { news: NewsDetailContentPro
             </CardHeader>
             <CardBody>
               <article
-                className='prose prose-neutral max-w-none text-sm text-default-700'
+                className='prose prose-neutral max-w-none text-justify text-sm text-default-700'
                 dangerouslySetInnerHTML={{ __html: news.content_html }}
               />
             </CardBody>

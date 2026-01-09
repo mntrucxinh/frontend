@@ -31,11 +31,42 @@ export function getNewsDate(newsItem: {
   createdAt?: string;
   publishedAt?: string;
 }): string {
-  return newsItem.date || 
-         newsItem.created_at || 
-         newsItem.published_at || 
-         newsItem.createdAt || 
-         newsItem.publishedAt || 
+  return newsItem.date ||
+         newsItem.created_at ||
+         newsItem.published_at ||
+         newsItem.createdAt ||
+         newsItem.publishedAt ||
          '';
 }
 
+export type DateInput = string | number | Date | null | undefined
+
+const toDate = (value: DateInput) => {
+  if (!value) return null
+  const d = value instanceof Date ? value : new Date(value)
+  return Number.isNaN(d.getTime()) ? null : d
+}
+
+export const formatDate = (value: DateInput, fallback = '—', locale = 'vi-VN') => {
+  const d = toDate(value)
+  if (!d) return fallback
+
+  return d.toLocaleDateString(locale, {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  })
+}
+
+export const formatDateTime = (value: DateInput, fallback = '—', locale = 'vi-VN') => {
+  const d = toDate(value)
+  if (!d) return fallback
+
+  return d.toLocaleString(locale, {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+}

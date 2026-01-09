@@ -2,7 +2,7 @@
 
 import type { Key } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Tab, Tabs } from '@heroui/react'
+import { Button, Tab, Tabs } from '@heroui/react'
 
 type IconType = React.ComponentType<{ className?: string }>
 
@@ -12,8 +12,15 @@ export type CustomTabItem = {
   icon?: IconType
 }
 
+export type ButtonProps = {
+  label: string
+  icon?: IconType
+  onPress: () => void
+}
+
 type Props = {
   tabs: CustomTabItem[]
+  button: ButtonProps
   defaultKey: string
   queryKey?: string
   deleteQueryWhenDefault?: boolean
@@ -22,6 +29,7 @@ type Props = {
 
 export default function CustomTabs({
   tabs,
+  button,
   defaultKey,
   queryKey = 'tab',
   deleteQueryWhenDefault = true,
@@ -46,8 +54,10 @@ export default function CustomTabs({
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
   }
 
+  const BtnIcon = button.icon
+
   return (
-    <div className={className}>
+    <div className={`flex items-center justify-between ${className ?? ''}`}>
       <Tabs
         aria-label='Query Tabs'
         selectedKey={selected}
@@ -102,6 +112,13 @@ export default function CustomTabs({
           )
         })}
       </Tabs>
+
+      <Button color='primary' onPress={button.onPress}>
+        <span className='flex items-center gap-2'>
+          {BtnIcon ? <BtnIcon className='size-4' /> : null}
+          {button.label}
+        </span>
+      </Button>
     </div>
   )
 }
