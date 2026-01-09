@@ -185,27 +185,29 @@ export default function ImageInstruction() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.7 }}
-              className='flex flex-wrap justify-center lg:justify-start items-center gap-3 pt-3 sm:gap-4'
+              className='flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-3 pt-3 sm:gap-4'
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className='flex-shrink-0 w-full sm:w-auto'>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className='w-full sm:w-auto'>
                 <button
                   onClick={() => router.push('/introduce')}
-                  className='group relative inline-flex w-[280px] justify-center items-center gap-2 overflow-hidden rounded-full bg-[#33B54A] px-6 py-4 text-base font-bold text-white shadow-xl shadow-[#33B54A]/30 transition-all duration-300 hover:shadow-2xl sm:min-w-[240px] sm:px-9 sm:py-5 sm:text-lg sm:gap-3'
+                  className='group relative inline-flex w-full sm:w-auto sm:min-w-[240px] justify-center items-center gap-2 overflow-hidden rounded-full bg-[#33B54A] px-6 py-4 text-base font-bold text-white shadow-xl shadow-[#33B54A]/30 transition-all duration-300 hover:shadow-2xl sm:px-9 sm:py-5 sm:text-lg sm:gap-3'
                 >
                   <span className='relative z-10 flex items-center gap-2 whitespace-nowrap'>
                     Tìm hiểu về trường
-                    <ChevronRight className='ml-2 h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:translate-x-1' />
+                    <ChevronRight className='h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:translate-x-1' />
                   </span>
                 </button>
               </motion.div>
 
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className='flex-shrink-0 w-full sm:w-auto'>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className='w-full sm:w-auto'>
                 <button
                   onClick={() => router.push('/notice')}
-                  className='group inline-flex w-[280px] justify-center items-center rounded-full bg-[#F78F1E] px-6 py-4 text-base font-bold text-white shadow-lg transition-all duration-300 hover:shadow-2xl sm:min-w-[240px] sm:px-9 sm:py-5 sm:text-lg'
+                  className='group relative inline-flex w-full sm:w-auto sm:min-w-[240px] justify-center items-center gap-2 overflow-hidden rounded-full bg-[#F78F1E] px-6 py-4 text-base font-bold text-white shadow-xl shadow-[#F78F1E]/30 transition-all duration-300 hover:shadow-2xl sm:px-9 sm:py-5 sm:text-lg sm:gap-3'
                 >
-                  <span className='whitespace-nowrap'>Thông báo tuyển sinh</span>
-                  <ChevronRight className='ml-2 h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:translate-x-1' />
+                  <span className='relative z-10 flex items-center gap-2 whitespace-nowrap'>
+                    Thông báo tuyển sinh
+                    <ChevronRight className='h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:translate-x-1' />
+                  </span>
                 </button>
               </motion.div>
             </motion.div>

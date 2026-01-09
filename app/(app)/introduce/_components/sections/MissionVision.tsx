@@ -79,8 +79,8 @@ export default function MissionVision() {
                   <div className='h-1 flex-1 rounded-full bg-gradient-to-r from-white/50 via-white/30 to-transparent' />
                 </div>
                 
-                <p className='mb-6 flex-1 text-base leading-relaxed text-white/95 md:text-lg'>
-                  Nuôi dưỡng trẻ mầm non giàu yêu thương, lễ phép, tự tin, phát triển nền tảng trí tuệ và kỹ năng phù hợp lứa tuổi.
+                <p className='mb-6 flex-1 text-justify text-base leading-relaxed text-white/95 md:text-lg'>
+                  Xây dựng môi trường giáo dục lấy trẻ làm trung tâm, thực hiện Chương trình Giáo dục Mầm non của Bộ GD&ĐT, tích hợp STEAM, giáo dục trải nghiệm, kỹ năng sống và phát triển năng khiếu phù hợp với từng độ tuổi.
                 </p>
                 
                 <div className='relative h-64 w-full overflow-hidden rounded-2xl shadow-xl ring-2 ring-white/20'>
@@ -119,8 +119,8 @@ export default function MissionVision() {
                   <div className='h-1 flex-1 rounded-full bg-gradient-to-r from-white/50 via-white/30 to-transparent' />
                 </div>
                 
-                <p className='mb-6 flex-1 text-base leading-relaxed text-white/95 md:text-lg'>
-                  Kiến tạo môi trường hạnh phúc, nhân văn, an toàn và giàu trải nghiệm để trẻ khám phá bản thân, phát triển toàn diện, sẵn sàng vào Tiểu học.
+                <p className='mb-6 flex-1 text-justify text-base leading-relaxed text-white/95 md:text-lg'>
+                  Nuôi dưỡng tối đa năng lực cá nhân của trẻ thông qua các hoạt động nghệ thuật, biểu diễn sân khấu, trải nghiệm thiên nhiên, rèn luyện kỹ năng xã hội, tư duy khoa học – công nghệ và khả năng hợp tác, giải quyết vấn đề.
                 </p>
                 
                 <div className='relative h-64 w-full overflow-hidden rounded-2xl shadow-xl ring-2 ring-white/20'>
@@ -188,8 +188,8 @@ export default function MissionVision() {
                   <div className='h-1 flex-1 rounded-full bg-gradient-to-r from-white/50 via-white/30 to-transparent' />
                 </div>
                 
-                <p className='mb-6 flex-1 text-base leading-relaxed text-white/95 md:text-lg'>
-                  Trở thành trường mầm non tiêu biểu về giáo dục nhân cách, giáo dục xanh và trải nghiệm sáng tạo.
+                <p className='mb-6 flex-1 text-justify text-base leading-relaxed text-white/95 md:text-lg'>
+                  Hướng đến trở thành trường mầm non uy tín, bền vững tại Đà Nẵng, được phụ huynh tin chọn bởi chất lượng chăm sóc – giáo dục ổn định, môi trường an toàn, giàu trải nghiệm và khả năng phát hiện – bồi dưỡng năng lực riêng của mỗi trẻ.
                 </p>
                 
                 <div className='relative h-64 w-full overflow-hidden rounded-2xl shadow-xl ring-2 ring-white/20'>
@@ -228,8 +228,8 @@ export default function MissionVision() {
                   <div className='h-1 flex-1 rounded-full bg-gradient-to-r from-white/50 via-white/30 to-transparent' />
                 </div>
                 
-                <p className='mb-6 flex-1 text-base leading-relaxed text-white/95 md:text-lg'>
-                  Góp phần hình thành thế hệ trẻ sống tốt, học qua trải nghiệm, có kỹ năng và tinh thần đóng góp tích cực cho cộng đồng.
+                <p className='mb-6 flex-1 text-justify text-base leading-relaxed text-white/95 md:text-lg'>
+                  Định vị Trúc Xinh là nơi trẻ được phát triển hài hòa giữa trí tuệ – thể chất – cảm xúc – năng khiếu, hình thành sự tự tin, bản lĩnh và nền tảng kỹ năng cần thiết để sẵn sàng bước vào Tiểu học và thích ứng với xã hội hiện đại.
                 </p>
                 
                 <div className='relative h-64 w-full overflow-hidden rounded-2xl shadow-xl ring-2 ring-white/20'>
