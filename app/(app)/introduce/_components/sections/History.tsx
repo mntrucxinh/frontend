@@ -69,31 +69,55 @@ export default function History() {
           </motion.div>
 
           {/* Main Content */}
-          <div className='grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16'>
-            {/* Founder Image */}
+          <div className='grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 lg:items-start'>
+            {/* Left Column - Founders */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className='flex flex-col items-center lg:col-span-4'
+              className='flex flex-col gap-10 lg:col-span-4 lg:h-full lg:justify-between'
             >
-              <div className='relative mb-6 size-64 overflow-hidden rounded-full border-4 border-[#33B54A]/30 shadow-2xl ring-4 ring-[#F78F1E]/20 md:size-80'>
-                <Image
-                  src='/assets/images/founder.jpg'
-                  alt='Nhà giáo Ưu tú Lê Thị A'
-                  fill
-                  className='object-cover'
-                />
-                <div className='absolute inset-0 rounded-full bg-gradient-to-br from-[#33B54A]/5 to-[#F78F1E]/5' />
-              </div>
+              {/* Founder */}
               <div className='text-center'>
-                <h3 className='text-xl font-black text-[#F78F1E] md:text-2xl'>
-                  Nhà giáo Ưu tú Lê Thị A
-                </h3>
-                <p className='mt-2 text-sm font-black text-gray-700 md:text-base'>
-                  Hiệu trưởng Nhà trường
-                </p>
+                <div className='relative mx-auto mb-4 size-56 overflow-hidden rounded-full border-4 border-[#33B54A]/30 shadow-2xl ring-4 ring-[#F78F1E]/20 md:size-64'>
+                  <Image
+                    src='/assets/images/founder.jpg'
+                    alt='Người sáng lập'
+                    fill
+                    className='object-cover'
+                  />
+                  <div className='absolute inset-0 rounded-full bg-gradient-to-br from-[#33B54A]/5 to-[#F78F1E]/5' />
+                </div>
+                <div className='text-center'>
+                  <h4 className='text-lg font-black text-[#F78F1E] md:text-xl'>
+                    [Tên Người sáng lập]
+                  </h4>
+                  <p className='mt-1 text-sm font-semibold text-gray-700 md:text-base'>
+                    Người sáng lập
+                  </p>
+                </div>
+              </div>
+
+              {/* Principal */}
+              <div className='text-center'>
+                <div className='relative mx-auto mb-4 size-56 overflow-hidden rounded-full border-4 border-[#33B54A]/30 shadow-2xl ring-4 ring-[#F78F1E]/20 md:size-64'>
+                  <Image
+                    src='/assets/images/founder.jpg'
+                    alt='Nhà giáo Ưu tú Lê Thị A'
+                    fill
+                    className='object-cover'
+                  />
+                  <div className='absolute inset-0 rounded-full bg-gradient-to-br from-[#33B54A]/5 to-[#F78F1E]/5' />
+                </div>
+                <div className='text-center'>
+                  <h4 className='text-lg font-black text-[#F78F1E] md:text-xl'>
+                    Nhà giáo Ưu tú Lê Thị A
+                  </h4>
+                  <p className='mt-1 text-sm font-semibold text-gray-700 md:text-base'>
+                    Hiệu trưởng Nhà trường
+                  </p>
+                </div>
               </div>
             </motion.div>
 
@@ -103,28 +127,42 @@ export default function History() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className='flex flex-col justify-center space-y-6 lg:col-span-8'
+              className='flex flex-col space-y-6 lg:col-span-8 lg:h-full'
             >
               <p className='text-justify leading-relaxed text-gray-700 md:text-lg'>
-                Trường Mầm non Trúc Xinh được thành lập năm 2007 tại Đà Nẵng, là cơ sở giáo dục mầm non
-                tư thục với định hướng xây dựng môi trường học tập an toàn - thân thiện - giàu yêu
-                thương, hướng tới sự phát triển toàn diện của trẻ. Nhà trường kiên trì theo đuổi mục
-                tiêu giúp trẻ hình thành nền tảng vững chắc về thể chất, nhận thức, ngôn ngữ, tình cảm
-                - kỹ năng xã hội và thẩm mỹ, sẵn sàng cho giai đoạn Tiểu học.
+                Với gần 20 năm hình thành và phát triển, Trường Mầm non Trúc Xinh luôn mang trong mình
+                khát vọng nâng cao trí thức Việt. Chúng tôi xác định vị thế và bản lĩnh của mình từ sự
+                khác biệt trong phương pháp giảng dạy sáng tạo và hiệu quả, các dịch vụ vượt trội và
+                thiết thực, môi trường học tập thân thiện với nhiều giải pháp khích lệ niềm yêu thích,
+                đam mê khám phá của trẻ, đã cùng với phụ huynh phát hiện và bồi dưỡng kịp thời nhiều tài
+                năng, chắp cánh cho những ước mơ của trẻ hướng tới tương lai.
               </p>
               <p className='text-justify leading-relaxed text-gray-700 md:text-lg'>
-                Với đội ngũ cán bộ quản lý, giáo viên và nhân viên tận tâm, năng động, sáng tạo, thường
-                xuyên được bồi dưỡng chuyên môn, Trúc Xinh không ngừng đổi mới phương pháp chăm sóc -
-                giáo dục theo hướng lấy trẻ làm trung tâm. Nhà trường chú trọng rèn nề nếp, kỹ năng tự
-                lập phù hợp lứa tuổi, tăng cường hoạt động trải nghiệm, giúp trẻ phát huy sự tự tin,
-                mạnh dạn, chủ động và phát triển hài hòa trong từng giai đoạn.
+                Hiểu rằng sáu năm đầu đời là giai đoạn phát triển vàng, ngay từ khi còn là một cơ sở với
+                quy mô nhỏ, Trúc Xinh đã chú trọng đầu tư không gian sân khấu đủ lớn để trẻ thể hiện năng
+                khiếu, sân chơi rộng mở, thường xuyên bổ sung đồ dùng – đồ chơi đạt chuẩn và các giải
+                pháp công nghệ nhằm mở rộng trải nghiệm học tập cho trẻ. Bên cạnh đó, nhà trường luôn quan
+                tâm nuôi dưỡng tuổi thơ hồn nhiên, giàu cảm xúc và gắn bó với thiên nhiên, con người
+                Việt Nam thông qua các hoạt động dã ngoại, trải nghiệm, xem rối nước, rối cạn, tuồng và
+                tham quan trang trại.
               </p>
               <p className='text-justify leading-relaxed text-gray-700 md:text-lg'>
-                Qua gần 20 năm xây dựng và phát triển, Trường Mầm non Trúc Xinh ngày càng khẳng định uy
-                tín và chất lượng trong công tác nuôi dưỡng, chăm sóc và giáo dục trẻ. Nhà trường tiếp
-                tục nâng cao môi trường học tập, tăng cường phối hợp cùng phụ huynh và hoàn thiện chất
-                lượng dịch vụ giáo dục, hướng đến trở thành "ngôi nhà thứ hai" ấm áp - nơi trẻ hạnh phúc
-                đến trường mỗi ngày.
+                Lắng nghe để đổi mới là giá trị xuyên suốt trong hành trình phát triển của Trúc Xinh. Từ
+                sự thấu hiểu mong muốn của phụ huynh, nhà trường từng bước xây dựng và phát triển thành
+                một ngôi trường với hệ thống phòng học đạt chuẩn, cơ sở vật chất hiện đại, các khu chức
+                năng riêng biệt, tạo môi trường học tập an toàn, sinh động, giúp trẻ phát triển toàn diện
+                về thể chất, trí tuệ, kỹ năng và sự tự tin khi bước vào bậc Tiểu học.
+              </p>
+              <p className='text-justify leading-relaxed text-gray-700 md:text-lg'>
+                Song song đó, Trúc Xinh đặc biệt chú trọng xây dựng đội ngũ quản lý và giáo viên có năng
+                lực, tâm huyết, yêu nghề mến trẻ, làm việc theo quy trình khoa học, ổn định chất lượng
+                chăm sóc – giáo dục. Nhà trường luôn nỗ lực cân bằng giữa chất lượng giáo dục và mức học
+                phí hợp lý, để nhiều trẻ em trên địa bàn có cơ hội được học tập trong một môi trường tốt,
+                nhân văn và bền vững.
+              </p>
+              <p className='text-justify leading-relaxed text-gray-700 md:text-lg font-semibold'>
+                Với nền tảng đã được bồi đắp qua thời gian, Trúc Xinh cam kết luôn "Chăm sóc con bạn như
+                chính con mình", xứng đáng là "Nơi phụ huynh gửi trọn niềm tin".
               </p>
             </motion.div>
           </div>

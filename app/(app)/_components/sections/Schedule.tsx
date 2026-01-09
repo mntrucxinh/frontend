@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Clock } from 'lucide-react'
 
-type AgeKey = '2-3' | '3-4' | '4-5' | '5-6'
+type AgeKey = '18-30' | '3-4' | '4-5' | '5-6'
 
 type Program = {
   key: AgeKey
@@ -20,117 +20,122 @@ export default function ActivitiesAtSchool() {
   const programs: Program[] = useMemo(
     () => [
       {
-        key: '2-3',
-        label: '2-3 tuổi',
-        badge: '2-3 tuổi',
+        key: '18-30',
+        label: '18-30 tháng',
+        badge: 'Lớp Bee (18-30 tháng)',
         img: '/assets/images/activities-23.jpg',
         activities: [
           'Lễ giáo',
-          'Làm quen môi trường lớp',
-          'Vận động – trò chơi',
-          'Âm nhạc – múa',
-          'Góc chơi – góc học',
-          'Tạo hình đơn giản',
-          'Thói quen vệ sinh – tự phục vụ',
-          'Trải nghiệm thiên nhiên',
+          'Chương trình mầm non',
+          'STEAM',
+          'Kỹ năng sống',
+          'Hoạt động góc',
+          'Chơi ngoài trời',
+          'Phòng chơi trí tuệ',
+          'Sinh hoạt vòng tròn',
         ],
         schedule: [
-          { time: '6h30-8h00', text: 'Đón trẻ – hoạt động tự chọn' },
-          { time: '8h00-8h30', text: 'Ăn sáng – vệ sinh' },
-          { time: '8h30-9h10', text: 'Hoạt động học nhẹ nhàng' },
-          { time: '9h10-9h40', text: 'Hoạt động nhóm – trò chơi' },
-          { time: '9h40-10h10', text: 'Hoạt động ngoài trời' },
-          { time: '10h10-11h10', text: 'Vệ sinh – ăn trưa' },
-          { time: '11h10-14h00', text: 'Ngủ trưa' },
-          { time: '14h00-15h30', text: 'Ăn bữa phụ – hoạt động chiều' },
-          { time: '15h30-17h00', text: 'Chơi tự chọn – trả trẻ' },
+          { time: '06h15–08h00', text: 'Đón trẻ, ăn sáng, thể dục sáng' },
+          { time: '08h00–08h30', text: 'Uống sữa' },
+          { time: '08h30–09h00', text: 'Hoạt động học sáng: Chương trình mầm non, STEAM, kỹ năng' },
+          { time: '09h00–09h20', text: 'Chuyển tiếp, uống nước trái cây, vệ sinh' },
+          { time: '09h20–10h00', text: 'Hoạt động góc, chơi ngoài trời, phòng chơi trí tuệ đa năng' },
+          { time: '10h00–10h15', text: 'Vệ sinh, chuẩn bị ăn trưa' },
+          { time: '10h15–11h15', text: 'Ăn trưa, vệ sinh' },
+          { time: '11h15–14h00', text: 'Ngủ trưa' },
+          { time: '14h00–15h15', text: 'Vệ sinh, ăn xế, uống sữa' },
+          { time: '15h15–16h00', text: 'Sinh hoạt vòng tròn' },
+          { time: '16h00–17h30', text: 'Chơi tự do, ăn tối, trả trẻ' },
         ],
       },
       {
         key: '3-4',
         label: '3-4 tuổi',
-        badge: '3-4 tuổi',
+        badge: 'Lớp Mouse (3-4 tuổi)',
         img: '/assets/images/activities-34.jpg',
         activities: [
           'Lễ giáo',
-          'Khám phá khoa học',
-          'Âm nhạc – múa',
-          'Làm quen văn học',
-          'Vận động – thể chất',
-          'Tạo hình',
-          'Kỹ năng sống',
-          'Trải nghiệm thiên nhiên',
+          'Chương trình mầm non',
+          'STEAM',
+          'Học năng khiếu',
+          'Hoạt động kỹ năng',
+          'Hoạt động góc',
+          'Chơi ngoài trời',
+          'Phòng chơi trí tuệ',
+          'Sinh hoạt vòng tròn',
         ],
         schedule: [
-          { time: '6h30-8h00', text: 'Đón trẻ – hoạt động tự chọn' },
-          { time: '8h00-8h50', text: 'Hoạt động học' },
-          { time: '8h50-9h30', text: 'Hoạt động nhóm' },
-          { time: '9h30-10h10', text: 'Hoạt động ngoài trời' },
-          { time: '10h10-11h10', text: 'Vệ sinh – ăn trưa' },
-          { time: '11h10-14h00', text: 'Ngủ trưa' },
-          { time: '14h00-14h40', text: 'Vệ sinh – ăn bữa phụ' },
-          { time: '14h40-15h40', text: 'Chơi – hoạt động tự chọn' },
-          { time: '15h40-17h00', text: 'Trả trẻ' },
+          { time: '06h15–08h00', text: 'Đón trẻ, ăn sáng, thể dục sáng' },
+          { time: '08h00–08h15', text: 'Uống sữa' },
+          { time: '08h15–09h00', text: 'Hoạt động học sáng: Chương trình mầm non, STEAM, năng khiếu, kỹ năng' },
+          { time: '09h00–09h10', text: 'Chuyển tiếp, uống nước trái cây, vệ sinh' },
+          { time: '09h10–10h20', text: 'Hoạt động góc, chơi ngoài trời, phòng chơi trí tuệ đa năng' },
+          { time: '10h20–10h30', text: 'Vệ sinh, chuẩn bị ăn trưa' },
+          { time: '10h30–11h30', text: 'Ăn trưa, vệ sinh' },
+          { time: '11h30–14h00', text: 'Ngủ trưa' },
+          { time: '14h00–15h15', text: 'Vệ sinh, ăn xế, uống sữa' },
+          { time: '15h15–16h00', text: 'Sinh hoạt vòng tròn' },
+          { time: '16h00–17h30', text: 'Chơi tự do, ăn tối, trả trẻ' },
         ],
       },
       {
         key: '4-5',
         label: '4-5 tuổi',
-        badge: '4-5 tuổi',
+        badge: 'Lớp Bear (4-5 tuổi)',
         img: '/assets/images/activities-45.jpg',
         activities: [
           'Lễ giáo',
-          'Khám phá khoa học',
-          'Trải nghiệm âm nhạc - Múa',
-          'Làm quen Văn học, Chữ viết',
-          'Thể dục - Chăm sóc sức khoẻ',
-          'Tạo hình',
-          'Làm quen với Toán',
-          'Làm quen tiếng Anh',
-          'Erobic',
-          'Bơi',
-          'Trải nghiệm tự nhiên',
+          'Chương trình mầm non',
+          'STEAM',
+          'Học năng khiếu',
+          'Hoạt động kỹ năng',
+          'Hoạt động góc',
+          'Chơi ngoài trời',
+          'Phòng chơi trí tuệ',
+          'Học Toán',
+          'Làm quen chữ cái',
         ],
         schedule: [
-          { time: '6h30-8h00', text: 'Đón trẻ – hoạt động tự chọn' },
-          { time: '8h00-8h50', text: 'Hoạt động học' },
-          { time: '8h50-9h30', text: 'Hoạt động nhóm' },
-          { time: '9h30-10h10', text: 'Hoạt động ngoài trời' },
-          { time: '10h10-11h10', text: 'Vệ sinh - Ăn trưa' },
-          { time: '11h10-14h00', text: 'Ngủ trưa' },
-          { time: '14h00-14h40', text: 'Vệ sinh - Ăn bữa phụ' },
-          { time: '14h40-15h40', text: 'Chơi - Hoạt động tự chọn' },
-          { time: '15h40-17h00', text: 'Trả trẻ' },
+          { time: '06h15–08h00', text: 'Đón trẻ, ăn sáng, thể dục sáng' },
+          { time: '08h00–08h15', text: 'Uống sữa' },
+          { time: '08h15–09h00', text: 'Hoạt động học sáng: Chương trình mầm non, STEAM, năng khiếu, kỹ năng' },
+          { time: '09h00–09h10', text: 'Chuyển tiếp, uống nước trái cây, vệ sinh' },
+          { time: '09h10–10h20', text: 'Hoạt động góc, chơi ngoài trời, phòng chơi trí tuệ đa năng' },
+          { time: '10h20–10h30', text: 'Vệ sinh, chuẩn bị ăn trưa' },
+          { time: '10h30–11h30', text: 'Ăn trưa, vệ sinh' },
+          { time: '11h30–14h00', text: 'Ngủ trưa' },
+          { time: '14h00–15h00', text: 'Vệ sinh, ăn xế, uống sữa' },
+          { time: '15h00–16h00', text: 'Ôn chương trình mầm non và Toán, làm quen chữ cái' },
+          { time: '16h00–17h30', text: 'Chơi tự do, ăn tối, trả trẻ' },
         ],
       },
       {
         key: '5-6',
         label: '5-6 tuổi',
-        badge: '5-6 tuổi',
+        badge: 'Lớp Dolphin (5-6 tuổi)',
         img: '/assets/images/activities-56.jpg',
         activities: [
           'Lễ giáo',
-          'Khám phá khoa học',
-          'Trải nghiệm âm nhạc - Múa',
-          'Làm quen Văn học, Chữ viết',
-          'Thể dục - Chăm sóc sức khoẻ',
-          'Tạo hình',
-          'Làm quen với Toán',
-          'Làm quen tiếng Anh',
-          'Erobic',
-          'Bơi',
-          'Trải nghiệm tự nhiên',
+          'STEAM',
+          'Học năng khiếu',
+          'Kỹ năng sống',
+          'Học Toán',
+          'Làm quen chữ cái',
+          'Hoạt động góc',
+          'Chơi ngoài trời',
         ],
         schedule: [
-          { time: '6h30-8h00', text: 'Đón trẻ hoạt động tự chọn' },
-          { time: '8h00-8h50', text: 'Hoạt động học' },
-          { time: '8h50-9h30', text: 'Hoạt động nhóm' },
-          { time: '9h30-10h10', text: 'Hoạt động ngoài trời' },
-          { time: '10h10-11h10', text: 'Vệ sinh - Ăn trưa' },
-          { time: '11h10-14h00', text: 'Ngủ trưa' },
-          { time: '14h00-14h40', text: 'Vệ sinh - Ăn bữa phụ' },
-          { time: '14h40-15h40', text: 'Chơi - Hoạt động tự chọn' },
-          { time: '15h40-17h00', text: 'Trẻ chuẩn bị ra về và trả trẻ' },
+          { time: '06h15–08h00', text: 'Đón trẻ, ăn sáng, thể dục sáng' },
+          { time: '08h00–08h15', text: 'Uống sữa' },
+          { time: '08h15–09h00', text: 'Hoạt động học sáng: STEAM, năng khiếu, kỹ năng' },
+          { time: '09h00–09h10', text: 'Chuyển tiếp, uống nước trái cây, vệ sinh' },
+          { time: '09h10–10h20', text: 'Học Toán, làm quen chữ cái' },
+          { time: '10h20–10h30', text: 'Vệ sinh, chuẩn bị ăn trưa' },
+          { time: '10h30–11h30', text: 'Ăn trưa, vệ sinh' },
+          { time: '11h30–14h00', text: 'Ngủ trưa' },
+          { time: '14h00–15h00', text: 'Vệ sinh, ăn xế, uống sữa' },
+          { time: '15h00–16h00', text: 'Học Toán, làm quen chữ cái' },
+          { time: '16h00–17h30', text: 'Chơi tự do, ăn tối, trả trẻ' },
         ],
       },
     ],
@@ -358,22 +363,23 @@ export default function ActivitiesAtSchool() {
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3, duration: 0.6 }}
+                  className='rounded-2xl bg-gradient-to-br from-[#F78F1E]/10 to-[#33B54A]/10 p-8 ring-1 ring-[#F78F1E]/15'
                 >
                   <motion.h3
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4 }}
-                    className='mb-8 flex items-center gap-3 text-2xl font-bold text-[#F78F1E]'
+                    className='mb-8 flex items-center gap-3 text-2xl font-bold text-[#F78F1E] min-h-[32px]'
                   >
                     <motion.span
-                      className='h-1.5 w-12 rounded-full bg-[#33B54A]'
+                      className='h-1.5 w-12 rounded-full bg-[#33B54A] shrink-0'
                       initial={{ width: 0 }}
                       animate={{ width: 48 }}
                       transition={{ delay: 0.5, duration: 0.5 }}
                     />
                     Hoạt động
                   </motion.h3>
-                  <ul className='space-y-3.5'>
+                  <ul className='space-y-2.5'>
                     {current.activities.map((it, i) => (
                       <motion.li
                         key={i}
@@ -406,17 +412,18 @@ export default function ActivitiesAtSchool() {
                     initial={{ opacity: 0, x: 10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4 }}
-                    className='mb-8 flex items-center gap-3 text-2xl font-bold text-[#33B54A]'
+                    className='mb-8 flex items-center gap-3 text-2xl font-bold text-[#33B54A] min-h-[32px]'
                   >
                     <motion.div
                       animate={{ rotate: [0, 360] }}
                       transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                      className='shrink-0'
                     >
                       <Clock className='h-6 w-6 text-[#F78F1E]' />
                     </motion.div>
                     Thời gian biểu
                   </motion.h3>
-                  <ul className='space-y-3.5'>
+                  <ul className='space-y-2.5'>
                     {current.schedule.map((it, i) => (
                       <motion.li
                         key={i}

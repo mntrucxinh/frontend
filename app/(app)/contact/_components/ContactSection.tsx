@@ -249,7 +249,7 @@ export default function ContactSection() {
         </div>
 
         <div className='container relative z-10 mx-auto px-4'>
-          <div className='mx-auto grid max-w-7xl grid-cols-1 gap-12 lg:grid-cols-2'>
+          <div className='mx-auto grid max-w-7xl grid-cols-1 gap-12 lg:grid-cols-2 lg:items-stretch'>
             {/* Contact Form */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -261,12 +261,12 @@ export default function ContactSection() {
                 damping: 20,
                 delay: 0.2,
               }}
-              className='relative overflow-hidden rounded-3xl bg-white p-8 shadow-2xl ring-1 ring-gray-200/50 md:p-10'
+              className='relative flex flex-col overflow-hidden rounded-3xl bg-white p-8 shadow-2xl ring-1 ring-gray-200/50 md:p-10'
             >
               {/* Decorative gradient */}
               <div className='absolute inset-0 bg-gradient-to-br from-[#33B54A]/5 via-transparent to-[#F78F1E]/5' />
 
-              <div className='relative z-10'>
+              <div className='relative z-10 flex flex-1 flex-col'>
                 <div className='mb-6 flex items-center gap-3'>
                   <div className='flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#33B54A] to-[#2EA043] shadow-lg'>
                     <MessageSquare className='size-6 text-white' />
@@ -302,7 +302,7 @@ export default function ContactSection() {
                     </p>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className='space-y-6'>
+                  <form onSubmit={handleSubmit} className='flex flex-1 flex-col space-y-6'>
                     <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
@@ -466,7 +466,7 @@ export default function ContactSection() {
                 damping: 20,
                 delay: 0.3,
               }}
-              className='space-y-8'
+              className='flex h-full flex-col space-y-8'
             >
               {/* Map */}
               <motion.div
@@ -498,7 +498,7 @@ export default function ContactSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
-                className='relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#33B54A] to-[#2EA043] p-8 shadow-xl'
+                className='relative flex flex-1 flex-col overflow-hidden rounded-3xl bg-gradient-to-br from-[#33B54A] to-[#2EA043] p-8 shadow-xl'
               >
                 <div className='absolute inset-0 rounded-3xl bg-gradient-to-br from-white/5 via-transparent to-black/10' />
                 <div className='relative z-10'>
@@ -510,7 +510,7 @@ export default function ContactSection() {
                   </div>
 
                   <h3 className='mb-4 text-2xl font-black text-white md:text-3xl'>Thông tin trường</h3>
-                  <ul className='space-y-4 text-white/95'>
+                  <ul className='space-y-3 text-white/95'>
                     <motion.li
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -519,8 +519,8 @@ export default function ContactSection() {
                       className='flex items-start gap-3'
                     >
                       <span className='mt-1.5 size-2 shrink-0 rounded-full bg-white' />
-                      <span className='text-justify leading-relaxed'>
-                        Trường Mầm non Trúc Xinh - Nơi ươm mầm những tài năng tương lai
+                      <span className='leading-relaxed'>
+                        Nhận trẻ từ 18 tháng đến 6 tuổi
                       </span>
                     </motion.li>
                     <motion.li
@@ -531,8 +531,8 @@ export default function ContactSection() {
                       className='flex items-start gap-3'
                     >
                       <span className='mt-1.5 size-2 shrink-0 rounded-full bg-white' />
-                      <span className='text-justify leading-relaxed'>
-                        Chương trình giáo dục quốc tế với phương pháp hiện đại
+                      <span className='leading-relaxed'>
+                        Giáo viên có chứng chỉ quốc tế
                       </span>
                     </motion.li>
                     <motion.li
@@ -543,8 +543,8 @@ export default function ContactSection() {
                       className='flex items-start gap-3'
                     >
                       <span className='mt-1.5 size-2 shrink-0 rounded-full bg-white' />
-                      <span className='text-justify leading-relaxed'>
-                        Đội ngũ giáo viên chuyên nghiệp, tận tâm với trẻ
+                      <span className='leading-relaxed'>
+                        Cơ sở vật chất đạt chuẩn
                       </span>
                     </motion.li>
                     <motion.li
@@ -555,8 +555,44 @@ export default function ContactSection() {
                       className='flex items-start gap-3'
                     >
                       <span className='mt-1.5 size-2 shrink-0 rounded-full bg-white' />
-                      <span className='text-justify leading-relaxed'>
-                        Môi trường học tập an toàn, thân thiện và hiện đại
+                      <span className='leading-relaxed'>
+                        Hoạt động: bơi lội, aerobic, nghệ thuật
+                      </span>
+                    </motion.li>
+                    <motion.li
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.9 }}
+                      className='flex items-start gap-3'
+                    >
+                      <span className='mt-1.5 size-2 shrink-0 rounded-full bg-white' />
+                      <span className='leading-relaxed'>
+                        Gần 20 năm kinh nghiệm giáo dục
+                      </span>
+                    </motion.li>
+                    <motion.li
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 1.0 }}
+                      className='flex items-start gap-3'
+                    >
+                      <span className='mt-1.5 size-2 shrink-0 rounded-full bg-white' />
+                      <span className='leading-relaxed'>
+                        Môi trường học tập an toàn, thân thiện
+                      </span>
+                    </motion.li>
+                    <motion.li
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 1.1 }}
+                      className='flex items-start gap-3'
+                    >
+                      <span className='mt-1.5 size-2 shrink-0 rounded-full bg-white' />
+                      <span className='leading-relaxed'>
+                        Chương trình học phù hợp từng độ tuổi
                       </span>
                     </motion.li>
                   </ul>
