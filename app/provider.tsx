@@ -16,7 +16,8 @@ export default function Providers({ children }: Props) {
   const needsSession =
     pathname?.startsWith("/admin") ||
     pathname === "/login" ||
-    pathname === "/register"
+    pathname === "/register" ||
+    pathname === "/auth-loading"
 
   const [queryClient] = useState(
     () =>

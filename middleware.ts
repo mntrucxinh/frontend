@@ -10,8 +10,14 @@ export function middleware(request: NextRequest) {
 
   const isValidAccessToken = accessToken && !isTokenExpired(accessToken)
 
+  if (pathname === APP_ROUTES.AUTH.LOGIN && isValidAccessToken) {
+    return NextResponse.redirect(
+      new URL(APP_ROUTES.RESOURCES.NEWS_MANAGEMENT, request.nextUrl.origin)
+    )
+  }
+
   if ([...RESOURCES_ROUTES].includes(pathname) && !isValidAccessToken) {
-    return NextResponse.redirect(new URL("/", request.nextUrl.origin))
+    return NextResponse.redirect(new URL(APP_ROUTES.AUTH.LOGIN, request.nextUrl.origin))
   }
 
   return NextResponse.next()
