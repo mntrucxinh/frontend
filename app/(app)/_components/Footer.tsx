@@ -12,9 +12,7 @@ const Footer = () => {
 
   const phoneHref = CONTACT_INFO.phone.replace(/\D+/g, '')
 
-  // Google Maps embed (không cần API key)
   const mapAddress = '614 Tôn Đức Thắng, Liên Chiểu, Đà Nẵng, Việt Nam'
-  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapAddress)}&output=embed`
 
   return (
     <footer className='relative bg-[#33B54A] text-white'>
@@ -166,18 +164,7 @@ const Footer = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className='flex flex-col gap-6 md:pl-6'
           >
-            <h3 className='mb-1 text-2xl font-black text-white'>Bản đồ liên hệ</h3>
-
-            <div className='overflow-hidden rounded-2xl shadow-2xl ring-2 ring-white/30'>
-              <iframe
-                title='Google Map - Trúc Xinh Preschool'
-                src={mapSrc}
-                loading='lazy'
-                className='h-64 w-full border-0'
-                referrerPolicy='no-referrer-when-downgrade'
-                allowFullScreen
-              />
-            </div>
+            <h3 className='mb-1 text-2xl font-black text-white'>Mạng xã hội</h3>
 
             <div className='flex flex-wrap items-center gap-3'>
               <motion.a
