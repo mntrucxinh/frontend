@@ -1,17 +1,19 @@
 import type { Metadata } from 'next'
-
-import NewsManagementTable from './_components/news-management-table'
-import NewsManagementTabs from './_components/news-management-tabs'
+import dynamic from 'next/dynamic'
 
 export const metadata: Metadata = {
   title: 'Quản lý bài đăng',
 }
 
+const NewsManagementPage = dynamic (()=> import('./_components/NewsManagement'),   {
+  ssr: false,
+  loading: () => <div>Đang tải dữ liệu...</div>
+})
+
 export default function PostManagementsPage() {
   return (
-    <main>
-      <NewsManagementTabs />
-      <NewsManagementTable />
-    </main>
+    <section>
+      <NewsManagementPage />
+    </section>
   )
 }
