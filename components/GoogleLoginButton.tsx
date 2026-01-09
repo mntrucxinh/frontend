@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button"
 const GoogleLoginButton = () => {
   const login = () => {
     // Dùng NextAuth redirect tới Google
-    // callbackUrl sẽ được NextAuth sử dụng, nhưng GoogleBackendBridge sẽ override sau khi sync token
-    signIn("google", { callbackUrl: "/admin/news-management" })
+    // Giữ callbackUrl ở trang load để đợi BE trả token rồi mới redirect sang admin
+    signIn("google", { callbackUrl: "/auth-loading" })
   }
 
   return (

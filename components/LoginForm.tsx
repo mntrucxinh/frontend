@@ -6,7 +6,7 @@ import GoogleBackendBridge from "@/components/GoogleBackendBridge"
 export default function LoginForm() {
   return (
     <div className="flex w-full flex-col items-center gap-4 text-center">
-      <GoogleBackendBridge />
+      <GoogleBackendBridge showStatus />
       <h2 className="text-2xl font-bold text-gray-900">Đăng nhập quản trị</h2>
       <p className="text-sm text-green-700">
         Sử dụng tài khoản google{" "}
