@@ -50,8 +50,8 @@ const MainSidebar = () => {
     const key = `${keyPrefix}${item.label}-${item.path ?? 'group'}-${index}`
 
     const isActive = item.path
-      ? pathName === item.path
-      : !!item.items?.some((sub) => sub.path === pathName)
+      ? pathName === item.path || pathName?.startsWith(item.path + '/')
+      : !!item.items?.some((sub) => sub.path === pathName || pathName?.startsWith(sub.path + '/'))
 
     // Item có path => Link
     if (item.path) {

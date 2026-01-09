@@ -54,11 +54,11 @@ export default function CustomTabs({
         onSelectionChange={onChange}
         variant='light'
         classNames={{
-          base: 'w-fit',
-          tabList: 'relative gap-6 bg-transparent p-0 rounded-none',
+          base: 'w-full',
+          tabList: 'gap-6 bg-transparent border-b-2 p-0 b rounded-none',
           cursor: 'hidden',
           tab: [
-            'group relative h-11 px-0 rounded-none transition-colors',
+            'group h-11 px-0 rounded-none transition-colors',
             'text-foreground/60 hover:text-foreground/80',
             'data-[selected=true]:text-primary',
             'data-[selected=true]:border-b-2 data-[selected=true]:border-primary',
