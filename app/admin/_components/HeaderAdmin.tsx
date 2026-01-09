@@ -2,6 +2,8 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { signOut } from 'next-auth/react'
 import {
   Avatar,
   Button,
@@ -12,9 +14,26 @@ import {
   Input,
 } from '@heroui/react'
 import { Bell, ChevronDown, Search } from 'lucide-react'
+import toast from 'react-hot-toast'
 import FacebookHeaderButton from './FacebookHeaderButton'
+import { useMutationLogout } from '@/hook/auth/use-logout'
 
 export default function HeaderAdmin() {
+  const router = useRouter()
+  const { mutateAsync: logout, isPending } = useMutationLogout()
+
+  const handleLogout = async () => {
+    try {
+      await logout()
+    } catch (error: any) {
+      const message = error?.response?.data?.message || 'Đăng xuất thất bại'
+      toast.error(message)
+    } finally {
+      await signOut({ redirect: false })
+      router.replace('/login')
+    }
+  }
+
   return (
     <header className='flex h-14 w-full items-center justify-between border-b border-black/10 bg-white/95 px-4 shadow-sm backdrop-blur'>
       <Link href='' className='flex items-center gap-2'>
@@ -47,7 +66,9 @@ export default function HeaderAdmin() {
           </DropdownTrigger>
 
           <DropdownMenu>
-            <DropdownItem key='logout'>Logout</DropdownItem>
+            <DropdownItem key='logout' onPress={handleLogout} isDisabled={isPending}>
+              {isPending ? 'Đang đăng xuất...' : 'Logout'}
+            </DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </div>

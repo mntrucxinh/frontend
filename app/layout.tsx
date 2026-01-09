@@ -9,6 +9,7 @@ import { fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/theme-provider'
 import Providers from '@/app/provider'
+import PushSubscriptionManager from '@/components/PushSubscriptionManager'
 
 export const metadata: Metadata = {
   title: {
@@ -16,10 +17,10 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  manifest: '/manifest.json',
   icons: {
     icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
+    shortcut: '/favicon.ico',
   },
 }
 
@@ -27,7 +28,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  themeColor: '#ffffff',
+  themeColor: '#33B54A',
 }
 
 interface RootLayoutProps {
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className='relative flex min-h-screen flex-col'>
               <div className='flex-1'>
                 <Providers>
+                  <PushSubscriptionManager />
                   <div className=''>{children}</div>
                 </Providers>
               </div>

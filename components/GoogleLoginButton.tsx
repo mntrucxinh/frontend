@@ -10,7 +10,7 @@ const GoogleLoginButton = () => {
   const login = () => {
     // Dùng NextAuth redirect tới Google
     // callbackUrl sẽ được NextAuth sử dụng, nhưng GoogleBackendBridge sẽ override sau khi sync token
-    signIn("google", { callbackUrl: "/news-management" })
+    signIn("google", { callbackUrl: "/admin/news-management" })
   }
 
   return (

@@ -10,8 +10,8 @@ export const APP_ROUTES = {
     INTRODUCE: '/introduce',
   },
   RESOURCES: {
-    NEWS_MANAGEMENT: `/${EResources[EResources['news-management']]}`,
-    ANNOUNCEMENTS_MANAGEMENT: `/${EResources[EResources['announcements-management']]}`,
+    NEWS_MANAGEMENT: `/admin/${EResources[EResources['news-management']]}`,
+    ANNOUNCEMENTS_MANAGEMENT: `/admin/${EResources[EResources['announcements-management']]}`,
   },
 } as const
 
