@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: 'Quản lý bài đăng',
 }
 
-const NewsManagementPage = dynamic (()=> import('./_components/NewsManagement'),   {
+const NewsManagementPage = dynamic(() => import('./_components/NewsManagement'), {
   ssr: false,
-  loading: () => <div>Đang tải dữ liệu...</div>
+  loading: () => <div>Đang tải dữ liệu...</div>,
 })
 
-export default function PostManagementsPage() {
+export default function NewsManagementsPage() {
   return (
     <section>
       <NewsManagementPage />

@@ -1,11 +1,15 @@
 'use client'
 
+import { useState } from 'react'
 import { Archive, FileText, Globe, LayoutGrid } from 'lucide-react'
 
 import CustomTabs from '../../_components/CustomTabs'
 import type { CustomTabItem } from '../../_components/CustomTabs'
+import ModalCreateEditNews from './ModalCreateEditNews'
 
 export default function NewsManagementTabs() {
+  const [isCreateOpen, setIsCreateOpen] = useState(false)
+
   const POST_TABS: CustomTabItem[] = [
     { key: 'all', label: 'Tất cả', icon: LayoutGrid },
     { key: 'draft', label: 'Tin nháp', icon: FileText },
@@ -13,5 +17,20 @@ export default function NewsManagementTabs() {
     { key: 'archived', label: 'Lưu trữ', icon: Archive },
   ]
 
-  return <CustomTabs tabs={POST_TABS} defaultKey='all' queryKey='tab' />
+  const BUTTON_PROPS = {
+    label: 'Tạo tin tức',
+    onPress: () => setIsCreateOpen(true),
+  }
+
+  return (
+    <>
+      <CustomTabs tabs={POST_TABS} defaultKey='all' queryKey='tab' button={BUTTON_PROPS} />
+
+      <ModalCreateEditNews
+        isOpen={isCreateOpen}
+        onClose={() => setIsCreateOpen(false)}
+        isCreateModal
+      />
+    </>
+  )
 }

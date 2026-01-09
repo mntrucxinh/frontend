@@ -13,8 +13,6 @@ const columns = [
   { uid: 'status', name: 'Trạng thái', sortable: true },
   { uid: 'excerpt', name: 'Mô tả ngắn', sortable: true },
   { uid: 'files', name: 'Files', sortable: true },
-  { uid: 'meta_title', name: 'SEO title', sortable: true },
-  { uid: 'meta_description', name: 'SEO desc', sortable: true },
 ]
 
 const statusChip = (status: NewsItem['status']) => {
@@ -53,18 +51,6 @@ export default function NewsManagementTable() {
       case 'files':
         return <span className='text-default-500'>{item.files?.length ?? 0}</span>
 
-      case 'meta_title':
-        return (
-          <div className='max-w-[280px] truncate text-default-500'>{item.meta_title ?? '—'}</div>
-        )
-
-      case 'meta_description':
-        return (
-          <div className='max-w-[360px] truncate text-default-500'>
-            {item.meta_description ?? '—'}
-          </div>
-        )
-
       default:
         return '—'
     }
@@ -74,9 +60,11 @@ export default function NewsManagementTable() {
     <section className='mt-10'>
       <CustomTable<NewsItem>
         tableClassNames={{
-          // thead: 'h-12',
           tr: 'h-14',
-          th: 'text-primary text-md bg-white',
+          th: [
+            'text-primary text-md bg-white',
+            'last:[border-start-end-radius:0px]',
+          ].join(' '),
           wrapper: 'h-[520px] p-0',
         }}
         selectionMode='none'
