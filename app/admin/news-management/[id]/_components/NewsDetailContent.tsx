@@ -7,15 +7,15 @@ import { FileText, Globe, ImageIcon, Info } from 'lucide-react'
 
 type ContentAsset = {
   position: number
-  caption?: string
+  caption?: string | null
   asset: {
     id: number
     public_id: string
     url: string
     mime_type: string
-    byte_size: number
-    width: number
-    height: number
+    byte_size?: number | null
+    width?: number | null
+    height?: number | null
   }
 }
 
@@ -39,7 +39,17 @@ const STATUS_MAP = {
   archived: { label: 'Lưu trữ', color: 'default' },
 } as const
 
-export default function NewsDetailContent({ news }: { news: NewsDetailContentProps }) {
+export default function NewsDetailContent({
+  news,
+  onEdit,
+  onDelete,
+  isDeleting,
+}: {
+  news: NewsDetailContentProps
+  onEdit?: () => void
+  onDelete?: () => void
+  isDeleting?: boolean
+}) {
   const status = STATUS_MAP[news.status]
   const assets = (news.content_assets ?? []).slice().sort((a, b) => a.position - b.position)
   const showMeta = Boolean(news.meta_title) || Boolean(news.meta_description)
@@ -50,8 +60,12 @@ export default function NewsDetailContent({ news }: { news: NewsDetailContentPro
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <h1 className='text-2xl font-semibold'>{news.title}</h1>
         <div className='flex gap-2'>
-          <Button color='primary'>Sửa bài</Button>
-          <Button color='warning'>Xóa bài</Button>
+          <Button color='primary' onPress={onEdit} isDisabled={!onEdit}>
+            Sua bai
+          </Button>
+          <Button color='warning' onPress={onDelete} isDisabled={!onDelete} isLoading={isDeleting}>
+            Xoa bai
+          </Button>
         </div>
       </div>
 

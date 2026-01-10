@@ -15,10 +15,15 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Upload, X } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { useQueryClient } from '@tanstack/react-query'
 
 import CustomInput from '../../../../components/CustomInput'
 import CustomSelect from '../../../../components/CustomSelect'
 import CustomTextArea from '../../../../components/CustomTextArea'
+import {
+  useCreateAdminNews,
+  useUpdateAdminNews,
+} from '@/hook/admin-news/use-admin-news-mutation'
 
 // ========== ZOD SCHEMA ==========
 const CreateEditNewsSchema = z.object({
@@ -39,6 +44,7 @@ interface ModalCreateEditNewsProps {
   onClose: () => void
   isCreateModal?: boolean
   newsEdit?: {
+    id?: number | string
     id_news?: string
     title: string
     excerpt?: string | null
@@ -89,7 +95,13 @@ const ModalCreateEditNews = ({
     resolver: zodResolver(CreateEditNewsSchema),
   })
 
+  const queryClient = useQueryClient()
+  const { mutateAsync: createNews, isPending: isCreating } = useCreateAdminNews()
+  const { mutateAsync: updateNews, isPending: isUpdating } = useUpdateAdminNews()
+  const isSubmitting = isCreating || isUpdating
+
   const watchStatus = watch('status')
+  const isCreateMode = isCreateModal ?? !newsEdit
 
   // ✅ nếu không published thì tự tắt publish_to_facebook
   useEffect(() => {
@@ -122,23 +134,44 @@ const ModalCreateEditNews = ({
     return () => urls.forEach((u) => URL.revokeObjectURL(u))
   }, [newFiles])
 
+  const getErrorMessage = (error: unknown) => {
+    const err = error as any
+    const detail = err?.response?.data?.detail
+    if (typeof detail === 'string') return detail
+    if (Array.isArray(detail) && detail[0]?.msg) return detail[0].msg
+    if (typeof detail?.message === 'string') return detail.message
+    return err?.response?.data?.message || err?.message || 'Co loi xay ra'
+  }
+
   // Submit handler
-  const handleSubmitNews = (data: TCreateEditNews) => {
+  const handleSubmitNews = async (data: TCreateEditNews) => {
     const { files: _, ...rest } = data
 
-    console.log('Submit:', rest)
-    console.log('Files:', newFiles)
+    try {
+      if (isCreateMode) {
+        await createNews({ payload: rest, files: newFiles })
+      } else {
+        const newsId = newsEdit?.id_news ?? newsEdit?.id
+        if (!newsId) {
+          throw new Error('Missing news id')
+        }
+        await updateNews({ id: newsId, payload: rest, files: newFiles })
+      }
 
-    addToast({
-      color: 'success',
-      title: 'Thành công',
-      description: isCreateModal
-        ? 'Tạo tin tức thành công (demo)'
-        : 'Cập nhật tin tức thành công (demo)',
-    })
-
-    reset()
-    onClose()
+      addToast({
+        color: 'success',
+        title: 'Thành công',
+        description: isCreateMode ? 'Tạo tin tức thành công' : 'Cập nhật tin tức thành công',
+      })
+      queryClient.invalidateQueries({ queryKey: ['admin-news'] })
+      handleClose()
+    } catch (error) {
+      addToast({
+        color: 'danger',
+        title: 'Thất bại',
+        description: getErrorMessage(error),
+      })
+    }
   }
 
   useEffect(() => {
@@ -159,7 +192,7 @@ const ModalCreateEditNews = ({
       <ModalContent>
         {() => (
           <>
-            <ModalHeader>{isCreateModal ? 'Tạo tin tức mới' : 'Chỉnh sửa tin tức'}</ModalHeader>
+            <ModalHeader>{isCreateMode ? 'Tạo tin tức mới' : 'Chỉnh sửa tin tức'}</ModalHeader>
 
             <form onSubmit={handleSubmit(handleSubmitNews)}>
               <ModalBody>
@@ -325,11 +358,17 @@ const ModalCreateEditNews = ({
               </ModalBody>
 
               <ModalFooter>
-                <Button color='danger' variant='light' type='button' onPress={handleClose}>
+                <Button
+                  color='danger'
+                  variant='light'
+                  type='button'
+                  onPress={handleClose}
+                  isDisabled={isSubmitting}
+                >
                   Hủy
                 </Button>
-                <Button color='primary' type='submit'>
-                  {isCreateModal ? 'Tạo tin' : 'Lưu thay đổi'}
+                <Button color='primary' type='submit' isLoading={isSubmitting}>
+                  {isCreateMode ? 'Tạo tin' : 'Lưu thay đổi'}
                 </Button>
               </ModalFooter>
             </form>
