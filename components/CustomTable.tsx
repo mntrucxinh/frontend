@@ -220,7 +220,7 @@ function CustomTable<T extends { id: string | number }>({
 
           <label
             htmlFor='rowsPerPage'
-            className='flex items-center gap-5 text-default-400 text-small'
+            className='flex items-center gap-5 text-small text-default-400'
           >
             <span>Số hàng mỗi trang:</span>
 
@@ -254,7 +254,7 @@ function CustomTable<T extends { id: string | number }>({
 
     return (
       <div className='flex items-center justify-between p-2'>
-        <span className='text-default-400 text-small'>
+        <span className='text-small text-default-400'>
           Tổng cộng {paginationResponse?.total_items} mục
         </span>
         <Pagination

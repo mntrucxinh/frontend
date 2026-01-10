@@ -72,9 +72,14 @@ const CustomSelect = <T extends string | number = string>({
           ))}
       </BaseCustomSelect>
 
-      {validationErrorMessage && (
-        <p className='mt-1 text-xs font-normal text-danger'>{String(validationErrorMessage)}</p>
-      )}
+      <p
+        className={[
+          'mt-1 text-xs font-normal',
+          validationErrorMessage ? 'text-danger' : 'select-none text-transparent',
+        ].join(' ')}
+      >
+        {validationErrorMessage ? String(validationErrorMessage) : '.'}
+      </p>
     </div>
   )
 }

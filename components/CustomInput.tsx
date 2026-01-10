@@ -83,5 +83,5 @@ const CustomInput = forwardRef<React.ElementRef<typeof Input>, CustomInputProps>
     )
   }
 )
-
+CustomInput.displayName = 'CustomInput'
 export default CustomInput

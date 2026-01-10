@@ -25,7 +25,7 @@ const CreateEditNewsSchema = z.object({
   title: z.string().min(3, 'Tiêu đề ít nhất 3 ký tự'),
   excerpt: z.string().optional(),
   content_html: z.string().min(10, 'Nội dung HTML ít nhất 10 ký tự'),
-  status: z.enum(['draft', 'published', 'archived']),
+  status: z.enum(['draft', 'published', 'archived'], 'Vui lòng chọn trạng thái'),
   publish_to_facebook: z.boolean().optional(),
   meta_title: z.string().optional(),
   meta_description: z.string().optional(),
@@ -164,10 +164,10 @@ const ModalCreateEditNews = ({
             <form onSubmit={handleSubmit(handleSubmitNews)}>
               <ModalBody>
                 {/* ✅ set height cố định để 2 cột scroll riêng */}
-                <div className='grid grid-cols-12 gap-6'>
+                <div className='grid grid-cols-2 gap-6'>
                   {/* LEFT: FORM FIELDS (scroll) */}
-                  <div className='col-span-12 lg:col-span-7'>
-                    <div className='flex max-h-[60vh] flex-col gap-5 overflow-y-auto pr-2'>
+                  <div className='col-span-2 lg:col-span-1'>
+                    <div className='flex max-h-[60vh] flex-col gap-5 overflow-y-auto p-2'>
                       <CustomInput
                         label='Tiêu đề bài viết'
                         placeholder='Nhập tiêu đề'
@@ -189,13 +189,14 @@ const ModalCreateEditNews = ({
                       />
 
                       {/* Row: status + publish fb */}
-                      <div className='grid grid-cols-2 items-end gap-4'>
+                      <div className='grid grid-cols-2 gap-4'>
                         <Controller
                           name='status'
                           control={control}
                           render={({ field }) => (
                             <CustomSelect
                               label='Trạng thái'
+                              placeholder='Chọn trạng thái'
                               selectedKeys={[field.value]}
                               onChange={(e) => {
                                 const v = e.target.value as 'draft' | 'published' | 'archived'
@@ -243,7 +244,7 @@ const ModalCreateEditNews = ({
                   </div>
 
                   {/* RIGHT: FILES */}
-                  <div className='col-span-12 space-y-5 lg:col-span-5'>
+                  <div className='col-span-2 space-y-5 lg:col-span-1'>
                     <p className='text-ct-blue text-lg font-semibold'>File đính kèm (ảnh/video)</p>
 
                     <Controller

@@ -64,5 +64,5 @@ const CustomTextArea = forwardRef<React.ElementRef<typeof Textarea>, CustomTextA
     )
   }
 )
-
+CustomTextArea.displayName = 'CustomTextArea'
 export default CustomTextArea
