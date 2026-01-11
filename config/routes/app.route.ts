@@ -12,6 +12,7 @@ export const APP_ROUTES = {
   RESOURCES: {
     NEWS_MANAGEMENT: `/admin/${EResources[EResources['news-management']]}`,
     ANNOUNCEMENTS_MANAGEMENT: `/admin/${EResources[EResources['announcements-management']]}`,
+    ALBUM_MANAGEMENT: `/admin/${EResources[EResources['album-management']]}`,
     CONTACT_MESSAGES: `/admin/${EResources[EResources['contact-messages']]}`,
   },
 } as const

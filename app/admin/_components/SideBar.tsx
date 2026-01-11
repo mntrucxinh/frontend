@@ -147,7 +147,7 @@ const MainSidebar = () => {
   return (
     <div
       className={cn(
-        'relative flex h-full min-h-0 w-[200px] flex-col border-r px-2 pt-2 transition-all duration-300',
+        'relative flex h-full min-h-0 w-[220px] flex-col border-r px-2 pt-2 transition-all duration-300',
         'border-default-200/30 bg-gradient-to-b from-primary/95 via-primary to-primary/90',
         'dark:border-default-100/20',
         !isExpanded && 'w-14'
