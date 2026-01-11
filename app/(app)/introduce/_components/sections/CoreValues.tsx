@@ -62,7 +62,7 @@ export default function CoreValues() {
     >
       {/* Top wave - above background (inverted bottom wave) */}
       <div className='pointer-events-none absolute inset-x-0 -top-12 z-30 h-32 w-full sm:-top-14 sm:h-36 md:-top-20 md:h-40'>
-        <svg viewBox='0 0 1440 160' className='absolute top-0 h-full w-full' preserveAspectRatio='none'>
+        <svg viewBox='0 0 1440 160' className='absolute top-0 size-full' preserveAspectRatio='none'>
           <motion.path
             fill='#ffffff'
             d='M0,120 C90,80 180,80 270,120 C360,160 450,160 540,120 C630,80 720,80 810,120 C900,160 990,160 1080,120 C1170,80 1260,80 1350,120 C1400,140 1420,150 1440,160 L1440,0 L0,0 L0,120 Z'
@@ -90,7 +90,7 @@ export default function CoreValues() {
 
       {/* Bottom wave */}
       <div className='pointer-events-none absolute inset-x-0 -bottom-12 h-32 w-full sm:-bottom-14 sm:h-36 md:-bottom-20 md:h-40'>
-        <svg viewBox='0 0 1440 160' className='absolute bottom-0 h-full w-full' preserveAspectRatio='none'>
+        <svg viewBox='0 0 1440 160' className='absolute bottom-0 size-full' preserveAspectRatio='none'>
           <motion.path
             fill='#ffffff'
             d='M0,40 C90,80 180,80 270,40 C360,0 450,0 540,40 C630,80 720,80 810,40 C900,0 990,0 1080,40 C1170,80 1260,80 1350,40 C1400,20 1420,10 1440,0 L1440,160 L0,160 L0,40 Z'

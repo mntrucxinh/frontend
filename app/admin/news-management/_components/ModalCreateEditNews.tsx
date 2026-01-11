@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import Image from 'next/image'
+import { useCreateAdminNews, useUpdateAdminNews } from '@/hook/admin-news/use-admin-news-mutation'
 import {
   addToast,
   Button,
@@ -12,18 +14,14 @@ import {
   ModalHeader,
 } from '@heroui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useQueryClient } from '@tanstack/react-query'
 import { Upload, X } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { useQueryClient } from '@tanstack/react-query'
 
 import CustomInput from '../../../../components/CustomInput'
 import CustomSelect from '../../../../components/CustomSelect'
 import CustomTextArea from '../../../../components/CustomTextArea'
-import {
-  useCreateAdminNews,
-  useUpdateAdminNews,
-} from '@/hook/admin-news/use-admin-news-mutation'
 
 // ========== ZOD SCHEMA ==========
 const CreateEditNewsSchema = z.object({
@@ -329,15 +327,16 @@ const ModalCreateEditNews = ({
                             {file.type.startsWith('video') ? (
                               <video
                                 src={previewUrls[index]}
-                                className='h-full w-full object-cover'
+                                className='size-full object-cover'
                                 controls
                               />
                             ) : (
-                              <img
+                              <Image
                                 src={previewUrls[index]}
                                 alt='preview'
-                                className='h-full w-full object-cover'
+                                className='size-full object-cover'
                                 loading='lazy'
+                                fill
                               />
                             )}
 
@@ -346,7 +345,7 @@ const ModalCreateEditNews = ({
                               isIconOnly
                               color='danger'
                               radius='full'
-                              className='absolute right-2 top-2 h-6 w-6 min-w-0'
+                              className='absolute right-2 top-2 size-6 min-w-0'
                             >
                               <X className='size-4 text-white' />
                             </Button>

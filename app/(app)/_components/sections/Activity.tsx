@@ -152,7 +152,7 @@ export default function FeaturedActivities() {
         {/* Subtle decorative background */}
         <div className='pointer-events-none absolute inset-0'>
           <motion.div
-            className='absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-[#33B54A]/6 blur-3xl'
+            className='absolute left-0 top-0 size-[500px] rounded-full bg-[#33B54A]/6 blur-3xl'
             animate={{
               x: [0, 50, 0],
               y: [0, -30, 0],
@@ -165,7 +165,7 @@ export default function FeaturedActivities() {
             }}
           />
           <motion.div
-            className='absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-[#F78F1E]/6 blur-3xl'
+            className='absolute right-0 bottom-0 size-[500px] rounded-full bg-[#F78F1E]/6 blur-3xl'
             animate={{
               x: [0, -50, 0],
               y: [0, 30, 0],
@@ -241,7 +241,7 @@ export default function FeaturedActivities() {
                     <motion.div
                       whileHover={{ scale: 1.08 }}
                       transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-                      className='relative h-full w-full'
+                      className='relative size-full'
                     >
                       <Image
                         width={400}

@@ -26,7 +26,7 @@ const ConfirmModal: React.FC<IConfirmModalProps> = ({
 }) => {
   return (
     <Modal
-      classNames={{ base: 'bg-ct-white' }}
+      classNames={{ base: 'bg-white' }}
       placement='center'
       size='sm'
       isOpen={isOpen}

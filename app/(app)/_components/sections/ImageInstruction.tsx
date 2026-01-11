@@ -55,7 +55,7 @@ export default function ImageInstruction() {
       <div className='pointer-events-none absolute inset-0'>
         {/* Floating orbs */}
         <motion.div
-          className='absolute right-[10%] top-[20%] hidden h-96 w-96 rounded-full bg-gradient-to-br from-[#33B54A]/20 to-[#33B54A]/5 blur-3xl md:block'
+          className='absolute right-[10%] top-[20%] hidden size-96 rounded-full bg-gradient-to-br from-[#33B54A]/20 to-[#33B54A]/5 blur-3xl md:block'
           animate={{
             x: [0, 30, 0],
             y: [0, -20, 0],
@@ -68,7 +68,7 @@ export default function ImageInstruction() {
           }}
         />
         <motion.div
-          className='absolute bottom-[15%] left-[10%] hidden h-96 w-96 rounded-full bg-gradient-to-br from-[#F78F1E]/20 to-[#F78F1E]/5 blur-3xl md:block'
+          className='absolute bottom-[15%] left-[10%] hidden size-96 rounded-full bg-gradient-to-br from-[#F78F1E]/20 to-[#F78F1E]/5 blur-3xl md:block'
           animate={{
             x: [0, -30, 0],
             y: [0, 20, 0],
@@ -81,7 +81,7 @@ export default function ImageInstruction() {
           }}
         />
         <motion.div
-          className='absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-[#33B54A]/10 to-[#F78F1E]/10 blur-3xl sm:h-[500px] sm:w-[500px]'
+          className='absolute left-1/2 top-1/2 size-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-[#33B54A]/10 to-[#F78F1E]/10 blur-3xl sm:size-[500px]'
           animate={{
             scale: [1, 1.15, 1],
             opacity: [0.3, 0.5, 0.3],
@@ -97,7 +97,7 @@ export default function ImageInstruction() {
         {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className='absolute h-2 w-2 rounded-full bg-[#33B54A]/30'
+            className='absolute size-2 rounded-full bg-[#33B54A]/30'
             style={{
               left: `${20 + i * 15}%`,
               top: `${30 + (i % 3) * 20}%`,
@@ -194,7 +194,7 @@ export default function ImageInstruction() {
                 >
                   <span className='relative z-10 flex items-center gap-2 whitespace-nowrap'>
                     Tìm hiểu về trường
-                    <ChevronRight className='h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:translate-x-1' />
+                    <ChevronRight className='size-5 sm:size-6 transition-transform group-hover:translate-x-1' />
                   </span>
                 </button>
               </motion.div>
@@ -206,7 +206,7 @@ export default function ImageInstruction() {
                 >
                   <span className='relative z-10 flex items-center gap-2 whitespace-nowrap'>
                     Thông báo tuyển sinh
-                    <ChevronRight className='h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:translate-x-1' />
+                    <ChevronRight className='size-5 sm:size-6 transition-transform group-hover:translate-x-1' />
                   </span>
                 </button>
               </motion.div>
@@ -277,7 +277,7 @@ export default function ImageInstruction() {
                     className={`rounded-full transition-all duration-300 ${
                       i === index
                         ? 'h-3 w-10 bg-white shadow-xl'
-                        : 'h-3 w-3 bg-white/60 hover:bg-white/80'
+                        : 'size-3 bg-white/60 hover:bg-white/80'
                     }`}
                     aria-label={`Go to slide ${i + 1}`}
                   />
@@ -288,7 +288,7 @@ export default function ImageInstruction() {
 
             {/* Multiple decorative layers with animations */}
             <motion.div
-              className='absolute -right-6 -top-6 -z-10 h-full w-full rounded-3xl bg-gradient-to-br from-[#33B54A]/15 to-[#F78F1E]/15 blur-3xl'
+              className='absolute -right-6 -top-6 -z-10 size-full rounded-3xl bg-gradient-to-br from-[#33B54A]/15 to-[#F78F1E]/15 blur-3xl'
               animate={{
                 scale: [1, 1.05, 1],
                 opacity: [0.6, 0.8, 0.6],
@@ -300,7 +300,7 @@ export default function ImageInstruction() {
               }}
             />
             <motion.div
-              className='absolute -right-3 -top-3 -z-10 h-full w-full rounded-3xl bg-gradient-to-br from-[#33B54A]/10 to-[#F78F1E]/10 blur-2xl'
+              className='absolute -right-3 -top-3 -z-10 size-full rounded-3xl bg-gradient-to-br from-[#33B54A]/10 to-[#F78F1E]/10 blur-2xl'
               animate={{
                 scale: [1, 1.08, 1],
                 opacity: [0.4, 0.6, 0.4],
@@ -317,10 +317,10 @@ export default function ImageInstruction() {
       </div>
 
       {/* Animated bottom wave */}
-      <div className='absolute bottom-0 left-0 right-0 h-56 overflow-hidden'>
+      <div className='absolute bottom-0 inset-x-0 h-56 overflow-hidden'>
         <svg
           viewBox='0 0 1440 160'
-          className='h-full w-full'
+          className='size-full'
           preserveAspectRatio='none'
           fill='none'
         >

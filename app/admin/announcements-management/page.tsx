@@ -1,10 +1,17 @@
 import type { Metadata } from 'next'
-
-import AnnouncementsManagementTable from './_components/announcements-management-table'
+import dynamic from 'next/dynamic'
 
 export const metadata: Metadata = {
   title: 'Quan ly thong bao',
 }
+
+const AnnouncementsManagementTable = dynamic(
+  () => import('./_components/announcements-management-table'),
+  {
+    ssr: false,
+    loading: () => <div>Đang tải dữ liệu...</div>,
+  }
+)
 
 export default function AnnouncementsManagementPage() {
   return (

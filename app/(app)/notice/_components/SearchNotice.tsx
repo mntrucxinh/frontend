@@ -92,7 +92,7 @@ export default function SearchNotice() {
         {/* Search Bar */}
         <div className='relative w-full md:max-w-md'>
           <div className='absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none'>
-            <Search className='w-5 h-5 text-gray-400' />
+            <Search className='size-5 text-gray-400' />
           </div>
           <input
             type='text'
@@ -141,7 +141,7 @@ export default function SearchNotice() {
                       />
                     ) : (
                       <div className='flex items-center justify-center h-full bg-gradient-to-br from-[#33B54A]/10 to-[#F78F1E]/10'>
-                        <Bell className='w-12 h-12 text-gray-300' />
+                        <Bell className='size-12 text-gray-300' />
                       </div>
                     )}
                     <div className='absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
@@ -149,7 +149,7 @@ export default function SearchNotice() {
                     {/* Date Badge */}
                     {notice.date && (
                       <div className='absolute top-4 left-4 flex items-center gap-2 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg'>
-                        <Calendar className='w-4 h-4 text-[#33B54A]' />
+                        <Calendar className='size-4 text-[#33B54A]' />
                         <span className='text-xs font-semibold text-gray-700'>
                           {notice.date.split(', ')[0]}
                         </span>
@@ -178,7 +178,7 @@ export default function SearchNotice() {
                       className='inline-flex items-center gap-2 text-sm font-bold text-[#33B54A] hover:text-[#F78F1E] transition-colors duration-300'
                     >
                       Xem chi tiết
-                      <ChevronRight className='w-4 h-4 transition-transform group-hover:translate-x-1' />
+                      <ChevronRight className='size-4 transition-transform group-hover:translate-x-1' />
                     </Link>
                   </div>
                 </div>
@@ -192,8 +192,8 @@ export default function SearchNotice() {
             transition={{ duration: 0.4 }}
             className='py-20 text-center'
           >
-            <div className='inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-100 mb-4'>
-              <Search className='w-10 h-10 text-gray-400' />
+            <div className='inline-flex items-center justify-center size-20 rounded-full bg-gray-100 mb-4'>
+              <Search className='size-10 text-gray-400' />
             </div>
             <p className='text-xl font-semibold text-gray-700 mb-2'>
               Không tìm thấy thông báo nào

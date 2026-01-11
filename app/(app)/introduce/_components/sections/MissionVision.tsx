@@ -15,12 +15,12 @@ export default function MissionVision() {
     >
       <div className='pointer-events-none absolute inset-0'>
         <motion.div
-          className='absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-[#33B54A]/6 blur-3xl'
+          className='absolute left-0 top-0 size-[500px] rounded-full bg-[#33B54A]/6 blur-3xl'
           animate={{ x: [0, 50, 0], y: [0, -30, 0], scale: [1, 1.2, 1] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className='absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-[#F78F1E]/6 blur-3xl'
+          className='absolute right-0 bottom-0 size-[500px] rounded-full bg-[#F78F1E]/6 blur-3xl'
           animate={{ x: [0, -50, 0], y: [0, 30, 0], scale: [1, 1.3, 1] }}
           transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -73,7 +73,7 @@ export default function MissionVision() {
               
               <div className='relative flex flex-1 flex-col p-8'>
                 <div className='mb-6 flex items-center gap-3'>
-                  <div className='flex h-12 w-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'>
+                  <div className='flex size-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'>
                     <span className='text-2xl'>🌱</span>
                   </div>
                   <div className='h-1 flex-1 rounded-full bg-gradient-to-r from-white/50 via-white/30 to-transparent' />
@@ -113,7 +113,7 @@ export default function MissionVision() {
               
               <div className='relative flex flex-1 flex-col p-8'>
                 <div className='mb-6 flex items-center gap-3'>
-                  <div className='flex h-12 w-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'>
+                  <div className='flex size-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'>
                     <span className='text-2xl'>🏡</span>
                   </div>
                   <div className='h-1 flex-1 rounded-full bg-gradient-to-r from-white/50 via-white/30 to-transparent' />
@@ -182,7 +182,7 @@ export default function MissionVision() {
               
               <div className='relative flex flex-1 flex-col p-8'>
                 <div className='mb-6 flex items-center gap-3'>
-                  <div className='flex h-12 w-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'>
+                  <div className='flex size-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'>
                     <span className='text-2xl'>⭐</span>
                   </div>
                   <div className='h-1 flex-1 rounded-full bg-gradient-to-r from-white/50 via-white/30 to-transparent' />
@@ -222,7 +222,7 @@ export default function MissionVision() {
               
               <div className='relative flex flex-1 flex-col p-8'>
                 <div className='mb-6 flex items-center gap-3'>
-                  <div className='flex h-12 w-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'>
+                  <div className='flex size-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'>
                     <span className='text-2xl'>🚀</span>
                   </div>
                   <div className='h-1 flex-1 rounded-full bg-gradient-to-r from-white/50 via-white/30 to-transparent' />

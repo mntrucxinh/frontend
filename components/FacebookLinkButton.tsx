@@ -61,7 +61,7 @@ export default function FacebookLinkButton({
       className={className}
       variant="outline"
     >
-      <Facebook className="mr-2 h-4 w-4" />
+      <Facebook className="mr-2 size-4" />
       {isLoading ? "Đang xử lý..." : "Liên kết Facebook"}
     </Button>
   )

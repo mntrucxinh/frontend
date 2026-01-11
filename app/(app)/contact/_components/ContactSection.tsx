@@ -101,7 +101,7 @@ export default function ContactSection() {
         {/* Decorative elements */}
         <div className='pointer-events-none absolute inset-0'>
           <motion.div
-            className='absolute left-0 top-0 h-96 w-96 rounded-full bg-white/10 blur-3xl'
+            className='absolute left-0 top-0 size-96 rounded-full bg-white/10 blur-3xl'
             animate={{
               scale: [1, 1.2, 1],
               x: [0, 50, 0],
@@ -114,7 +114,7 @@ export default function ContactSection() {
             }}
           />
           <motion.div
-            className='absolute right-0 bottom-0 h-96 w-96 rounded-full bg-white/10 blur-3xl'
+            className='absolute right-0 bottom-0 size-96 rounded-full bg-white/10 blur-3xl'
             animate={{
               scale: [1, 1.3, 1],
               x: [0, -50, 0],
@@ -185,7 +185,7 @@ export default function ContactSection() {
                       transition={{ duration: 0.6 }}
                       className={`mb-3 inline-flex items-center justify-center rounded-xl bg-gradient-to-br ${info.color} p-3 shadow-lg`}
                     >
-                      <IconComponent className='h-6 w-6 text-white' />
+                      <IconComponent className='size-6 text-white' />
                     </motion.div>
                     <h3 className='mb-2 text-sm font-black text-gray-900 md:text-base'>{info.title}</h3>
                     <p className='text-xs font-semibold text-gray-600 md:text-sm'>{info.content}</p>
@@ -221,7 +221,7 @@ export default function ContactSection() {
         {/* Decorative blur elements */}
         <div className='pointer-events-none absolute inset-0'>
           <motion.div
-            className='absolute left-0 top-20 h-96 w-96 rounded-full bg-[#33B54A]/6 blur-3xl'
+            className='absolute left-0 top-20 size-96 rounded-full bg-[#33B54A]/6 blur-3xl'
             animate={{
               scale: [1, 1.25, 1],
               x: [0, 40, 0],
@@ -234,7 +234,7 @@ export default function ContactSection() {
             }}
           />
           <motion.div
-            className='absolute right-0 bottom-20 h-96 w-96 rounded-full bg-[#F78F1E]/6 blur-3xl'
+            className='absolute right-0 bottom-20 size-96 rounded-full bg-[#F78F1E]/6 blur-3xl'
             animate={{
               scale: [1, 1.35, 1],
               x: [0, -40, 0],
@@ -268,7 +268,7 @@ export default function ContactSection() {
 
               <div className='relative z-10 flex flex-1 flex-col'>
                 <div className='mb-6 flex items-center gap-3'>
-                  <div className='flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#33B54A] to-[#2EA043] shadow-lg'>
+                  <div className='flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#33B54A] to-[#2EA043] shadow-lg'>
                     <MessageSquare className='size-6 text-white' />
                   </div>
                   <div className='h-1 flex-1 rounded-full bg-gradient-to-r from-[#33B54A]/30 via-[#F78F1E]/30 to-transparent' />
@@ -294,7 +294,7 @@ export default function ContactSection() {
                       transition={{ type: 'spring', delay: 0.2 }}
                       className='mb-4 inline-flex items-center justify-center rounded-full bg-white p-3'
                     >
-                      <CheckCircle2 className='h-8 w-8 text-[#33B54A]' />
+                      <CheckCircle2 className='size-8 text-[#33B54A]' />
                     </motion.div>
                     <h3 className='mb-2 text-xl font-black text-white'>Gửi thành công!</h3>
                     <p className='text-white/90'>
@@ -437,7 +437,7 @@ export default function ContactSection() {
                       {isSubmitting ? (
                         <span className='flex items-center justify-center gap-2'>
                           <motion.div
-                            className='h-5 w-5 rounded-full border-2 border-white border-t-transparent'
+                            className='size-5 rounded-full border-2 border-white border-t-transparent'
                             animate={{ rotate: 360 }}
                             transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                           />
@@ -446,7 +446,7 @@ export default function ContactSection() {
                       ) : (
                         <span className='flex items-center justify-center gap-2'>
                           Gửi tin nhắn
-                          <Send className='h-5 w-5 transition-transform group-hover:translate-x-1' />
+                          <Send className='size-5 transition-transform group-hover:translate-x-1' />
                         </span>
                       )}
                     </motion.button>
@@ -503,7 +503,7 @@ export default function ContactSection() {
                 <div className='absolute inset-0 rounded-3xl bg-gradient-to-br from-white/5 via-transparent to-black/10' />
                 <div className='relative z-10'>
                   <div className='mb-6 flex items-center gap-3'>
-                    <div className='flex h-12 w-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'>
+                    <div className='flex size-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'>
                       <Building2 className='size-6 text-white' />
                     </div>
                     <div className='h-1 flex-1 rounded-full bg-gradient-to-r from-white/50 via-white/30 to-transparent' />

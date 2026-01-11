@@ -35,7 +35,7 @@ export default function LoginPage() {
             width={260}
             height={78}
             priority
-            className='h-auto w-auto'
+            className='size-auto'
           />
         </button>
 

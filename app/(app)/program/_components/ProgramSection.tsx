@@ -161,7 +161,7 @@ export default function ProgramSection() {
         {/* Decorative elements */}
         <div className='pointer-events-none absolute inset-0'>
           <motion.div
-            className='absolute left-0 top-0 h-96 w-96 rounded-full bg-white/10 blur-3xl'
+            className='absolute left-0 top-0 size-96 rounded-full bg-white/10 blur-3xl'
             animate={{
               scale: [1, 1.2, 1],
               x: [0, 50, 0],
@@ -174,7 +174,7 @@ export default function ProgramSection() {
             }}
           />
           <motion.div
-            className='absolute right-0 bottom-0 h-96 w-96 rounded-full bg-white/10 blur-3xl'
+            className='absolute right-0 bottom-0 size-96 rounded-full bg-white/10 blur-3xl'
             animate={{
               scale: [1, 1.3, 1],
               x: [0, -50, 0],
@@ -227,7 +227,7 @@ export default function ProgramSection() {
               className='group flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-black text-[#33B54A] shadow-2xl transition-all hover:bg-[#F78F1E] hover:text-white hover:shadow-3xl'
             >
               Đăng ký ngay
-              <ArrowRight className='h-5 w-5 transition-transform group-hover:translate-x-1' />
+              <ArrowRight className='size-5 transition-transform group-hover:translate-x-1' />
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -270,7 +270,7 @@ export default function ProgramSection() {
                       transition={{ duration: 0.6 }}
                       className='mb-3 inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-[#33B54A] to-[#2EA043] p-3'
                     >
-                      <IconComponent className='h-6 w-6 text-white' />
+                      <IconComponent className='size-6 text-white' />
                     </motion.div>
                     <div className='mb-1 text-3xl font-black text-gray-900 md:text-4xl'>
                       {stat.number}
@@ -376,7 +376,7 @@ export default function ProgramSection() {
                       }}
                       className='flex items-center justify-center'
                     >
-                      <div className='flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm shadow-lg ring-2 ring-white/30 md:h-20 md:w-20'>
+                      <div className='flex size-16 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm shadow-lg ring-2 ring-white/30 md:size-20'>
                         <IconComponent className='size-8 text-white md:size-10' />
                       </div>
                     </motion.div>
@@ -444,7 +444,7 @@ export default function ProgramSection() {
         {/* Decorative blur elements */}
         <div className='pointer-events-none absolute inset-0'>
           <motion.div
-            className='absolute left-0 top-20 h-96 w-96 rounded-full bg-[#33B54A]/6 blur-3xl'
+            className='absolute left-0 top-20 size-96 rounded-full bg-[#33B54A]/6 blur-3xl'
             animate={{
               scale: [1, 1.25, 1],
               x: [0, 40, 0],
@@ -457,7 +457,7 @@ export default function ProgramSection() {
             }}
           />
           <motion.div
-            className='absolute right-0 bottom-20 h-96 w-96 rounded-full bg-[#F78F1E]/6 blur-3xl'
+            className='absolute right-0 bottom-20 size-96 rounded-full bg-[#F78F1E]/6 blur-3xl'
             animate={{
               scale: [1, 1.35, 1],
               x: [0, -40, 0],
@@ -585,7 +585,7 @@ export default function ProgramSection() {
                               mass: 0.5,
                             },
                           }}
-                          className='flex h-12 w-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'
+                          className='flex size-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'
                         >
                           <IconComponent className='size-6 text-white' />
                         </motion.div>
@@ -614,7 +614,7 @@ export default function ProgramSection() {
                         }}
                         className='mb-6 flex items-center justify-center'
                       >
-                        <div className='relative h-24 w-24 overflow-hidden rounded-2xl bg-white/20 backdrop-blur-sm p-4 shadow-lg ring-2 ring-white/30 md:h-28 md:w-28'>
+                        <div className='relative size-24 overflow-hidden rounded-2xl bg-white/20 backdrop-blur-sm p-4 shadow-lg ring-2 ring-white/30 md:size-28'>
                           <Image
                             src={program.logo}
                             alt={program.name}

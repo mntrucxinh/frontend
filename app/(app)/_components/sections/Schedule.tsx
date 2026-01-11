@@ -154,7 +154,7 @@ export default function ActivitiesAtSchool() {
         duration: 0.8,
         ease: [0.4, 0, 0.2, 1],
       }}
-      className='relative -mt-12 overflow-hidden bg-gradient-to-b from-[#33B54A] via-[#2EA043] to-[#33B54A] pt-20 pb-20 text-white md:-mt-20 md:pt-24 md:pb-28'
+      className='relative -mt-12 overflow-hidden bg-gradient-to-b from-[#33B54A] via-[#2EA043] to-[#33B54A] py-20 text-white md:-mt-20 md:pt-24 md:pb-28'
     >
       {/* Smooth top wave - continues seamlessly from Method section */}
       <div className='pointer-events-none absolute inset-x-0 -top-12 h-32 w-screen sm:-top-14 sm:h-36 md:-top-20 md:h-40'>
@@ -163,7 +163,7 @@ export default function ActivitiesAtSchool() {
         <div className='absolute inset-0 bg-gradient-to-b from-white/10 via-white/5 to-transparent opacity-60' />
         
         {/* Main wave - starts from very top to eliminate hard line */}
-        <svg viewBox='0 0 1440 160' className='absolute top-0 h-full w-full' preserveAspectRatio='none'>
+        <svg viewBox='0 0 1440 160' className='absolute top-0 size-full' preserveAspectRatio='none'>
           <defs>
             <linearGradient id='waveGradient' x1='0%' y1='0%' x2='0%' y2='100%'>
               <stop offset='0%' stopColor='#33B54A' stopOpacity='0' />
@@ -181,7 +181,7 @@ export default function ActivitiesAtSchool() {
         </svg>
 
         {/* Subtle back wave for depth */}
-        <svg viewBox='0 0 1440 160' className='absolute top-0 h-full w-full' preserveAspectRatio='none'>
+        <svg viewBox='0 0 1440 160' className='absolute top-0 size-full' preserveAspectRatio='none'>
           <motion.path
             fill='#33B54A'
             fillOpacity='0.25'
@@ -195,7 +195,7 @@ export default function ActivitiesAtSchool() {
       {/* Subtle background */}
       <div className='pointer-events-none absolute inset-0'>
         <motion.div
-          className='absolute right-[5%] top-[10%] h-[400px] w-[400px] rounded-full bg-white/6 blur-3xl'
+          className='absolute right-[5%] top-[10%] size-[400px] rounded-full bg-white/6 blur-3xl'
           animate={{
             scale: [1, 1.2, 1],
             x: [0, 30, 0],
@@ -207,7 +207,7 @@ export default function ActivitiesAtSchool() {
           }}
         />
         <motion.div
-          className='absolute bottom-[10%] left-[5%] h-[400px] w-[400px] rounded-full bg-[#F78F1E]/8 blur-3xl'
+          className='absolute bottom-[10%] left-[5%] size-[400px] rounded-full bg-[#F78F1E]/8 blur-3xl'
           animate={{
             scale: [1, 1.25, 1],
             x: [0, -30, 0],
@@ -419,7 +419,7 @@ export default function ActivitiesAtSchool() {
                       transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
                       className='shrink-0'
                     >
-                      <Clock className='h-6 w-6 text-[#F78F1E]' />
+                      <Clock className='size-6 text-[#F78F1E]' />
                     </motion.div>
                     Thời gian biểu
                   </motion.h3>

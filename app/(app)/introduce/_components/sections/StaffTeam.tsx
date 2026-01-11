@@ -30,7 +30,7 @@ export default function StaffTeam() {
       {/* Subtle decorative elements */}
       <div className='pointer-events-none absolute inset-0'>
         <motion.div
-          className='absolute left-0 top-20 h-96 w-96 rounded-full bg-[#33B54A]/6 blur-3xl'
+          className='absolute left-0 top-20 size-96 rounded-full bg-[#33B54A]/6 blur-3xl'
           animate={{
             scale: [1, 1.25, 1],
             x: [0, 40, 0],
@@ -43,7 +43,7 @@ export default function StaffTeam() {
           }}
         />
         <motion.div
-          className='absolute right-0 bottom-20 h-96 w-96 rounded-full bg-[#F78F1E]/6 blur-3xl'
+          className='absolute right-0 bottom-20 size-96 rounded-full bg-[#F78F1E]/6 blur-3xl'
           animate={{
             scale: [1, 1.35, 1],
             x: [0, -40, 0],
@@ -120,7 +120,7 @@ export default function StaffTeam() {
               
               <div className='relative flex flex-1 flex-col'>
                 <div className='mb-6 flex items-center gap-3'>
-                  <div className='flex h-12 w-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'>
+                  <div className='flex size-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'>
                     <Users className='size-6 text-white' />
                   </div>
                   <div className='h-1 flex-1 rounded-full bg-gradient-to-r from-white/50 via-white/30 to-transparent' />
@@ -201,7 +201,7 @@ export default function StaffTeam() {
               
               <div className='relative flex flex-1 flex-col'>
                 <div className='mb-6 flex items-center gap-3'>
-                  <div className='flex h-12 w-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'>
+                  <div className='flex size-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'>
                     <Shield className='size-6 text-white' />
                   </div>
                   <div className='h-1 flex-1 rounded-full bg-gradient-to-r from-white/50 via-white/30 to-transparent' />

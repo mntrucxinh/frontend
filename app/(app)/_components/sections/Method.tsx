@@ -94,8 +94,8 @@ export default function TeachingMethodsSection() {
                   className={`relative flex h-[400px] w-full flex-col items-center overflow-hidden rounded-[32px] bg-gradient-to-b ${gradientClass} px-8 pt-7 text-center text-white shadow-[0_18px_40px_rgba(0,0,0,0.22)]`}
                 >
                   {/* Decorative circles */}
-                  <div className='absolute right-0 top-0 h-32 w-32 rounded-full bg-white/10 blur-2xl' />
-                  <div className='absolute bottom-0 left-0 h-40 w-40 rounded-full bg-white/10 blur-2xl' />
+                  <div className='absolute right-0 top-0 size-32 rounded-full bg-white/10 blur-2xl' />
+                  <div className='absolute bottom-0 left-0 size-40 rounded-full bg-white/10 blur-2xl' />
 
                   {/* Top label */}
                   <div className='relative z-10 text-xs font-bold uppercase tracking-[0.2em] text-white/90'>

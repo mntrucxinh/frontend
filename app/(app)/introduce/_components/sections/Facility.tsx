@@ -29,7 +29,7 @@ export default function Facility() {
       {/* Subtle decorative elements */}
       <div className='pointer-events-none absolute inset-0'>
         <motion.div
-          className='absolute left-0 top-20 h-96 w-96 rounded-full bg-[#33B54A]/6 blur-3xl'
+          className='absolute left-0 top-20 size-96 rounded-full bg-[#33B54A]/6 blur-3xl'
           animate={{
             scale: [1, 1.25, 1],
             x: [0, 40, 0],
@@ -42,7 +42,7 @@ export default function Facility() {
           }}
         />
         <motion.div
-          className='absolute right-0 bottom-20 h-96 w-96 rounded-full bg-[#F78F1E]/6 blur-3xl'
+          className='absolute right-0 bottom-20 size-96 rounded-full bg-[#F78F1E]/6 blur-3xl'
           animate={{
             scale: [1, 1.35, 1],
             x: [0, -40, 0],

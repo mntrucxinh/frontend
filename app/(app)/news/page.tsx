@@ -19,7 +19,7 @@ const Breadcrumb = () => {
           </Link>
         </li>
         <li>
-          <ChevronRight className="w-4 h-4" />
+          <ChevronRight className="size-4" />
         </li>
         <li>
           {/* Assuming a parent page exists, otherwise this can be text */}
@@ -74,7 +74,7 @@ const NewsPage = () => {
         <div className="flex justify-between items-center mb-8">
           <div className="w-full max-w-md relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search className="w-5 h-5 text-gray-400" />
+              <Search className="size-5 text-gray-400" />
             </div>
             <input
               type="text"
@@ -103,7 +103,7 @@ const NewsPage = () => {
 
         {isLoading && (
           <div className="flex justify-center items-center py-12">
-            <Loader2 className="w-8 h-8 animate-spin text-green-500" />
+            <Loader2 className="size-8 animate-spin text-green-500" />
           </div>
         )}
 
@@ -152,7 +152,7 @@ const NewsPage = () => {
                         {videoUrl ? (
                           <video
                             src={videoUrl}
-                            className="w-full h-full object-cover"
+                            className="size-full object-cover"
                             muted
                             playsInline
                           />
@@ -167,8 +167,8 @@ const NewsPage = () => {
                         )}
                         {videoUrl && (
                           <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                            <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
-                              <svg className="w-8 h-8 text-emerald-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                            <div className="size-16 rounded-full bg-white/90 flex items-center justify-center">
+                              <svg className="size-8 text-emerald-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8 5v14l11-7z"/>
                               </svg>
                             </div>
