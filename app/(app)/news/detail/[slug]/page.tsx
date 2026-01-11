@@ -13,7 +13,7 @@ import { buildAssetUrl } from '@/utils/api-url';
 const Breadcrumb = ({newsTitle} : {newsTitle : string}) => {
     return (
       <nav className="bg-white border-b border-gray-200">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto p-4">
           <ol className="flex items-center space-x-2 text-sm text-gray-600">
             <li>
               <Link href="/" className="hover:text-emerald-600 transition-colors">
@@ -21,7 +21,7 @@ const Breadcrumb = ({newsTitle} : {newsTitle : string}) => {
               </Link>
             </li>
             <li>
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="size-4" />
             </li>
             <li>
               <Link href="/news" className="hover:text-emerald-600 transition-colors">
@@ -29,7 +29,7 @@ const Breadcrumb = ({newsTitle} : {newsTitle : string}) => {
               </Link>
             </li>
             <li>
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="size-4" />
             </li>
             <li className="text-gray-900 truncate max-w-xs lg:max-w-md" title={newsTitle}>
               {newsTitle}
@@ -70,7 +70,7 @@ const NewsDetailPage = () => {
     if (isLoading) {
         return (
             <div className="container mx-auto px-4 py-8 text-center">
-                <Loader2 className="w-8 h-8 animate-spin text-green-500 mx-auto" />
+                <Loader2 className="size-8 animate-spin text-green-500 mx-auto" />
                 <p className="mt-4 text-gray-500">Đang tải tin tức...</p>
             </div>
         );
@@ -81,7 +81,7 @@ const NewsDetailPage = () => {
             <div className="container mx-auto px-4 py-8 text-center">
                 <p className="text-red-500 text-lg">Tin tức không tồn tại.</p>
                 <Link href="/news" className="text-blue-500 hover:underline mt-4 inline-block">
-                    <ChevronLeft className="w-4 h-4 inline-block" />
+                    <ChevronLeft className="size-4 inline-block" />
                      Quay lại trang tin tức
                 </Link>
             </div>
@@ -143,7 +143,7 @@ const NewsDetailPage = () => {
                                 </h1>
                                 {formattedDate && (
                                     <div className="flex items-center gap-2 text-sm text-gray-600">
-                                        <Calendar className="w-4 h-4 text-gray-400" />
+                                        <Calendar className="size-4 text-gray-400" />
                                         <span>Ngày đăng: {formattedDate}</span>
                                     </div>
                                 )}
@@ -166,7 +166,7 @@ const NewsDetailPage = () => {
                                         <video 
                                             src={buildAssetUrl(videoAsset.asset.url)}
                                             controls
-                                            className="w-full h-full object-contain"
+                                            className="size-full object-contain"
                                         >
                                             Trình duyệt của bạn không hỗ trợ video.
                                         </video>
@@ -209,7 +209,7 @@ const NewsDetailPage = () => {
                                                             alt={imageAsset.caption || `${title} - Hình ${index + 1}`} 
                                                             width={800} 
                                                             height={600} 
-                                                            className="w-full h-full object-cover"
+                                                            className="size-full object-cover"
                                                             unoptimized
                                                         />
                                                     </div>
@@ -250,7 +250,7 @@ const NewsDetailPage = () => {
                                                                 alt={imageAsset.caption || `${title} - Hình ${index + 2}`} 
                                                                 width={800} 
                                                                 height={600} 
-                                                                className="w-full h-full object-cover"
+                                                                className="size-full object-cover"
                                                                 unoptimized
                                                             />
                                                         </div>
@@ -274,7 +274,7 @@ const NewsDetailPage = () => {
                                                             alt={imageAsset.caption || `${title} - Hình ${index + 1}`} 
                                                             width={800} 
                                                             height={600} 
-                                                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                                            className="size-full object-cover transition-transform duration-300 group-hover:scale-105"
                                                             unoptimized
                                                         />
                                                     </div>
@@ -358,18 +358,18 @@ const NewsDetailPage = () => {
                                                 <li key={item.id || item.public_id} className="border-b border-gray-100 last:border-b-0 pb-4 last:pb-0">
                                                     <Link href={`/news/detail/${item.slug}`}>
                                                         <div className="group flex items-start gap-3 hover:opacity-80 transition-opacity">
-                                                            <div className="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden bg-black relative">
+                                                            <div className="shrink-0 size-20 rounded-lg overflow-hidden bg-black relative">
                                                                 {itemVideoUrl ? (
                                                                     <>
                                                                         <video
                                                                             src={itemVideoUrl}
-                                                                            className="w-full h-full object-cover"
+                                                                            className="size-full object-cover"
                                                                             muted
                                                                             playsInline
                                                                         />
                                                                         <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                                                                            <div className="w-6 h-6 rounded-full bg-white/90 flex items-center justify-center">
-                                                                                <svg className="w-3 h-3 text-emerald-600 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                                                                            <div className="size-6 rounded-full bg-white/90 flex items-center justify-center">
+                                                                                <svg className="size-3 text-emerald-600 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
                                                                                     <path d="M8 5v14l11-7z"/>
                                                                                 </svg>
                                                                             </div>
@@ -381,7 +381,7 @@ const NewsDetailPage = () => {
                                                                         alt={item.title} 
                                                                         width={80} 
                                                                         height={80} 
-                                                                        className="w-full h-full object-cover"
+                                                                        className="size-full object-cover"
                                                                         unoptimized
                                                                     />
                                                                 )}

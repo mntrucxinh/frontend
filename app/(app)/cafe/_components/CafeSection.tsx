@@ -54,7 +54,7 @@ export default function CafeSection() {
         {/* Decorative elements */}
         <div className='pointer-events-none absolute inset-0'>
           <motion.div
-            className='absolute left-0 top-0 h-96 w-96 rounded-full bg-white/10 blur-3xl'
+            className='absolute left-0 top-0 size-96 rounded-full bg-white/10 blur-3xl'
             animate={{
               scale: [1, 1.2, 1],
               x: [0, 50, 0],
@@ -67,7 +67,7 @@ export default function CafeSection() {
             }}
           />
           <motion.div
-            className='absolute right-0 bottom-0 h-96 w-96 rounded-full bg-white/10 blur-3xl'
+            className='absolute right-0 bottom-0 size-96 rounded-full bg-white/10 blur-3xl'
             animate={{
               scale: [1, 1.3, 1],
               x: [0, -50, 0],
@@ -89,7 +89,7 @@ export default function CafeSection() {
             transition={{ type: 'spring', stiffness: 100, delay: 0.2 }}
             className='mb-6 inline-flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm p-4 shadow-lg'
           >
-            <Coffee className='h-12 w-12 text-white' />
+            <Coffee className='size-12 text-white' />
           </motion.div>
 
           <motion.h1
@@ -128,7 +128,7 @@ export default function CafeSection() {
               className='group flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-black text-[#F78F1E] shadow-2xl transition-all hover:bg-[#33B54A] hover:text-white hover:shadow-3xl'
             >
               Liên hệ ngay
-              <ArrowRight className='h-5 w-5 transition-transform group-hover:translate-x-1' />
+              <ArrowRight className='size-5 transition-transform group-hover:translate-x-1' />
             </motion.button>
             <motion.a
               href='https://www.facebook.com/CafeTrucXinh101'
@@ -144,7 +144,7 @@ export default function CafeSection() {
         </div>
 
         {/* Bottom arc into cafe section (inverted: lowest at center) */}
-        <div className='pointer-events-none absolute inset-x-0 bottom-0 translate-y-[1px]'>
+        <div className='pointer-events-none absolute inset-x-0 bottom-0 translate-y-px'>
           <svg viewBox='0 0 1440 160' className='h-28 w-full' preserveAspectRatio='none'>
             <motion.path
               fill='#E8F5E9'
@@ -168,7 +168,7 @@ export default function CafeSection() {
         {/* Decorative blur elements */}
         <div className='pointer-events-none absolute inset-0'>
           <motion.div
-            className='absolute left-0 top-20 h-96 w-96 rounded-full bg-[#33B54A]/6 blur-3xl'
+            className='absolute left-0 top-20 size-96 rounded-full bg-[#33B54A]/6 blur-3xl'
             animate={{
               scale: [1, 1.25, 1],
               x: [0, 40, 0],
@@ -181,7 +181,7 @@ export default function CafeSection() {
             }}
           />
           <motion.div
-            className='absolute right-0 bottom-20 h-96 w-96 rounded-full bg-[#F78F1E]/6 blur-3xl'
+            className='absolute right-0 bottom-20 size-96 rounded-full bg-[#F78F1E]/6 blur-3xl'
             animate={{
               scale: [1, 1.35, 1],
               x: [0, -40, 0],
@@ -248,13 +248,13 @@ export default function CafeSection() {
                       repeat: Infinity,
                       repeatDelay: 2,
                     }}
-                    className='flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-xl ring-2 ring-white/40'
+                    className='flex size-14 shrink-0 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-xl ring-2 ring-white/40'
                   >
-                    <Gift className='h-7 w-7 text-white' />
+                    <Gift className='size-7 text-white' />
                   </motion.div>
                   <div className='flex-1'>
                     <div className='mb-3 flex items-center gap-2'>
-                      <Users className='h-5 w-5 text-white' />
+                      <Users className='size-5 text-white' />
                       <h3 className='text-xl font-black text-white md:text-2xl'>
                         Ưu đãi đặc biệt
                       </h3>
@@ -371,8 +371,8 @@ export default function CafeSection() {
                       whileHover={{ x: 4 }}
                       className='group flex items-start gap-4 rounded-xl bg-white p-4 shadow-md transition-all hover:shadow-lg'
                     >
-                      <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#F78F1E] to-[#E67E17] text-white shadow-md'>
-                        <UtensilsCrossed className='h-6 w-6' />
+                      <div className='flex size-12 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#F78F1E] to-[#E67E17] text-white shadow-md'>
+                        <UtensilsCrossed className='size-6' />
                       </div>
                       <div className='flex-1'>
                         <div className='mb-1 flex items-center justify-between'>
@@ -414,7 +414,7 @@ export default function CafeSection() {
         {/* Decorative blur elements */}
         <div className='pointer-events-none absolute inset-0'>
           <motion.div
-            className='absolute left-0 top-20 h-96 w-96 rounded-full bg-[#F78F1E]/6 blur-3xl'
+            className='absolute left-0 top-20 size-96 rounded-full bg-[#F78F1E]/6 blur-3xl'
             animate={{
               scale: [1, 1.25, 1],
               x: [0, 40, 0],
@@ -427,7 +427,7 @@ export default function CafeSection() {
             }}
           />
           <motion.div
-            className='absolute right-0 bottom-20 h-96 w-96 rounded-full bg-[#33B54A]/6 blur-3xl'
+            className='absolute right-0 bottom-20 size-96 rounded-full bg-[#33B54A]/6 blur-3xl'
             animate={{
               scale: [1, 1.35, 1],
               x: [0, -40, 0],

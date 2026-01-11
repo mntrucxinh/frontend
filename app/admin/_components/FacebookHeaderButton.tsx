@@ -1,19 +1,14 @@
-"use client"
+'use client'
 
-import { useState, useMemo } from "react"
-import { Button } from "@heroui/react"
-import { Facebook, CheckCircle2, XCircle, AlertTriangle, Loader2 } from "lucide-react"
-import { useFacebookStatus } from "@/hook/facebook/use-facebook-status"
-import FacebookRelinkModal from "@/components/FacebookRelinkModal"
-import { useQueryClient } from "@tanstack/react-query"
-import toast from "react-hot-toast"
-import { openFacebookOAuthPopup } from "@/utils/facebook-oauth"
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-} from "@heroui/react"
+import { useMemo, useState } from 'react'
+import { useFacebookStatus } from '@/hook/facebook/use-facebook-status'
+import { openFacebookOAuthPopup } from '@/utils/facebook-oauth'
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/react'
+import { useQueryClient } from '@tanstack/react-query'
+import { AlertTriangle, CheckCircle2, Facebook, Loader2, XCircle } from 'lucide-react'
+import toast from 'react-hot-toast'
+
+import FacebookRelinkModal from '@/components/FacebookRelinkModal'
 
 export default function FacebookHeaderButton() {
   const { data, isLoading, error } = useFacebookStatus()
@@ -30,40 +25,40 @@ export default function FacebookHeaderButton() {
     if (isLoading) {
       return {
         icon: Loader2,
-        color: "default" as const,
-        text: "Đang kiểm tra...",
-        className: "animate-spin",
+        color: 'default' as const,
+        text: 'Đang kiểm tra...',
+        className: 'animate-spin',
       }
     }
     if (error) {
       return {
         icon: XCircle,
-        color: "danger" as const,
-        text: "Lỗi",
-        className: "",
+        color: 'danger' as const,
+        text: 'Lỗi',
+        className: '',
       }
     }
     if (isLinked && !tokenExpired) {
       return {
         icon: CheckCircle2,
-        color: "success" as const,
-        text: "Đã liên kết",
-        className: "",
+        color: 'success' as const,
+        text: 'Đã liên kết',
+        className: '',
       }
     }
     if (tokenExpired) {
       return {
         icon: AlertTriangle,
-        color: "warning" as const,
-        text: "Token hết hạn",
-        className: "",
+        color: 'warning' as const,
+        text: 'Token hết hạn',
+        className: '',
       }
     }
     return {
       icon: XCircle,
-      color: "default" as const,
-      text: "Chưa liên kết",
-      className: "",
+      color: 'default' as const,
+      text: 'Chưa liên kết',
+      className: '',
     }
   }, [isLoading, error, isLinked, tokenExpired])
 
@@ -75,8 +70,8 @@ export default function FacebookHeaderButton() {
     const cleanup = openFacebookOAuthPopup({
       onSuccess: () => {
         setIsLinking(false)
-        queryClient.invalidateQueries({ queryKey: ["facebook-status"] })
-        toast.success("Liên kết Facebook thành công!")
+        queryClient.invalidateQueries({ queryKey: ['facebook-status'] })
+        toast.success('Liên kết Facebook thành công!')
         cleanup?.()
       },
       onError: (message) => {
@@ -93,79 +88,67 @@ export default function FacebookHeaderButton() {
 
   return (
     <>
-      <Dropdown placement="bottom-end">
+      <Dropdown placement='bottom-end'>
         <DropdownTrigger>
           <Button
-            variant="flat"
-            className="h-10 gap-2 rounded-xl border border-black/10 bg-white px-3 hover:bg-black/[0.03]"
+            variant='flat'
+            className='h-10 gap-2 rounded-xl border border-black/10 bg-white px-3 hover:bg-black/[0.03]'
             startContent={
               <StatusIcon
-                className={`h-4 w-4 ${
-                  statusConfig.color === "success"
-                    ? "text-green-600"
-                    : statusConfig.color === "warning"
-                    ? "text-amber-500"
-                    : statusConfig.color === "danger"
-                    ? "text-red-600"
-                    : "text-gray-400"
+                className={`size-4 ${
+                  statusConfig.color === 'success'
+                    ? 'text-green-600'
+                    : statusConfig.color === 'warning'
+                      ? 'text-amber-500'
+                      : statusConfig.color === 'danger'
+                        ? 'text-red-600'
+                        : 'text-gray-400'
                 } ${statusConfig.className}`}
               />
             }
           >
-            <Facebook className="h-4 w-4 text-blue-600" />
-            <span className="hidden text-sm font-medium md:inline">
-              Facebook
-            </span>
+            <Facebook className='size-4 text-blue-600' />
+            <span className='hidden text-sm font-medium md:inline'>Facebook</span>
           </Button>
         </DropdownTrigger>
-        <DropdownMenu aria-label="Facebook Actions">
-          <DropdownItem
-            key="status"
-            textValue="status"
-            className="cursor-default"
-          >
-            <div className="flex flex-col gap-1">
-              <div className="flex items-center gap-2">
+        <DropdownMenu aria-label='Facebook Actions'>
+          <DropdownItem key='status' textValue='status' className='cursor-default'>
+            <div className='flex flex-col gap-1'>
+              <div className='flex items-center gap-2'>
                 <StatusIcon
-                  className={`h-4 w-4 ${
-                    statusConfig.color === "success"
-                      ? "text-green-600"
-                      : statusConfig.color === "warning"
-                      ? "text-amber-500"
-                      : statusConfig.color === "danger"
-                      ? "text-red-600"
-                      : "text-gray-400"
+                  className={`size-4 ${
+                    statusConfig.color === 'success'
+                      ? 'text-green-600'
+                      : statusConfig.color === 'warning'
+                        ? 'text-amber-500'
+                        : statusConfig.color === 'danger'
+                          ? 'text-red-600'
+                          : 'text-gray-400'
                   }`}
                 />
-                <span className="text-sm font-medium">{statusConfig.text}</span>
+                <span className='text-sm font-medium'>{statusConfig.text}</span>
               </div>
-              {pageName && (
-                <span className="text-xs text-foreground/70">
-                  Page: {pageName}
-                </span>
-              )}
+              {pageName && <span className='text-xs text-foreground/70'>Page: {pageName}</span>}
               {!isLinked && (
-                <span className="text-xs text-foreground/70">
-                  Chưa liên kết Facebook Page
-                </span>
+                <span className='text-xs text-foreground/70'>Chưa liên kết Facebook Page</span>
               )}
               {tokenExpired && (
-                <span className="text-xs text-foreground/70">
+                <span className='text-xs text-foreground/70'>
                   Token đã hết hạn, cần liên kết lại
                 </span>
               )}
             </div>
           </DropdownItem>
           <DropdownItem
-            key="divider"
-            className="h-px bg-divider p-0"
-            textValue="divider"
+            key='divider'
+            className='h-px bg-divider p-0'
+            textValue='divider'
             isReadOnly
           />
           {!isLinked || tokenExpired ? (
             <DropdownItem
-              key="link"
-              textValue="link"
+              key='link'
+              textValue='link'
               onPress={() => {
                 if (tokenExpired) {
                   setShowRelinkModal(true)
@@ -175,16 +158,12 @@ export default function FacebookHeaderButton() {
               }}
               isDisabled={isLinking}
             >
-              {isLinking
-                ? "Đang xử lý..."
-                : tokenExpired
-                ? "Liên kết lại"
-                : "Liên kết Facebook"}
+              {isLinking ? 'Đang xử lý...' : tokenExpired ? 'Liên kết lại' : 'Liên kết Facebook'}
             </DropdownItem>
           ) : (
             <DropdownItem
-              key="relink"
-              textValue="relink"
+              key='relink'
+              textValue='relink'
               onPress={() => {
                 setShowRelinkModal(true)
               }}
@@ -195,11 +174,7 @@ export default function FacebookHeaderButton() {
         </DropdownMenu>
       </Dropdown>
 
-      <FacebookRelinkModal
-        isOpen={showRelinkModal}
-        onClose={() => setShowRelinkModal(false)}
-      />
+      <FacebookRelinkModal isOpen={showRelinkModal} onClose={() => setShowRelinkModal(false)} />
     </>
   )
 }
-

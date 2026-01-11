@@ -16,7 +16,7 @@ export default function History() {
       {/* Subtle decorative background */}
       <div className='pointer-events-none absolute inset-0'>
         <motion.div
-          className='absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-[#33B54A]/6 blur-3xl'
+          className='bg-[#33B54A]/6 absolute left-0 top-0 size-[500px] rounded-full blur-3xl'
           animate={{
             x: [0, 50, 0],
             y: [0, -30, 0],
@@ -29,7 +29,7 @@ export default function History() {
           }}
         />
         <motion.div
-          className='absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-[#F78F1E]/6 blur-3xl'
+          className='bg-[#F78F1E]/6 absolute bottom-0 right-0 size-[500px] rounded-full blur-3xl'
           animate={{
             x: [0, -50, 0],
             y: [0, 30, 0],
@@ -69,7 +69,7 @@ export default function History() {
           </motion.div>
 
           {/* Main Content */}
-          <div className='grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 lg:items-start'>
+          <div className='grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start lg:gap-16'>
             {/* Left Column - Founders */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -130,39 +130,42 @@ export default function History() {
               className='flex flex-col space-y-6 lg:col-span-8 lg:h-full'
             >
               <p className='text-justify leading-relaxed text-gray-700 md:text-lg'>
-                Với gần 20 năm hình thành và phát triển, Trường Mầm non Trúc Xinh luôn mang trong mình
-                khát vọng nâng cao trí thức Việt. Chúng tôi xác định vị thế và bản lĩnh của mình từ sự
-                khác biệt trong phương pháp giảng dạy sáng tạo và hiệu quả, các dịch vụ vượt trội và
-                thiết thực, môi trường học tập thân thiện với nhiều giải pháp khích lệ niềm yêu thích,
-                đam mê khám phá của trẻ, đã cùng với phụ huynh phát hiện và bồi dưỡng kịp thời nhiều tài
-                năng, chắp cánh cho những ước mơ của trẻ hướng tới tương lai.
+                Với gần 20 năm hình thành và phát triển, Trường Mầm non Trúc Xinh luôn mang trong
+                mình khát vọng nâng cao trí thức Việt. Chúng tôi xác định vị thế và bản lĩnh của
+                mình từ sự khác biệt trong phương pháp giảng dạy sáng tạo và hiệu quả, các dịch vụ
+                vượt trội và thiết thực, môi trường học tập thân thiện với nhiều giải pháp khích lệ
+                niềm yêu thích, đam mê khám phá của trẻ, đã cùng với phụ huynh phát hiện và bồi
+                dưỡng kịp thời nhiều tài năng, chắp cánh cho những ước mơ của trẻ hướng tới tương
+                lai.
               </p>
               <p className='text-justify leading-relaxed text-gray-700 md:text-lg'>
-                Hiểu rằng sáu năm đầu đời là giai đoạn phát triển vàng, ngay từ khi còn là một cơ sở với
-                quy mô nhỏ, Trúc Xinh đã chú trọng đầu tư không gian sân khấu đủ lớn để trẻ thể hiện năng
-                khiếu, sân chơi rộng mở, thường xuyên bổ sung đồ dùng – đồ chơi đạt chuẩn và các giải
-                pháp công nghệ nhằm mở rộng trải nghiệm học tập cho trẻ. Bên cạnh đó, nhà trường luôn quan
-                tâm nuôi dưỡng tuổi thơ hồn nhiên, giàu cảm xúc và gắn bó với thiên nhiên, con người
-                Việt Nam thông qua các hoạt động dã ngoại, trải nghiệm, xem rối nước, rối cạn, tuồng và
-                tham quan trang trại.
+                Hiểu rằng sáu năm đầu đời là giai đoạn phát triển vàng, ngay từ khi còn là một cơ sở
+                với quy mô nhỏ, Trúc Xinh đã chú trọng đầu tư không gian sân khấu đủ lớn để trẻ thể
+                hiện năng khiếu, sân chơi rộng mở, thường xuyên bổ sung đồ dùng – đồ chơi đạt chuẩn
+                và các giải pháp công nghệ nhằm mở rộng trải nghiệm học tập cho trẻ. Bên cạnh đó,
+                nhà trường luôn quan tâm nuôi dưỡng tuổi thơ hồn nhiên, giàu cảm xúc và gắn bó với
+                thiên nhiên, con người Việt Nam thông qua các hoạt động dã ngoại, trải nghiệm, xem
+                rối nước, rối cạn, tuồng và tham quan trang trại.
               </p>
               <p className='text-justify leading-relaxed text-gray-700 md:text-lg'>
-                Lắng nghe để đổi mới là giá trị xuyên suốt trong hành trình phát triển của Trúc Xinh. Từ
-                sự thấu hiểu mong muốn của phụ huynh, nhà trường từng bước xây dựng và phát triển thành
-                một ngôi trường với hệ thống phòng học đạt chuẩn, cơ sở vật chất hiện đại, các khu chức
-                năng riêng biệt, tạo môi trường học tập an toàn, sinh động, giúp trẻ phát triển toàn diện
-                về thể chất, trí tuệ, kỹ năng và sự tự tin khi bước vào bậc Tiểu học.
+                Lắng nghe để đổi mới là giá trị xuyên suốt trong hành trình phát triển của Trúc
+                Xinh. Từ sự thấu hiểu mong muốn của phụ huynh, nhà trường từng bước xây dựng và phát
+                triển thành một ngôi trường với hệ thống phòng học đạt chuẩn, cơ sở vật chất hiện
+                đại, các khu chức năng riêng biệt, tạo môi trường học tập an toàn, sinh động, giúp
+                trẻ phát triển toàn diện về thể chất, trí tuệ, kỹ năng và sự tự tin khi bước vào bậc
+                Tiểu học.
               </p>
               <p className='text-justify leading-relaxed text-gray-700 md:text-lg'>
-                Song song đó, Trúc Xinh đặc biệt chú trọng xây dựng đội ngũ quản lý và giáo viên có năng
-                lực, tâm huyết, yêu nghề mến trẻ, làm việc theo quy trình khoa học, ổn định chất lượng
-                chăm sóc – giáo dục. Nhà trường luôn nỗ lực cân bằng giữa chất lượng giáo dục và mức học
-                phí hợp lý, để nhiều trẻ em trên địa bàn có cơ hội được học tập trong một môi trường tốt,
-                nhân văn và bền vững.
+                Song song đó, Trúc Xinh đặc biệt chú trọng xây dựng đội ngũ quản lý và giáo viên có
+                năng lực, tâm huyết, yêu nghề mến trẻ, làm việc theo quy trình khoa học, ổn định
+                chất lượng chăm sóc – giáo dục. Nhà trường luôn nỗ lực cân bằng giữa chất lượng giáo
+                dục và mức học phí hợp lý, để nhiều trẻ em trên địa bàn có cơ hội được học tập trong
+                một môi trường tốt, nhân văn và bền vững.
               </p>
-              <p className='text-justify leading-relaxed text-gray-700 md:text-lg font-semibold'>
-                Với nền tảng đã được bồi đắp qua thời gian, Trúc Xinh cam kết luôn "Chăm sóc con bạn như
-                chính con mình", xứng đáng là "Nơi phụ huynh gửi trọn niềm tin".
+              <p className='text-justify font-semibold leading-relaxed text-gray-700 md:text-lg'>
+                Với nền tảng đã được bồi đắp qua thời gian, Trúc Xinh cam kết luôn &quot;Chăm sóc
+                con bạn như chính con mình&quot;, xứng đáng là &quot;Nơi phụ huynh gửi trọn niềm
+                tin&quot;.
               </p>
             </motion.div>
           </div>
@@ -171,4 +174,3 @@ export default function History() {
     </motion.section>
   )
 }
-

@@ -43,7 +43,7 @@ export default function NoticeDetailClient({ notice, latestNotices }: NoticeDeta
                   transition={{ duration: 0.6, delay: 0.4 }}
                   className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#33B54A]/10 to-[#33B54A]/5 border border-[#33B54A]/20'
                 >
-                  <Calendar className='w-4 h-4 text-[#33B54A]' />
+                  <Calendar className='size-4 text-[#33B54A]' />
                   <span className='text-sm font-semibold text-gray-700'>{notice.date}</span>
                 </motion.div>
               )}
@@ -107,7 +107,7 @@ export default function NoticeDetailClient({ notice, latestNotices }: NoticeDeta
             <div className='mb-6'>
               <div className='flex items-center gap-3 mb-3'>
                 <div className='p-2.5 rounded-xl bg-gradient-to-br from-[#33B54A] to-[#2EA043] shadow-lg'>
-                  <Bell className='w-5 h-5 text-white' />
+                  <Bell className='size-5 text-white' />
                 </div>
                 <h3 className='text-xl font-black text-gray-900'>
                   <span className='text-[#33B54A]'>Thông báo </span>
@@ -131,19 +131,19 @@ export default function NoticeDetailClient({ notice, latestNotices }: NoticeDeta
                       className='group block p-4 rounded-xl hover:bg-gradient-to-br hover:from-[#33B54A]/10 hover:to-[#F78F1E]/10 transition-all duration-300 hover:shadow-md'
                     >
                       <div className='flex items-start gap-3'>
-                        <div className='flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#33B54A] mt-2.5 group-hover:bg-[#F78F1E] transition-colors duration-300' />
+                        <div className='shrink-0 size-1.5 rounded-full bg-[#33B54A] mt-2.5 group-hover:bg-[#F78F1E] transition-colors duration-300' />
                         <div className='flex-1 min-w-0'>
                           <h4 className='text-sm font-black text-gray-900 group-hover:text-[#33B54A] transition-colors duration-300 line-clamp-2 mb-2 leading-snug'>
                             {item.title || 'Thông báo'}
                           </h4>
                           {item.date && (
                             <div className='flex items-center gap-1.5 text-xs font-semibold text-gray-500'>
-                              <Calendar className='w-3 h-3 text-[#33B54A]' />
+                              <Calendar className='size-3 text-[#33B54A]' />
                               <span>{item.date.split(', ')[0]}</span>
                             </div>
                           )}
                         </div>
-                        <ArrowRight className='w-3.5 h-3.5 text-gray-400 group-hover:text-[#33B54A] group-hover:translate-x-1 transition-all duration-300 flex-shrink-0 mt-2.5' />
+                        <ArrowRight className='size-3.5 text-gray-400 group-hover:text-[#33B54A] group-hover:translate-x-1 transition-all duration-300 shrink-0 mt-2.5' />
                       </div>
                     </Link>
                   </motion.li>
@@ -151,7 +151,7 @@ export default function NoticeDetailClient({ notice, latestNotices }: NoticeDeta
               </ul>
             ) : (
               <div className='text-center py-8'>
-                <Bell className='w-10 h-10 text-gray-300 mx-auto mb-3' />
+                <Bell className='size-10 text-gray-300 mx-auto mb-3' />
                 <p className='text-xs text-gray-500 font-medium'>Chưa có thông báo nào khác</p>
               </div>
             )}

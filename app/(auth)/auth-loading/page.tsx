@@ -29,8 +29,8 @@ export default function AuthLoadingPage() {
       <GoogleBackendBridge />
 
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-100" />
-      <div className="absolute -left-20 -top-24 h-72 w-72 rounded-full bg-emerald-300/40 blur-3xl" />
-      <div className="absolute -bottom-28 -right-16 h-80 w-80 rounded-full bg-lime-300/40 blur-3xl" />
+      <div className="absolute -left-20 -top-24 size-72 rounded-full bg-emerald-300/40 blur-3xl" />
+      <div className="absolute -bottom-28 -right-16 size-80 rounded-full bg-lime-300/40 blur-3xl" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.65),rgba(255,255,255,0))]" />
 
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-12">
@@ -42,14 +42,14 @@ export default function AuthLoadingPage() {
               width={140}
               height={42}
               priority
-              className="h-auto w-auto"
+              className="size-auto"
             />
           </div>
 
           <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700/70">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-600" />
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+              <span className="relative inline-flex size-2 rounded-full bg-emerald-600" />
             </span>
             {statusLabel}
           </div>
@@ -61,7 +61,7 @@ export default function AuthLoadingPage() {
 
           <div className="mt-6 space-y-3 text-left text-sm text-emerald-800/80">
             <div className="flex items-center gap-3 rounded-2xl border border-emerald-100 bg-emerald-50/60 px-4 py-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-700">
+              <div className="flex size-8 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-700">
                 <span className="text-base">1</span>
               </div>
               <div>
@@ -70,7 +70,7 @@ export default function AuthLoadingPage() {
               </div>
             </div>
             <div className="flex items-center gap-3 rounded-2xl border border-emerald-100 bg-white px-4 py-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-700">
+              <div className="flex size-8 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-700">
                 <span className="text-base">2</span>
               </div>
               <div>
@@ -79,7 +79,7 @@ export default function AuthLoadingPage() {
               </div>
             </div>
             <div className="flex items-center gap-3 rounded-2xl border border-emerald-100 bg-white px-4 py-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-700">
+              <div className="flex size-8 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-700">
                 <span className="text-base">3</span>
               </div>
               <div>
@@ -90,7 +90,7 @@ export default function AuthLoadingPage() {
           </div>
 
           <div className="mt-6 h-2 w-full overflow-hidden rounded-full bg-emerald-100">
-            <div className="h-full w-full bg-[linear-gradient(110deg,#10b981,rgba(16,185,129,0.35),#a3e635)] bg-[length:200%_200%] animate-[slide_4s_linear_infinite]" />
+            <div className="size-full bg-[linear-gradient(110deg,#10b981,rgba(16,185,129,0.35),#a3e635)] bg-[length:200%_200%] animate-[slide_4s_linear_infinite]" />
           </div>
 
           <p className="mt-4 text-xs text-emerald-700/70">
