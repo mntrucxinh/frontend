@@ -1,4 +1,4 @@
-import { Bell, Newspaper } from 'lucide-react'
+import { Bell, Mail, Newspaper } from 'lucide-react'
 
 import { APP_ROUTES } from '@/config/routes'
 
@@ -23,6 +23,13 @@ export const MAIN_SIDEBAR_ITEMS: SidebarItem[] = [
     label: 'Quản lý thông báo',
     icon: <Bell className='size-5' />,
     path: APP_ROUTES.RESOURCES.ANNOUNCEMENTS_MANAGEMENT,
+    role: '3',
+  },
+  // 3> Quan ly lien he
+  {
+    label: 'Quản lý liên hệ',
+    icon: <Mail className='size-5' />,
+    path: APP_ROUTES.RESOURCES.CONTACT_MESSAGES,
     role: '3',
   },
 ]

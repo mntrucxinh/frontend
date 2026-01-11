@@ -14,6 +14,7 @@ import {
   CheckCircle2,
 } from 'lucide-react'
 import { CONTACT_INFO } from '@/types/constants/infomations'
+import { useCreateContactMessage } from '@/hook/contact/use-contact-mutation'
 
 const contactInfo = [
   {
@@ -54,29 +55,47 @@ export default function ContactSection() {
     subject: '',
     message: '',
   })
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const { mutateAsync: createContactMessage, isPending: isSubmitting } =
+    useCreateContactMessage()
+
+  const getErrorMessage = (error: unknown) => {
+    const detail = (error as any)?.response?.data?.detail
+    if (typeof detail === 'string') return detail
+    if (Array.isArray(detail) && detail[0]?.msg) return detail[0].msg
+    if (typeof detail?.message === 'string') return detail.message
+    return (error as any)?.response?.data?.message || (error as any)?.message || 'Co loi xay ra'
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsSubmitting(true)
+    setErrorMessage(null)
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      await createContactMessage({
+        full_name: formData.name.trim(),
+        email: formData.email.trim() || undefined,
+        phone: formData.phone.trim() || undefined,
+        subject: formData.subject.trim() || undefined,
+        message: formData.message.trim(),
+      })
 
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: '',
-    })
+      setIsSubmitted(true)
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: '',
+      })
 
-    setTimeout(() => {
-      setIsSubmitted(false)
-    }, 5000)
+      setTimeout(() => {
+        setIsSubmitted(false)
+      }, 5000)
+    } catch (error) {
+      setErrorMessage(getErrorMessage(error))
+    }
   }
 
   const handleChange = (
@@ -422,6 +441,12 @@ export default function ContactSection() {
                         placeholder='Nhập tin nhắn của bạn...'
                       />
                     </motion.div>
+
+                    {errorMessage && (
+                      <div className='rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700'>
+                        {errorMessage}
+                      </div>
+                    )}
 
                     <motion.button
                       type='submit'
