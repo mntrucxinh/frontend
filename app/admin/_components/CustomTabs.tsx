@@ -20,7 +20,7 @@ export type ButtonProps = {
 
 type Props = {
   tabs: CustomTabItem[]
-  button: ButtonProps
+  button?: ButtonProps
   defaultKey: string
   queryKey?: string
   deleteQueryWhenDefault?: boolean
@@ -54,10 +54,8 @@ export default function CustomTabs({
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
   }
 
-  const BtnIcon = button.icon
-
   return (
-    <div className={`flex items-center justify-between ${className ?? ''}`}>
+    <div className={`flex items-center ${button ? 'justify-between' : 'justify-start'} ${className ?? ''}`}>
       <Tabs
         aria-label='Query Tabs'
         selectedKey={selected}
@@ -65,15 +63,15 @@ export default function CustomTabs({
         variant='light'
         classNames={{
           base: 'w-full',
-          tabList: 'gap-6 bg-transparent border-b-2 p-0 b rounded-none',
+          tabList: 'gap-4 bg-transparent border-b-2 p-0 rounded-none',
           cursor: 'hidden',
           tab: [
-            'group h-11 px-0 rounded-none transition-colors',
+            'group h-10 px-0 rounded-none transition-colors',
             'text-foreground/60 hover:text-foreground/80',
             'data-[selected=true]:text-primary',
             'data-[selected=true]:border-b-2 data-[selected=true]:border-primary',
           ].join(' '),
-          tabContent: 'text-base font-semibold',
+          tabContent: 'text-sm font-semibold',
         }}
       >
         {tabs.map((t) => {
@@ -84,11 +82,11 @@ export default function CustomTabs({
             <Tab
               key={t.key}
               title={
-                <div className='flex items-center gap-2 px-4'>
+                <div className='flex items-center gap-2 px-3'>
                   {Icon ? (
                     <Icon
                       className={[
-                        'size-5 transition-colors',
+                        'size-4 transition-colors',
                         isActive
                           ? 'text-primary'
                           : 'text-foreground/60 group-hover:text-foreground/80',
@@ -113,12 +111,14 @@ export default function CustomTabs({
         })}
       </Tabs>
 
-      <Button color='primary' onPress={button.onPress}>
-        <span className='flex items-center gap-2'>
-          {BtnIcon ? <BtnIcon className='size-4' /> : null}
-          {button.label}
-        </span>
-      </Button>
+      {button && (
+        <Button color='primary' onPress={button.onPress} size='sm' className='ml-4 flex-shrink-0'>
+          <span className='flex items-center gap-2'>
+            {button.icon ? <button.icon className='size-4' /> : null}
+            {button.label}
+          </span>
+        </Button>
+      )}
     </div>
   )
 }

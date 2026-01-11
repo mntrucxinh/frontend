@@ -78,8 +78,12 @@ const getNewsDetail = async (id: number | string): Promise<AdminNewsResponse> =>
   return res.data
 }
 
-const deleteNews = async ({ id }: AdminNewsDeleteRequest): Promise<void> => {
-  await api.delete(`/admin/news/${id}`)
+const deleteNews = async ({ id, delete_on_facebook }: AdminNewsDeleteRequest): Promise<void> => {
+  await api.delete(`/admin/news/${id}`, {
+    params: {
+      delete_on_facebook: delete_on_facebook ?? false,
+    },
+  })
 }
 
 export default {

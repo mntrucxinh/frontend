@@ -1,8 +1,6 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import Image from 'next/image'
-import { useCreateAdminNews, useUpdateAdminNews } from '@/hook/admin-news/use-admin-news-mutation'
 import {
   addToast,
   Button,
@@ -15,17 +13,23 @@ import {
 } from '@heroui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Upload, X, FileText } from 'lucide-react'
+import Image from 'next/image'
 import { buildAssetUrl } from '@/utils/api-url'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { useQueryClient } from '@tanstack/react-query'
 
 import CustomInput from '../../../../components/CustomInput'
 import CustomSelect from '../../../../components/CustomSelect'
 import CustomTextArea from '../../../../components/CustomTextArea'
-import { useQueryClient } from '@tanstack/react-query'
+import {
+  useCreateAdminAnnouncement,
+  useUpdateAdminAnnouncement,
+} from '@/hook/admin-announcement/use-admin-announcement-mutation'
+import type { BlockCode } from '@/types/admin-announcement'
 
 // ========== ZOD SCHEMA ==========
-const CreateEditNewsSchema = z.object({
+const CreateEditAnnouncementSchema = z.object({
   title: z.string().min(3, 'Tiêu đề ít nhất 3 ký tự'),
   excerpt: z.string().optional(),
   content_html: z.string().min(10, 'Nội dung HTML ít nhất 10 ký tự'),
@@ -33,18 +37,19 @@ const CreateEditNewsSchema = z.object({
   publish_to_facebook: z.boolean().optional(),
   meta_title: z.string().optional(),
   meta_description: z.string().optional(),
+  block_code: z.enum(['bee', 'mouse', 'bear', 'dolphin'], 'Vui lòng chọn khối'),
   files: z.any().optional(),
 })
 
-export type TCreateEditNews = z.infer<typeof CreateEditNewsSchema>
+export type TCreateEditAnnouncement = z.infer<typeof CreateEditAnnouncementSchema>
 
-interface ModalCreateEditNewsProps {
+interface ModalCreateEditAnnouncementProps {
   isOpen: boolean
   onClose: () => void
   isCreateModal?: boolean
-  newsEdit?: {
+  announcementEdit?: {
     id?: number | string
-    id_news?: string
+    id_announcement?: string
     title: string
     excerpt?: string | null
     content_html: string
@@ -52,12 +57,13 @@ interface ModalCreateEditNewsProps {
     publish_to_facebook?: boolean
     meta_title?: string | null
     meta_description?: string | null
+    block_code: BlockCode
     files?: string[] | null
     content_assets?: Array<{
       position: number
       caption?: string | null
       asset: {
-        id: number | string
+        id: number
         public_id: string
         url: string
         mime_type: string
@@ -69,12 +75,12 @@ interface ModalCreateEditNewsProps {
   }
 }
 
-const ModalCreateEditNews = ({
+const ModalCreateEditAnnouncement = ({
   isOpen,
   onClose,
   isCreateModal,
-  newsEdit,
-}: ModalCreateEditNewsProps) => {
+  announcementEdit,
+}: ModalCreateEditAnnouncementProps) => {
   const fileRef = useRef<HTMLInputElement | null>(null)
   const [previewUrls, setPreviewUrls] = useState<string[]>([])
   const [newFiles, setNewFiles] = useState<File[]>([])
@@ -89,16 +95,17 @@ const ModalCreateEditNews = ({
 
   const defaultValues = useMemo(
     () => ({
-      title: newsEdit?.title ?? '',
-      excerpt: newsEdit?.excerpt ?? '',
-      content_html: newsEdit?.content_html ?? '',
-      status: newsEdit?.status ?? 'draft',
-      publish_to_facebook: newsEdit?.publish_to_facebook ?? false,
-      meta_title: newsEdit?.meta_title ?? '',
-      meta_description: newsEdit?.meta_description ?? '',
+      title: announcementEdit?.title ?? '',
+      excerpt: announcementEdit?.excerpt ?? '',
+      content_html: announcementEdit?.content_html ?? '',
+      status: announcementEdit?.status ?? 'draft',
+      publish_to_facebook: announcementEdit?.publish_to_facebook ?? false,
+      meta_title: announcementEdit?.meta_title ?? '',
+      meta_description: announcementEdit?.meta_description ?? '',
+      block_code: announcementEdit?.block_code ?? 'bee',
       files: undefined,
     }),
-    [newsEdit]
+    [announcementEdit]
   )
 
   const {
@@ -109,19 +116,19 @@ const ModalCreateEditNews = ({
     setValue,
     reset,
     formState: { errors },
-  } = useForm<TCreateEditNews>({
+  } = useForm<TCreateEditAnnouncement>({
     mode: 'onChange',
     defaultValues,
-    resolver: zodResolver(CreateEditNewsSchema),
+    resolver: zodResolver(CreateEditAnnouncementSchema),
   })
 
   const queryClient = useQueryClient()
-  const { mutateAsync: createNews, isPending: isCreating } = useCreateAdminNews()
-  const { mutateAsync: updateNews, isPending: isUpdating } = useUpdateAdminNews()
+  const { mutateAsync: createAnnouncement, isPending: isCreating } = useCreateAdminAnnouncement()
+  const { mutateAsync: updateAnnouncement, isPending: isUpdating } = useUpdateAdminAnnouncement()
   const isSubmitting = isCreating || isUpdating
 
   const watchStatus = watch('status')
-  const isCreateMode = isCreateModal ?? !newsEdit
+  const isCreateMode = isCreateModal ?? !announcementEdit
 
   // ✅ nếu không published thì tự tắt publish_to_facebook
   useEffect(() => {
@@ -165,30 +172,30 @@ const ModalCreateEditNews = ({
     if (typeof detail === 'string') return detail
     if (Array.isArray(detail) && detail[0]?.msg) return detail[0].msg
     if (typeof detail?.message === 'string') return detail.message
-    return err?.response?.data?.message || err?.message || 'Co loi xay ra'
+    return err?.response?.data?.message || err?.message || 'Có lỗi xảy ra'
   }
 
   // Submit handler
-  const handleSubmitNews = async (data: TCreateEditNews) => {
+  const handleSubmitAnnouncement = async (data: TCreateEditAnnouncement) => {
     const { files: _, ...rest } = data
 
     try {
       if (isCreateMode) {
-        await createNews({ payload: rest, files: newFiles })
+        await createAnnouncement({ payload: rest, files: newFiles })
       } else {
-        const newsId = newsEdit?.id_news ?? newsEdit?.id
-        if (!newsId) {
-          throw new Error('Missing news id')
+        const announcementId = announcementEdit?.id_announcement ?? announcementEdit?.id
+        if (!announcementId) {
+          throw new Error('Missing announcement id')
         }
-        await updateNews({ id: newsId, payload: rest, files: newFiles })
+        await updateAnnouncement({ id: announcementId, payload: rest, files: newFiles })
       }
 
       addToast({
         color: 'success',
         title: 'Thành công',
-        description: isCreateMode ? 'Tạo tin tức thành công' : 'Cập nhật tin tức thành công',
+        description: isCreateMode ? 'Tạo thông báo thành công' : 'Cập nhật thông báo thành công',
       })
-      queryClient.invalidateQueries({ queryKey: ['admin-news'] })
+      queryClient.invalidateQueries({ queryKey: ['admin-announcement'] })
       handleClose()
     } catch (error) {
       addToast({
@@ -201,13 +208,13 @@ const ModalCreateEditNews = ({
 
   // Load existing files when modal opens for editing
   useEffect(() => {
-    if (isOpen && !isCreateMode && newsEdit) {
+    if (isOpen && !isCreateMode && announcementEdit) {
       // Reset new files when opening
       setNewFiles([])
       
       // Load existing files
-      if (newsEdit.content_assets && Array.isArray(newsEdit.content_assets) && newsEdit.content_assets.length > 0) {
-        const files = newsEdit.content_assets
+      if (announcementEdit.content_assets && Array.isArray(announcementEdit.content_assets) && announcementEdit.content_assets.length > 0) {
+        const files = announcementEdit.content_assets
           .sort((a, b) => (a.position || 0) - (b.position || 0))
           .map((item) => ({
             id: item.asset?.id || item.asset?.public_id,
@@ -229,13 +236,13 @@ const ModalCreateEditNews = ({
       setExistingFiles([])
       setNewFiles([])
     }
-  }, [isOpen, isCreateMode, newsEdit])
+  }, [isOpen, isCreateMode, announcementEdit])
 
   useEffect(() => {
     if (isOpen) {
       reset(defaultValues)
     }
-  }, [isOpen, newsEdit, reset, defaultValues])
+  }, [isOpen, announcementEdit, reset, defaultValues])
 
   return (
     <Modal
@@ -250,9 +257,9 @@ const ModalCreateEditNews = ({
       <ModalContent>
         {() => (
           <>
-            <ModalHeader>{isCreateMode ? 'Tạo tin tức mới' : 'Chỉnh sửa tin tức'}</ModalHeader>
+            <ModalHeader>{isCreateMode ? 'Tạo thông báo mới' : 'Chỉnh sửa thông báo'}</ModalHeader>
 
-            <form onSubmit={handleSubmit(handleSubmitNews)}>
+            <form onSubmit={handleSubmit(handleSubmitAnnouncement)}>
               <ModalBody>
                 {/* ✅ set height cố định để 2 cột scroll riêng */}
                 <div className='grid grid-cols-2 gap-6'>
@@ -260,7 +267,7 @@ const ModalCreateEditNews = ({
                   <div className='col-span-2 lg:col-span-1'>
                     <div className='flex max-h-[60vh] flex-col gap-5 overflow-y-auto p-2'>
                       <CustomInput
-                        label='Tiêu đề bài viết'
+                        label='Tiêu đề thông báo'
                         placeholder='Nhập tiêu đề'
                         {...register('title')}
                         validationErrorMessage={errors.title?.message}
@@ -279,8 +286,31 @@ const ModalCreateEditNews = ({
                         validationErrorMessage={errors.content_html?.message}
                       />
 
-                      {/* Row: status + publish fb */}
+                      {/* Row: block_code + status */}
                       <div className='grid grid-cols-2 gap-4'>
+                        <Controller
+                          name='block_code'
+                          control={control}
+                          render={({ field }) => (
+                            <CustomSelect
+                              label='Khối'
+                              placeholder='Chọn khối'
+                              selectedKeys={[field.value]}
+                              onChange={(e) => {
+                                const v = e.target.value as BlockCode
+                                field.onChange(v)
+                              }}
+                              options={[
+                                { key: 'bee', value: 'Bee' },
+                                { key: 'mouse', value: 'Mouse' },
+                                { key: 'bear', value: 'Bear' },
+                                { key: 'dolphin', value: 'Dolphin' },
+                              ]}
+                              validationErrorMessage={errors.block_code?.message}
+                            />
+                          )}
+                        />
+
                         <Controller
                           name='status'
                           control={control}
@@ -302,23 +332,23 @@ const ModalCreateEditNews = ({
                             />
                           )}
                         />
-
-                        {/* ✅ FIX lỗi: KHÔNG {...field} */}
-                        <Controller
-                          name='publish_to_facebook'
-                          control={control}
-                          render={({ field }) => (
-                            <Checkbox
-                              isSelected={!!field.value}
-                              isDisabled={watchStatus !== 'published'}
-                              onValueChange={field.onChange}
-                              classNames={{ label: 'text-foreground' }}
-                            >
-                              {isCreateMode ? 'Đăng lên Facebook' : 'Sửa trên Facebook'}
-                            </Checkbox>
-                          )}
-                        />
                       </div>
+
+                      {/* Row: publish_to_facebook */}
+                      <Controller
+                        name='publish_to_facebook'
+                        control={control}
+                        render={({ field }) => (
+                          <Checkbox
+                            isSelected={!!field.value}
+                            isDisabled={watchStatus !== 'published'}
+                            onValueChange={field.onChange}
+                            classNames={{ label: 'text-foreground' }}
+                          >
+                            {isCreateMode ? 'Đăng lên Facebook' : 'Sửa trên Facebook'}
+                          </Checkbox>
+                        )}
+                      />
 
                       <CustomInput
                         label='SEO Title'
@@ -483,7 +513,7 @@ const ModalCreateEditNews = ({
                   Hủy
                 </Button>
                 <Button color='primary' type='submit' isLoading={isSubmitting}>
-                  {isCreateMode ? 'Tạo tin' : 'Lưu thay đổi'}
+                  {isCreateMode ? 'Tạo thông báo' : 'Lưu thay đổi'}
                 </Button>
               </ModalFooter>
             </form>
@@ -494,4 +524,5 @@ const ModalCreateEditNews = ({
   )
 }
 
-export default ModalCreateEditNews
+export default ModalCreateEditAnnouncement
+

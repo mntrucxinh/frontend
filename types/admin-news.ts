@@ -74,4 +74,5 @@ export interface AdminNewsUpdateRequest extends AdminNewsCreateRequest {
 
 export interface AdminNewsDeleteRequest {
   id: number | string
+  delete_on_facebook?: boolean
 }

@@ -1,6 +1,7 @@
 'use client'
 
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@heroui/react'
+import { Button, Checkbox, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Divider } from '@heroui/react'
+import { AlertTriangle } from 'lucide-react'
 
 interface IConfirmModalProps {
   onConfirm?: () => void
@@ -12,6 +13,8 @@ interface IConfirmModalProps {
   cancelButtonText: string
   isOpen: boolean
   onClose: () => void
+  deleteOnFacebook?: boolean
+  onDeleteOnFacebookChange?: (value: boolean) => void
 }
 const ConfirmModal: React.FC<IConfirmModalProps> = ({
   isOpen,
@@ -23,27 +26,60 @@ const ConfirmModal: React.FC<IConfirmModalProps> = ({
   modalBody,
   confirmButtonText,
   cancelButtonText,
+  deleteOnFacebook,
+  onDeleteOnFacebookChange,
 }) => {
   return (
     <Modal
-      classNames={{ base: 'bg-white' }}
+      classNames={{
+        base: 'bg-white',
+        header: 'pb-2',
+        body: 'py-4',
+        footer: 'pt-4',
+      }}
       placement='center'
-      size='sm'
+      size='md'
       isOpen={isOpen}
       onClose={onClose}
-      radius='sm'
+      radius='lg'
+      hideCloseButton={isLoading}
     >
       <ModalContent>
         {(closeModal) => (
           <>
-            <ModalHeader className='text-ct-blue justify-center text-2xl font-semibold'>
-              {modalHeader}
+            <ModalHeader className='flex flex-col gap-1'>
+              <div className='flex items-center justify-center gap-2 text-danger'>
+                <AlertTriangle className='size-5' />
+                <span className='text-xl font-semibold'>{modalHeader}</span>
+              </div>
             </ModalHeader>
-            <ModalBody className='text-center'>
-              <div className='text-sm font-normal text-foreground'>{modalBody}</div>
+            <ModalBody>
+              <div className='text-center'>
+                <p className='text-sm font-normal text-foreground mb-4'>{modalBody}</p>
+                {onDeleteOnFacebookChange !== undefined && (
+                  <>
+                    <Divider className='my-4' />
+                    <div className='flex items-center justify-center'>
+                      <Checkbox
+                        isSelected={deleteOnFacebook}
+                        onValueChange={onDeleteOnFacebookChange}
+                        classNames={{ label: 'text-sm text-foreground' }}
+                      >
+                        Xóa trên Facebook
+                      </Checkbox>
+                    </div>
+                  </>
+                )}
+              </div>
             </ModalBody>
-            <ModalFooter className='flex flex-col'>
-              <Button color='default' onPress={closeModal}>
+            <ModalFooter className='flex-row gap-2 justify-end'>
+              <Button
+                color='default'
+                variant='flat'
+                onPress={closeModal}
+                isDisabled={isLoading}
+                className='min-w-20'
+              >
                 {cancelButtonText}
               </Button>
               <Button
@@ -51,6 +87,7 @@ const ConfirmModal: React.FC<IConfirmModalProps> = ({
                 onPress={onConfirm}
                 isDisabled={isDisabled}
                 isLoading={isLoading}
+                className='min-w-24'
               >
                 {confirmButtonText}
               </Button>

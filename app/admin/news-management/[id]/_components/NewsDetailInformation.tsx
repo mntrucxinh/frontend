@@ -19,6 +19,7 @@ export default function NewsDetailInformation() {
   const queryClient = useQueryClient()
   const [isEditOpen, setIsEditOpen] = useState(false)
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+  const [deleteOnFacebook, setDeleteOnFacebook] = useState(false)
   const newsId = params?.id
 
   const { data: news, isLoading, isError, error } = useAdminNewsDetail(newsId)
@@ -29,28 +30,29 @@ export default function NewsDetailInformation() {
     if (typeof detail === 'string') return detail
     if (Array.isArray(detail) && detail[0]?.msg) return detail[0].msg
     if (typeof detail?.message === 'string') return detail.message
-    return (err as any)?.response?.data?.message || (err as any)?.message || 'Co loi xay ra'
+    return (err as any)?.response?.data?.message || (err as any)?.message || 'Có lỗi xảy ra'
   }
 
   const handleConfirmDelete = async () => {
     if (!news?.id) return
     try {
-      await deleteNews({ id: news.id })
+      await deleteNews({ id: news.id, delete_on_facebook: deleteOnFacebook })
       addToast({
         color: 'success',
         title: 'Thành công',
-        description: 'Xoa tin tuc thanh cong',
+        description: 'Xóa tin tức thành công',
       })
       queryClient.invalidateQueries({ queryKey: ['admin-news'] })
       router.push('/admin/news-management')
     } catch (err) {
       addToast({
         color: 'danger',
-        title: 'That bai',
+        title: 'Thất bại',
         description: getErrorMessage(err),
       })
     } finally {
       setIsDeleteOpen(false)
+      setDeleteOnFacebook(false)
     }
   }
 
@@ -65,7 +67,7 @@ export default function NewsDetailInformation() {
   if (!news || isError) {
     return (
       <div className='py-16 text-center text-default-500'>
-        {getErrorMessage(error) || 'Khong tim thay tin tuc'}
+        {getErrorMessage(error) || 'Không tìm thấy tin tức'}
       </div>
     )
   }
@@ -78,11 +80,12 @@ export default function NewsDetailInformation() {
     status: news.status,
     meta_title: news.meta_title ?? undefined,
     meta_description: news.meta_description ?? undefined,
+    content_assets: news.content_assets ?? [],
   }
 
   return (
     <div>
-      <NewsDetailBreadCrumbs id={news.id} metaTitle={news.meta_title ?? news.title} />
+      <NewsDetailBreadCrumbs id={news.id} slug={news.slug} />
       <NewsDetailContent
         news={{
           title: news.title,
@@ -110,15 +113,20 @@ export default function NewsDetailInformation() {
 
       {isDeleteOpen && (
         <ConfirmModal
-          modalHeader='Xoa tin tuc'
-          modalBody={`Ban chac chan muon xoa "${news.title}"?`}
-          confirmButtonText='Xac nhan'
-          cancelButtonText='Huy'
+          modalHeader='Xóa tin tức'
+          modalBody={`Bạn có chắc chắn muốn xóa "${news.title}"?`}
+          confirmButtonText='Xác nhận'
+          cancelButtonText='Hủy'
           isOpen={isDeleteOpen}
-          onClose={() => setIsDeleteOpen(false)}
+          onClose={() => {
+            setIsDeleteOpen(false)
+            setDeleteOnFacebook(false)
+          }}
           onConfirm={handleConfirmDelete}
           isLoading={isDeleting}
           isDisabled={isDeleting}
+          deleteOnFacebook={deleteOnFacebook}
+          onDeleteOnFacebookChange={setDeleteOnFacebook}
         />
       )}
     </div>

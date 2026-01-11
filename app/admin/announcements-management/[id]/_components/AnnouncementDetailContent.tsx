@@ -6,8 +6,10 @@ import Link from 'next/link'
 import { formatDate, formatDateTime } from '@/utils/date'
 import { buildAssetUrl } from '@/utils/api-url'
 import { Button, Card, CardBody, CardHeader, Chip, Divider } from '@heroui/react'
-import { FileText, Globe, ImageIcon, Edit, Trash2, Eye, Copy, Check, Calendar, Clock, Info } from 'lucide-react'
+import { FileText, Globe, ImageIcon, Edit, Trash2, Eye, Copy, Check, Calendar, Clock, Info, Users } from 'lucide-react'
 import { addToast } from '@heroui/react'
+
+import type { BlockCode } from '@/types/admin-announcement'
 
 type ContentAsset = {
   position: number
@@ -23,12 +25,14 @@ type ContentAsset = {
   }
 }
 
-type NewsDetailContentProps = {
+type AnnouncementDetailContentProps = {
   title: string
   slug: string
   excerpt?: string | null
   content_html: string
   status: 'draft' | 'published' | 'archived'
+  block_code: BlockCode
+  block_name?: string | null
   meta_title?: string | null
   meta_description?: string | null
   content_assets?: ContentAsset[] | null
@@ -43,27 +47,35 @@ const STATUS_MAP = {
   archived: { label: 'Lưu trữ', color: 'default' },
 } as const
 
-export default function NewsDetailContent({
-  news,
+const BLOCK_MAP: Record<BlockCode, { label: string; color: 'primary' | 'secondary' | 'success' | 'warning' | 'default' }> = {
+  bee: { label: 'Bee', color: 'warning' },
+  mouse: { label: 'Mouse', color: 'primary' },
+  bear: { label: 'Bear', color: 'secondary' },
+  dolphin: { label: 'Dolphin', color: 'success' },
+}
+
+export default function AnnouncementDetailContent({
+  announcement,
   onEdit,
   onDelete,
   isDeleting,
 }: {
-  news: NewsDetailContentProps
+  announcement: AnnouncementDetailContentProps
   onEdit?: () => void
   onDelete?: () => void
   isDeleting?: boolean
 }) {
-  const status = STATUS_MAP[news.status]
-  const assets = (news.content_assets ?? []).slice().sort((a, b) => a.position - b.position)
-  const showMeta = Boolean(news.meta_title) || Boolean(news.meta_description)
+  const status = STATUS_MAP[announcement.status]
+  const block = BLOCK_MAP[announcement.block_code]
+  const assets = (announcement.content_assets ?? []).slice().sort((a, b) => a.position - b.position)
+  const showMeta = Boolean(announcement.meta_title) || Boolean(announcement.meta_description)
   const [copied, setCopied] = useState(false)
 
-  const previewUrl = `/news/detail/${news.slug}`
+  const previewUrl = `/announcements/detail/${announcement.slug}`
 
   const handleCopySlug = async () => {
     try {
-      await navigator.clipboard.writeText(news.slug)
+      await navigator.clipboard.writeText(announcement.slug)
       setCopied(true)
       addToast({
         color: 'success',
@@ -89,12 +101,15 @@ export default function NewsDetailContent({
             {/* Title và Status */}
             <div className='flex flex-wrap items-start justify-between gap-4'>
               <div className='flex-1 min-w-0'>
-                <h1 className='text-2xl font-bold text-foreground mb-3 leading-tight'>{news.title}</h1>
+                <h1 className='text-2xl font-bold text-foreground mb-3 leading-tight'>{announcement.title}</h1>
                 <div className='flex items-center gap-3 flex-wrap'>
                   <Chip color={status.color} size='md' variant='flat' className='font-medium'>
                     {status.label}
                   </Chip>
-                  {news.status === 'published' && (
+                  <Chip color={block.color} size='md' variant='flat' className='font-medium'>
+                    {announcement.block_name || block.label}
+                  </Chip>
+                  {announcement.status === 'published' && (
                     <Link
                       href={previewUrl}
                       target='_blank'
@@ -115,7 +130,7 @@ export default function NewsDetailContent({
                   isDisabled={!onEdit}
                   size='md'
                 >
-                  Sửa bài
+                  Sửa thông báo
                 </Button>
                 <Button
                   color='danger'
@@ -126,7 +141,7 @@ export default function NewsDetailContent({
                   isLoading={isDeleting}
                   size='md'
                 >
-                  Xóa bài
+                  Xóa thông báo
                 </Button>
               </div>
             </div>
@@ -139,14 +154,14 @@ export default function NewsDetailContent({
         {/* CỘT TRÁI: NỘI DUNG CHÍNH */}
         <div className='space-y-6 lg:col-span-8'>
           {/* Mô tả ngắn */}
-          {news.excerpt && (
+          {announcement.excerpt && (
             <Card shadow='sm' className='border border-default-200'>
               <CardHeader className='flex items-center gap-2.5 border-b border-default-200 pb-3 px-5 pt-5'>
                 <FileText className='size-4.5 text-default-500' />
                 <h2 className='text-base font-semibold text-default-800'>Mô tả ngắn</h2>
               </CardHeader>
               <CardBody className='px-5 py-5'>
-                <p className='text-justify text-sm leading-relaxed text-default-700'>{news.excerpt}</p>
+                <p className='text-justify text-sm leading-relaxed text-default-700'>{announcement.excerpt}</p>
               </CardBody>
             </Card>
           )}
@@ -160,7 +175,7 @@ export default function NewsDetailContent({
             <CardBody className='px-5 py-5'>
               <article
                 className='prose prose-neutral prose-sm max-w-none text-justify text-default-700 prose-headings:text-default-900 prose-headings:font-semibold prose-p:leading-relaxed prose-p:mb-4 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-default-900 prose-ul:list-disc prose-ol:list-decimal prose-li:my-1.5'
-                dangerouslySetInnerHTML={{ __html: news.content_html }}
+                dangerouslySetInnerHTML={{ __html: announcement.content_html }}
               />
             </CardBody>
           </Card>
@@ -197,7 +212,7 @@ export default function NewsDetailContent({
                         ) : (
                           <Image
                             src={assetUrl}
-                            alt={caption || news.title}
+                            alt={caption || announcement.title}
                             fill
                             className='object-cover transition-transform duration-300 group-hover:scale-105'
                             unoptimized
@@ -239,14 +254,14 @@ export default function NewsDetailContent({
                 <div>
                   <p className='font-semibold text-default-800 mb-2 text-sm'>Meta Title</p>
                   <p className='text-sm text-default-600 break-words leading-relaxed'>
-                    {news.meta_title || '—'}
+                    {announcement.meta_title || '—'}
                   </p>
                 </div>
                 <Divider className='my-2' />
                 <div>
                   <p className='font-semibold text-default-800 mb-2 text-sm'>Meta Description</p>
                   <p className='text-sm text-default-600 break-words leading-relaxed'>
-                    {news.meta_description || '—'}
+                    {announcement.meta_description || '—'}
                   </p>
                 </div>
               </CardBody>
@@ -269,12 +284,26 @@ export default function NewsDetailContent({
             <CardBody className='px-5 py-5 space-y-4'>
               <div className='flex items-start gap-3'>
                 <div className='flex-shrink-0 mt-0.5'>
+                  <Users className='size-4 text-default-400' />
+                </div>
+                <div className='flex-1 min-w-0'>
+                  <p className='text-xs text-default-500 mb-1'>Khối</p>
+                  <Chip color={block.color} size='sm' variant='flat' className='font-medium'>
+                    {announcement.block_name || block.label}
+                  </Chip>
+                </div>
+              </div>
+
+              <Divider className='my-2' />
+
+              <div className='flex items-start gap-3'>
+                <div className='flex-shrink-0 mt-0.5'>
                   <Calendar className='size-4 text-default-400' />
                 </div>
                 <div className='flex-1 min-w-0'>
                   <p className='text-xs text-default-500 mb-1'>Ngày xuất bản</p>
                   <p className='text-sm font-semibold text-default-700'>
-                    {formatDate(news.published_at) || 'Chưa xuất bản'}
+                    {formatDate(announcement.published_at) || 'Chưa xuất bản'}
                   </p>
                 </div>
               </div>
@@ -287,7 +316,7 @@ export default function NewsDetailContent({
                 </div>
                 <div className='flex-1 min-w-0'>
                   <p className='text-xs text-default-500 mb-1'>Cập nhật lần cuối</p>
-                  <p className='text-sm font-semibold text-default-700'>{formatDateTime(news.updated_at)}</p>
+                  <p className='text-sm font-semibold text-default-700'>{formatDateTime(announcement.updated_at)}</p>
                 </div>
               </div>
 
@@ -312,7 +341,7 @@ export default function NewsDetailContent({
                 <div className='flex-1 min-w-0'>
                   <p className='text-xs text-default-500 mb-1'>Slug</p>
                   <div className='flex items-center gap-1.5'>
-                    <p className='text-sm font-semibold text-default-700 truncate flex-1'>{news.slug}</p>
+                    <p className='text-sm font-semibold text-default-700 truncate flex-1'>{announcement.slug}</p>
                     <Button
                       isIconOnly
                       size='sm'
@@ -332,3 +361,4 @@ export default function NewsDetailContent({
     </div>
   )
 }
+
