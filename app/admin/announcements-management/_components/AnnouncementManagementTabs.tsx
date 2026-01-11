@@ -7,9 +7,9 @@ import { Input, Button } from '@heroui/react'
 
 import CustomTabs from '../../_components/CustomTabs'
 import type { CustomTabItem } from '../../_components/CustomTabs'
-import ModalCreateEditNews from './ModalCreateEditNews'
+import ModalCreateEditAnnouncement from './ModalCreateEditAnnouncement'
 
-export default function NewsManagementTabs() {
+export default function AnnouncementManagementTabs() {
   const [isCreateOpen, setIsCreateOpen] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
@@ -19,13 +19,13 @@ export default function NewsManagementTabs() {
 
   const POST_TABS: CustomTabItem[] = [
     { key: 'all', label: 'Tất cả', icon: LayoutGrid },
-    { key: 'draft', label: 'Tin nháp', icon: FileText },
+    { key: 'draft', label: 'Thông báo nháp', icon: FileText },
     { key: 'published', label: 'Công khai', icon: Globe },
     { key: 'archived', label: 'Lưu trữ', icon: Archive },
   ]
 
   const BUTTON_PROPS = {
-    label: 'Tạo tin tức',
+    label: 'Tạo thông báo',
     onPress: () => setIsCreateOpen(true),
   }
 
@@ -135,7 +135,7 @@ export default function NewsManagementTabs() {
         </div>
       </div>
 
-      <ModalCreateEditNews
+      <ModalCreateEditAnnouncement
         isOpen={isCreateOpen}
         onClose={() => setIsCreateOpen(false)}
         isCreateModal
@@ -143,3 +143,4 @@ export default function NewsManagementTabs() {
     </>
   )
 }
+

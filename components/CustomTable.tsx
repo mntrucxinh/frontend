@@ -206,7 +206,7 @@ function CustomTable<T extends { id: string | number }>({
     if (hideTopContent) return null
 
     return (
-      <div className='flex flex-col gap-14'>
+      <div className='flex flex-col gap-3'>
         <div
           className={`flex items-center ${hideSelectedItems ? 'justify-end' : 'justify-between'} `}
         >
@@ -220,7 +220,7 @@ function CustomTable<T extends { id: string | number }>({
 
           <label
             htmlFor='rowsPerPage'
-            className='flex items-center gap-5 text-small text-default-400'
+            className='flex items-center gap-3 text-small text-default-400'
           >
             <span>Số hàng mỗi trang:</span>
 
@@ -253,7 +253,7 @@ function CustomTable<T extends { id: string | number }>({
     if (hideBottomContent) return null
 
     return (
-      <div className='flex items-center justify-between p-2'>
+      <div className='flex items-center justify-between px-2 py-1'>
         <span className='text-small text-default-400'>
           Tổng cộng {paginationResponse?.total_items} mục
         </span>
