@@ -141,7 +141,7 @@ export const AlbumDetailModal = ({ album, onClose }: AlbumDetailModalProps) => {
                                 className="flex-shrink-0 flex items-center justify-between border-b bg-gradient-to-r from-[#33B54A]/5 via-white to-[#F78F1E]/5 px-6 py-5"
                             >
                                 <div className="flex-1 min-w-0 pr-4">
-                                    <h2 className="text-2xl font-black text-gray-900 md:text-3xl line-clamp-1 mb-1">
+                                    <h2 className="text-2xl font-black text-gray-900 md:text-3xl mb-1">
                                         <span className="text-[#F78F1E]">{album.title}</span>
                                     </h2>
                                     {album.description && (
@@ -234,13 +234,15 @@ export const AlbumDetailModal = ({ album, onClose }: AlbumDetailModalProps) => {
                     </div>
 
                     {/* Lightboxes */}
-                    <ImageLightbox 
-                        slides={imageSlides}
-                        open={imageIndex > -1}
-                        close={() => setImageIndex(-1)}
-                        index={imageIndex}
-                    />
-                    <VideoPlayer playlist={activePlaylist} onClose={() => setActivePlaylist(null)} />
+                    <div className='relative z-[1001]'>
+                        <ImageLightbox 
+                            slides={imageSlides}
+                            open={imageIndex > -1}
+                            close={() => setImageIndex(-1)}
+                            index={imageIndex}
+                        />
+                        <VideoPlayer playlist={activePlaylist} onClose={() => setActivePlaylist(null)} />
+                    </div>
                 </>
             )}
         </AnimatePresence>
