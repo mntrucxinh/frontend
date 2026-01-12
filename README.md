@@ -9,7 +9,7 @@ This is a Next.js project with TypeScript, Tailwind CSS, and modern development 
 To run the development server:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 This will start the development server at [http://localhost:3000](http://localhost:3000).
@@ -19,32 +19,32 @@ This will start the development server at [http://localhost:3000](http://localho
 To build the application for production:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 To start the production server after building:
 
 ```bash
-npm run start
+pnpm start
 ```
 
 Or run both commands together:
 
 ```bash
-npm run build && npm run start
+pnpm build && pnpm start
 ```
 
 ### Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build the application for production
-- `npm run start` - Start the production server
-- `npm run lint` - Run ESLint to check for code issues
-- `npm run lint:fix` - Run ESLint and automatically fix issues
-- `npm run preview` - Build and start production server in one command
-- `npm run typecheck` - Run TypeScript type checking
-- `npm run format:write` - Format code with Prettier
-- `npm run format:check` - Check code formatting with Prettier
+- `pnpm dev` - Start development server
+- `pnpm build` - Build the application for production
+- `pnpm start` - Start the production server
+- `pnpm lint` - Run ESLint to check for code issues
+- `pnpm lint:fix` - Run ESLint and automatically fix issues
+- `pnpm preview` - Build and start production server in one command
+- `pnpm typecheck` - Run TypeScript type checking
+- `pnpm format:write` - Format code with Prettier
+- `pnpm format:check` - Check code formatting with Prettier
 
 ## Tech Stack
 
