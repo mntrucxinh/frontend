@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 import { Asset } from '@/types/interface/library'
 
 // --- Animated background component ---
-const MotionImage = ({ src, initial, animate }: { src: string; initial: object; animate: object }) => (
+const MotionImage = ({ src, initial, animate }: { src: string; initial: any; animate: any }) => (
     <motion.div
         className="absolute h-40 w-60 rounded-2xl"
         initial={initial}
@@ -77,15 +77,15 @@ export const Hero = ({ assets }: { assets: Asset[] }) => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1]}}
-                    className='mb-6 text-4xl font-black leading-tight text-[#F78F1E] drop-shadow-lg md:text-6xl lg:text-7xl'
+                    className='mb-6 text-4xl font-black leading-tight text-white drop-shadow-lg md:text-6xl lg:text-7xl'
                 >
-                    Thế Giới Tuổi Thơ
+                    <span className='block text-[#F78F1E] drop-shadow-lg'>Thế Giới Tuổi Thơ</span>
                 </motion.h1>
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
-                    className='mx-auto max-w-xl font-black leading-tight text-lg text-white/95 md:text-xl'
+                    className='mx-auto max-w-xl text-lg leading-relaxed text-white/95 md:text-xl'
                 >
                     Cùng khám phá những câu chuyện, những nụ cười và những kỷ niệm tuyệt vời được ghi lại mỗi ngày.
                 </motion.p>

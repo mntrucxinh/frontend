@@ -15,6 +15,12 @@ interface AlbumCardProps {
 export const AlbumCard = ({ album, index, onClick }: AlbumCardProps) => {
     const hasImages = album.items.length > 0;
     const hasVideos = album.videos.length > 0;
+    const totalItems = album.items.length + album.videos.length;
+
+    // Get cover image - prefer cover_asset, then first image, then first video thumbnail
+    const coverImage = album.cover_asset?.src || 
+                      (hasImages ? album.items[0]?.asset?.src : null) ||
+                      (hasVideos ? album.videos[0]?.video?.thumbnail_url : '/placeholder.png');
 
     return (
         <motion.div
@@ -23,40 +29,53 @@ export const AlbumCard = ({ album, index, onClick }: AlbumCardProps) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ duration: 0.5, delay: index * 0.05 }}
-            className="group relative aspect-video overflow-hidden rounded-xl cursor-pointer bg-card shadow-lg"
+            className="group relative aspect-video overflow-hidden rounded-xl cursor-pointer bg-white shadow-lg hover:shadow-xl transition-all duration-300"
             onClick={() => onClick(album)}
         >
             <Image
-                src={album.cover_asset.src || (hasVideos ? album.videos[0].video.thumbnail_url : '/placeholder.png')}
+                src={coverImage}
                 alt={`Cover for ${album.title}`}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-            <div className="absolute inset-0 flex flex-col justify-between p-4 text-primary-foreground">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+            
+            {/* Content */}
+            <div className="absolute inset-0 flex flex-col justify-between p-5 md:p-6 text-white">
+                {/* Top: Media count badge */}
                 <div className='flex justify-end'>
-                    {(hasImages || hasVideos) && (
-                        <div className='flex items-center gap-3 rounded-full bg-foreground/30 backdrop-blur-sm px-3 py-1 text-xs font-medium'>
+                    {totalItems > 0 && (
+                        <div className='flex items-center gap-2.5 rounded-full bg-white/20 backdrop-blur-md px-4 py-2 border border-white/30 shadow-lg'>
                             {hasImages && (
-                                <div className="flex items-center gap-1">
-                                    <ImageIcon className="w-4 h-4" />
-                                    <span>{album.items.length}</span>
+                                <div className="flex items-center gap-1.5">
+                                    <ImageIcon className="w-4 h-4 text-white" />
+                                    <span className="text-sm font-semibold">{album.items.length}</span>
                                 </div>
                             )}
-                            {hasImages && hasVideos && <div className="w-px h-3 bg-primary-foreground/40"></div>}
+                            {hasImages && hasVideos && (
+                                <div className="w-px h-4 bg-white/50"></div>
+                            )}
                             {hasVideos && (
-                                <div className="flex items-center gap-1">
-                                    <Film className="w-4 h-4" />
-                                    <span>{album.videos.length}</span>
+                                <div className="flex items-center gap-1.5">
+                                    <Film className="w-4 h-4 text-white" />
+                                    <span className="text-sm font-semibold">{album.videos.length}</span>
                                 </div>
                             )}
                         </div>
                     )}
                 </div>
+                
+                {/* Bottom: Title and description */}
                 <div>
-                    <h3 className="font-black leading-tight text-xl leading-tight drop-shadow-md">{album.title}</h3>
-                    <p className="font-black leading-tight text-sm text-primary-foreground/80 mt-1 truncate">{album.description}</p>
+                    <h3 className="font-black leading-tight text-xl drop-shadow-lg md:text-2xl mb-1.5">
+                        {album.title}
+                    </h3>
+                    {album.description && (
+                        <p className="font-semibold leading-relaxed text-sm text-white/95 line-clamp-2 md:text-base">
+                            {album.description}
+                        </p>
+                    )}
                 </div>
             </div>
         </motion.div>

@@ -27,8 +27,34 @@ const titles = {
     },
     albums: {
         title: "Khám phá theo Album",
-        subtitle: "Mỗi album là một câu chuyện độc đáo."
+        subtitle: "Mỗi album có thể chứa cả hình ảnh và video, kể lại những câu chuyện độc đáo."
     }
+}
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.05,
+            delayChildren: 0.2,
+        },
+    },
+}
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            type: 'spring',
+            stiffness: 100,
+            damping: 15,
+            mass: 0.8,
+        },
+    },
 }
 
 export function MediaGrid<T>({ items, renderItem, view }: MediaGridProps<T>) {
@@ -38,18 +64,77 @@ export function MediaGrid<T>({ items, renderItem, view }: MediaGridProps<T>) {
         <AnimatePresence mode="wait">
             <motion.div
                 key={view}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ duration: 0.45, ease: 'easeOut' }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                className="w-full"
             >
-                <div className="mb-12 text-center">
-                    <h2 className="mb-2 text-3xl font-black md:text-4xl bg-gradient-to-r from-[#33B54A] from-10% via-[#2EA043] via-30% to-[#F78F1E] to-90% bg-clip-text text-transparent">{title}</h2>
-                    <p className="text-lg text-gray-600 mt-2 max-w-2xl mx-auto">{subtitle}</p>
-                </div>
-                <div className={`grid ${gridStyles[view]}`}>
-                    {items.map((item, index) => renderItem(item, index))}
-                </div>
+                {/* Header Section */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                        type: 'spring',
+                        stiffness: 120,
+                        damping: 20,
+                        delay: 0.1,
+                    }}
+                    className="mb-12 md:mb-16 text-center"
+                >
+                    <motion.h2
+                        className="mb-4 text-4xl font-black tracking-tight md:text-5xl"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ type: 'spring', stiffness: 100, delay: 0.2 }}
+                    >
+                        {view === 'images' ? (
+                            <>
+                                <span className="text-[#33B54A]">Thư viện </span>
+                                <span className="text-[#F78F1E]">hình ảnh</span>
+                            </>
+                        ) : view === 'videos' ? (
+                            <>
+                                <span className="text-[#33B54A]">Thư viện </span>
+                                <span className="text-[#F78F1E]">video</span>
+                            </>
+                        ) : (
+                            <>
+                                <span className="text-[#33B54A]">Khám phá </span>
+                                <span className="text-[#F78F1E]">theo Album</span>
+                            </>
+                        )}
+                    </motion.h2>
+                    <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="mx-auto max-w-3xl text-base leading-relaxed text-gray-700 md:text-lg"
+                    >
+                        {subtitle}
+                    </motion.p>
+                </motion.div>
+
+                {/* Grid Section with Stagger Animation */}
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className={`grid ${gridStyles[view]} mx-auto max-w-7xl`}
+                >
+                    {items.map((item, index) => {
+                        const renderedItem = renderItem(item, index);
+                        return (
+                            <motion.div
+                                key={index}
+                                variants={itemVariants}
+                                className="w-full"
+                            >
+                                {renderedItem}
+                            </motion.div>
+                        );
+                    })}
+                </motion.div>
             </motion.div>
         </AnimatePresence>
     )

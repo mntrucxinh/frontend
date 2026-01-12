@@ -20,7 +20,7 @@ export const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ duration: 0.5, delay: index * 0.05 }}
-            className="group relative aspect-video overflow-hidden rounded-xl cursor-pointer bg-card shadow-lg"
+            className="group relative aspect-video overflow-hidden rounded-xl cursor-pointer bg-white shadow-lg hover:shadow-xl transition-all duration-300"
             onClick={() => onClick(video)}
         >
             <Image
@@ -34,8 +34,8 @@ export const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
             <div className="absolute inset-0 flex items-center justify-center">
                 <PlayCircle className="w-16 h-16 text-primary-foreground/70 opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-4 text-primary-foreground">
-                <h3 className="font-black leading-tight text-lg leading-tight drop-shadow-md">{video.title}</h3>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                <h3 className="font-black leading-tight text-lg drop-shadow-md md:text-xl">{video.title}</h3>
             </div>
         </motion.div>
     )

@@ -34,7 +34,7 @@ export const ViewSwitcher = ({ view, setView }: ViewSwitcherProps) => {
                                 transition={{ duration: 0.6, type: "spring", bounce: 0.25, stiffness: 150 }}
                             />
                         )}
-                        <span className={`relative flex items-center transition-colors duration-500 font-black leading-tight ${view === tab.id ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
+                        <span className={`relative flex items-center transition-colors duration-500 font-black leading-tight ${view === tab.id ? 'text-white' : 'text-gray-700 hover:text-gray-900'}`}>
                             <tab.icon className="mr-1.5 inline-block h-5 w-5"/>
                             {tab.label}
                         </span>

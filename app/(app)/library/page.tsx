@@ -148,8 +148,12 @@ const LibraryPage = () => {
                                         >
                                             <IconComponent className='h-6 w-6 text-white' />
                                         </motion.div>
-                                        <h3 className='mb-2 text-sm font-black leading-tight text-gray-900 md:text-base'>{stat.title}</h3>
-                                        <p className='text-xs font-semibold text-gray-600 md:text-sm'>{stat.content}</p>
+                                        <div className='mb-1 text-3xl font-black text-gray-900 md:text-4xl'>
+                                            {stat.content}
+                                        </div>
+                                        <div className='text-xs font-semibold text-gray-600 md:text-sm'>
+                                            {stat.title}
+                                        </div>
                                     </div>
                                 </motion.div>
                             );
