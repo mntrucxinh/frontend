@@ -12,7 +12,6 @@ type Program = {
   label: string
   badge: string
   img: string
-  activities: string[]
   schedule: { time: string; text: string }[]
 }
 
@@ -24,22 +23,15 @@ export default function ActivitiesAtSchool() {
         label: '18-30 tháng',
         badge: 'Lớp Bee (18-30 tháng)',
         img: '/assets/images/activities-23.jpg',
-        activities: [
-          'Lễ giáo',
-          'Chương trình mầm non',
-          'STEAM',
-          'Kỹ năng sống',
-          'Hoạt động góc',
-          'Chơi ngoài trời',
-          'Phòng chơi trí tuệ',
-          'Sinh hoạt vòng tròn',
-        ],
         schedule: [
           { time: '06h15–08h00', text: 'Đón trẻ, ăn sáng, thể dục sáng' },
           { time: '08h00–08h30', text: 'Uống sữa' },
           { time: '08h30–09h00', text: 'Hoạt động học sáng: Chương trình mầm non, STEAM, kỹ năng' },
           { time: '09h00–09h20', text: 'Chuyển tiếp, uống nước trái cây, vệ sinh' },
-          { time: '09h20–10h00', text: 'Hoạt động góc, chơi ngoài trời, phòng chơi trí tuệ đa năng' },
+          {
+            time: '09h20–10h00',
+            text: 'Hoạt động góc, chơi ngoài trời, phòng chơi trí tuệ đa năng',
+          },
           { time: '10h00–10h15', text: 'Vệ sinh, chuẩn bị ăn trưa' },
           { time: '10h15–11h15', text: 'Ăn trưa, vệ sinh' },
           { time: '11h15–14h00', text: 'Ngủ trưa' },
@@ -53,23 +45,18 @@ export default function ActivitiesAtSchool() {
         label: '3-4 tuổi',
         badge: 'Lớp Mouse (3-4 tuổi)',
         img: '/assets/images/activities-34.jpg',
-        activities: [
-          'Lễ giáo',
-          'Chương trình mầm non',
-          'STEAM',
-          'Học năng khiếu',
-          'Hoạt động kỹ năng',
-          'Hoạt động góc',
-          'Chơi ngoài trời',
-          'Phòng chơi trí tuệ',
-          'Sinh hoạt vòng tròn',
-        ],
         schedule: [
           { time: '06h15–08h00', text: 'Đón trẻ, ăn sáng, thể dục sáng' },
           { time: '08h00–08h15', text: 'Uống sữa' },
-          { time: '08h15–09h00', text: 'Hoạt động học sáng: Chương trình mầm non, STEAM, năng khiếu, kỹ năng' },
+          {
+            time: '08h15–09h00',
+            text: 'Hoạt động học sáng: Chương trình mầm non, STEAM, năng khiếu, kỹ năng',
+          },
           { time: '09h00–09h10', text: 'Chuyển tiếp, uống nước trái cây, vệ sinh' },
-          { time: '09h10–10h20', text: 'Hoạt động góc, chơi ngoài trời, phòng chơi trí tuệ đa năng' },
+          {
+            time: '09h10–10h20',
+            text: 'Hoạt động góc, chơi ngoài trời, phòng chơi trí tuệ đa năng',
+          },
           { time: '10h20–10h30', text: 'Vệ sinh, chuẩn bị ăn trưa' },
           { time: '10h30–11h30', text: 'Ăn trưa, vệ sinh' },
           { time: '11h30–14h00', text: 'Ngủ trưa' },
@@ -83,24 +70,18 @@ export default function ActivitiesAtSchool() {
         label: '4-5 tuổi',
         badge: 'Lớp Bear (4-5 tuổi)',
         img: '/assets/images/activities-45.jpg',
-        activities: [
-          'Lễ giáo',
-          'Chương trình mầm non',
-          'STEAM',
-          'Học năng khiếu',
-          'Hoạt động kỹ năng',
-          'Hoạt động góc',
-          'Chơi ngoài trời',
-          'Phòng chơi trí tuệ',
-          'Học Toán',
-          'Làm quen chữ cái',
-        ],
         schedule: [
           { time: '06h15–08h00', text: 'Đón trẻ, ăn sáng, thể dục sáng' },
           { time: '08h00–08h15', text: 'Uống sữa' },
-          { time: '08h15–09h00', text: 'Hoạt động học sáng: Chương trình mầm non, STEAM, năng khiếu, kỹ năng' },
+          {
+            time: '08h15–09h00',
+            text: 'Hoạt động học sáng: Chương trình mầm non, STEAM, năng khiếu, kỹ năng',
+          },
           { time: '09h00–09h10', text: 'Chuyển tiếp, uống nước trái cây, vệ sinh' },
-          { time: '09h10–10h20', text: 'Hoạt động góc, chơi ngoài trời, phòng chơi trí tuệ đa năng' },
+          {
+            time: '09h10–10h20',
+            text: 'Hoạt động góc, chơi ngoài trời, phòng chơi trí tuệ đa năng',
+          },
           { time: '10h20–10h30', text: 'Vệ sinh, chuẩn bị ăn trưa' },
           { time: '10h30–11h30', text: 'Ăn trưa, vệ sinh' },
           { time: '11h30–14h00', text: 'Ngủ trưa' },
@@ -114,16 +95,6 @@ export default function ActivitiesAtSchool() {
         label: '5-6 tuổi',
         badge: 'Lớp Dolphin (5-6 tuổi)',
         img: '/assets/images/activities-56.jpg',
-        activities: [
-          'Lễ giáo',
-          'STEAM',
-          'Học năng khiếu',
-          'Kỹ năng sống',
-          'Học Toán',
-          'Làm quen chữ cái',
-          'Hoạt động góc',
-          'Chơi ngoài trời',
-        ],
         schedule: [
           { time: '06h15–08h00', text: 'Đón trẻ, ăn sáng, thể dục sáng' },
           { time: '08h00–08h15', text: 'Uống sữa' },
@@ -154,14 +125,14 @@ export default function ActivitiesAtSchool() {
         duration: 0.8,
         ease: [0.4, 0, 0.2, 1],
       }}
-      className='relative -mt-12 overflow-hidden bg-gradient-to-b from-[#33B54A] via-[#2EA043] to-[#33B54A] py-20 text-white md:-mt-20 md:pt-24 md:pb-28'
+      className='relative -mt-12 overflow-hidden bg-gradient-to-b from-[#33B54A] via-[#2EA043] to-[#33B54A] py-20 text-white md:-mt-20 md:pb-28 md:pt-24'
     >
       {/* Smooth top wave - continues seamlessly from Method section */}
       <div className='pointer-events-none absolute inset-x-0 -top-12 h-32 w-screen sm:-top-14 sm:h-36 md:-top-20 md:h-40'>
         {/* Multi-layer gradient overlay for seamless blend - eliminates hard edge */}
         <div className='absolute inset-0 bg-gradient-to-b from-transparent via-[#33B54A]/50 to-[#33B54A]' />
         <div className='absolute inset-0 bg-gradient-to-b from-white/10 via-white/5 to-transparent opacity-60' />
-        
+
         {/* Main wave - starts from very top to eliminate hard line */}
         <svg viewBox='0 0 1440 160' className='absolute top-0 size-full' preserveAspectRatio='none'>
           <defs>
@@ -195,7 +166,7 @@ export default function ActivitiesAtSchool() {
       {/* Subtle background */}
       <div className='pointer-events-none absolute inset-0'>
         <motion.div
-          className='absolute right-[5%] top-[10%] size-[400px] rounded-full bg-white/6 blur-3xl'
+          className='bg-white/6 absolute right-[5%] top-[10%] size-[400px] rounded-full blur-3xl'
           animate={{
             scale: [1, 1.2, 1],
             x: [0, 30, 0],
@@ -207,7 +178,7 @@ export default function ActivitiesAtSchool() {
           }}
         />
         <motion.div
-          className='absolute bottom-[10%] left-[5%] size-[400px] rounded-full bg-[#F78F1E]/8 blur-3xl'
+          className='bg-[#F78F1E]/8 absolute bottom-[10%] left-[5%] size-[400px] rounded-full blur-3xl'
           animate={{
             scale: [1, 1.25, 1],
             x: [0, -30, 0],
@@ -288,7 +259,7 @@ export default function ActivitiesAtSchool() {
         </motion.div>
 
         {/* Main Card */}
-        <div className='mx-auto max-w-6xl'>
+        <div className='mx-auto max-w-5xl'>
           <motion.div
             key={activeKey}
             initial={{ opacity: 0, y: 30 }}
@@ -297,7 +268,7 @@ export default function ActivitiesAtSchool() {
               duration: 0.6,
               ease: [0.4, 0, 0.2, 1],
             }}
-            className='overflow-hidden rounded-3xl bg-white text-gray-900 shadow-2xl ring-1 ring-gray-100 gpu-accelerate md:rounded-[40px]'
+            className='gpu-accelerate overflow-hidden rounded-3xl bg-white text-gray-900 shadow-2xl ring-1 ring-gray-100 md:rounded-[40px]'
           >
             {/* Image Section - Top */}
             <motion.div
@@ -357,97 +328,52 @@ export default function ActivitiesAtSchool() {
 
             {/* Content Section - Bottom */}
             <div className='px-8 pb-12 pt-10 sm:px-12'>
-              <div className='grid grid-cols-1 gap-10 md:grid-cols-2'>
-                {/* Activities */}
-                <motion.div
-                  initial={{ opacity: 0, x: -30 }}
+              {/* Schedule */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.35, duration: 0.6 }}
+                className='rounded-2xl bg-gradient-to-br from-[#33B54A]/10 to-[#F78F1E]/10 p-8 ring-1 ring-[#33B54A]/15'
+              >
+                <motion.h3
+                  initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3, duration: 0.6 }}
-                  className='rounded-2xl bg-gradient-to-br from-[#F78F1E]/10 to-[#33B54A]/10 p-8 ring-1 ring-[#F78F1E]/15'
+                  transition={{ delay: 0.4 }}
+                  className='mb-8 flex min-h-[32px] items-center gap-3 text-2xl font-bold text-[#33B54A]'
                 >
-                  <motion.h3
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className='mb-8 flex items-center gap-3 text-2xl font-bold text-[#F78F1E] min-h-[32px]'
+                  <motion.div
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                    className='shrink-0'
                   >
-                    <motion.span
-                      className='h-1.5 w-12 rounded-full bg-[#33B54A] shrink-0'
-                      initial={{ width: 0 }}
-                      animate={{ width: 48 }}
-                      transition={{ delay: 0.5, duration: 0.5 }}
-                    />
-                    Hoạt động
-                  </motion.h3>
-                  <ul className='space-y-2.5'>
-                    {current.activities.map((it, i) => (
-                      <motion.li
-                        key={i}
-                        initial={{ opacity: 0, x: -15 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.5 + i * 0.05, duration: 0.4 }}
-                        whileHover={{ x: 4 }}
-                        className='group flex items-start gap-3'
-                      >
-                        <motion.span
-                          className='mt-1.5 size-2 shrink-0 rounded-full bg-[#33B54A]'
-                          whileHover={{ scale: 1.4 }}
-                        />
-                        <span className='text-sm leading-relaxed text-gray-700 transition-colors group-hover:text-gray-900 md:text-base'>
-                          {it}
-                        </span>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </motion.div>
-
-                {/* Schedule */}
-                <motion.div
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.35, duration: 0.6 }}
-                  className='rounded-2xl bg-gradient-to-br from-[#33B54A]/10 to-[#F78F1E]/10 p-8 ring-1 ring-[#33B54A]/15'
-                >
-                  <motion.h3
-                    initial={{ opacity: 0, x: 10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className='mb-8 flex items-center gap-3 text-2xl font-bold text-[#33B54A] min-h-[32px]'
-                  >
-                    <motion.div
-                      animate={{ rotate: [0, 360] }}
-                      transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                      className='shrink-0'
+                    <Clock className='size-6 text-[#F78F1E]' />
+                  </motion.div>
+                  Thời gian biểu
+                </motion.h3>
+                <ul className='space-y-2.5'>
+                  {current.schedule.map((it, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: 15 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.5 + i * 0.05, duration: 0.4 }}
+                      whileHover={{ x: -4 }}
+                      className='group flex gap-3'
                     >
-                      <Clock className='size-6 text-[#F78F1E]' />
-                    </motion.div>
-                    Thời gian biểu
-                  </motion.h3>
-                  <ul className='space-y-2.5'>
-                    {current.schedule.map((it, i) => (
-                      <motion.li
-                        key={i}
-                        initial={{ opacity: 0, x: 15 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.5 + i * 0.05, duration: 0.4 }}
-                        whileHover={{ x: -4 }}
-                        className='group flex gap-3'
-                      >
-                        <motion.span
-                          className='mt-1.5 size-2 shrink-0 rounded-full bg-[#F78F1E]'
-                          whileHover={{ scale: 1.4 }}
-                        />
-                        <div className='text-sm leading-relaxed text-gray-700 md:text-base'>
-                          <span className='font-bold text-gray-900'>{it.time}:</span>{' '}
-                          <span className='transition-colors group-hover:text-gray-900'>
-                            {it.text}
-                          </span>
-                        </div>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </motion.div>
-              </div>
+                      <motion.span
+                        className='mt-1.5 size-2 shrink-0 rounded-full bg-[#F78F1E]'
+                        whileHover={{ scale: 1.4 }}
+                      />
+                      <div className='text-sm leading-relaxed text-gray-700 md:text-base'>
+                        <span className='font-bold text-gray-900'>{it.time}:</span>{' '}
+                        <span className='transition-colors group-hover:text-gray-900'>
+                          {it.text}
+                        </span>
+                      </div>
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
             </div>
           </motion.div>
         </div>

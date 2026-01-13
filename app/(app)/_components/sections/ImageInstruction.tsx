@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import { ChevronRight, ArrowRight } from 'lucide-react'
+import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { ArrowRight, ChevronRight } from 'lucide-react'
 
 const IMAGES = ['/assets/images/ex1.jpg', '/assets/images/ex2.jpg', '/assets/images/ex3.jpg']
 
@@ -48,9 +48,8 @@ export default function ImageInstruction() {
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-
   return (
-    <section className='relative min-h-[70vh] md:min-h-[85vh] overflow-hidden bg-gradient-to-br from-[#E8F5E9] via-white to-[#FFF3E0]'>
+    <section className='relative overflow-hidden bg-gradient-to-br from-[#E8F5E9] via-white to-[#FFF3E0] pb-20'>
       {/* Animated background with multiple layers */}
       <div className='pointer-events-none absolute inset-0'>
         {/* Floating orbs */}
@@ -143,7 +142,7 @@ export default function ImageInstruction() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.7 }}
-                className='text-[#33B54A] text-3xl font-black leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl'
+                className='text-3xl font-black leading-[1.1] tracking-tight text-[#33B54A] sm:text-4xl md:text-5xl lg:text-6xl'
               >
                 Trúc Xinh
               </motion.h1>
@@ -185,28 +184,36 @@ export default function ImageInstruction() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.7 }}
-              className='flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-3 pt-3 sm:gap-4'
+              className='flex flex-col items-center justify-center gap-3 pt-3 sm:flex-row sm:gap-4 lg:justify-start'
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className='w-full sm:w-auto'>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className='w-full sm:w-auto'
+              >
                 <button
                   onClick={() => router.push('/introduce')}
-                  className='group relative inline-flex w-full sm:w-auto sm:min-w-[240px] justify-center items-center gap-2 overflow-hidden rounded-full bg-[#33B54A] px-6 py-4 text-base font-bold text-white shadow-xl shadow-[#33B54A]/30 transition-all duration-300 hover:shadow-2xl sm:px-9 sm:py-5 sm:text-lg sm:gap-3'
+                  className='group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full bg-[#33B54A] px-6 py-4 text-base font-bold text-white shadow-xl shadow-[#33B54A]/30 transition-all duration-300 hover:shadow-2xl sm:w-auto sm:min-w-[240px] sm:gap-3 sm:px-9 sm:py-5 sm:text-lg'
                 >
                   <span className='relative z-10 flex items-center gap-2 whitespace-nowrap'>
                     Tìm hiểu về trường
-                    <ChevronRight className='size-5 sm:size-6 transition-transform group-hover:translate-x-1' />
+                    <ChevronRight className='size-5 transition-transform group-hover:translate-x-1 sm:size-6' />
                   </span>
                 </button>
               </motion.div>
 
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className='w-full sm:w-auto'>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className='w-full sm:w-auto'
+              >
                 <button
                   onClick={() => router.push('/notice')}
-                  className='group relative inline-flex w-full sm:w-auto sm:min-w-[240px] justify-center items-center gap-2 overflow-hidden rounded-full bg-[#F78F1E] px-6 py-4 text-base font-bold text-white shadow-xl shadow-[#F78F1E]/30 transition-all duration-300 hover:shadow-2xl sm:px-9 sm:py-5 sm:text-lg sm:gap-3'
+                  className='group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full bg-[#F78F1E] px-6 py-4 text-base font-bold text-white shadow-xl shadow-[#F78F1E]/30 transition-all duration-300 hover:shadow-2xl sm:w-auto sm:min-w-[240px] sm:gap-3 sm:px-9 sm:py-5 sm:text-lg'
                 >
                   <span className='relative z-10 flex items-center gap-2 whitespace-nowrap'>
                     Thông báo tuyển sinh
-                    <ChevronRight className='size-5 sm:size-6 transition-transform group-hover:translate-x-1' />
+                    <ChevronRight className='size-5 transition-transform group-hover:translate-x-1 sm:size-6' />
                   </span>
                 </button>
               </motion.div>
@@ -227,7 +234,7 @@ export default function ImageInstruction() {
             }}
           >
             {/* Main slider with glassmorphism effect */}
-            <div className='relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-white/50 backdrop-blur-xl shadow-2xl ring-1 ring-white/20'>
+            <div className='relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-white/50 shadow-2xl ring-1 ring-white/20 backdrop-blur-xl'>
               <AnimatePresence mode='wait' initial={false}>
                 <motion.div
                   key={IMAGES[index]}
@@ -247,7 +254,7 @@ export default function ImageInstruction() {
                     className='object-cover'
                     priority={index === 0}
                   />
-                  
+
                   {/* Dynamic gradient overlay */}
                   <motion.div
                     className='absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent'
@@ -283,7 +290,6 @@ export default function ImageInstruction() {
                   />
                 ))}
               </div>
-
             </div>
 
             {/* Multiple decorative layers with animations */}
@@ -317,13 +323,8 @@ export default function ImageInstruction() {
       </div>
 
       {/* Animated bottom wave */}
-      <div className='absolute bottom-0 inset-x-0 h-56 overflow-hidden'>
-        <svg
-          viewBox='0 0 1440 160'
-          className='size-full'
-          preserveAspectRatio='none'
-          fill='none'
-        >
+      <div className='absolute inset-x-0 bottom-0 h-56 overflow-hidden'>
+        <svg viewBox='0 0 1440 160' className='size-full' preserveAspectRatio='none' fill='none'>
           <motion.path
             d='M0,80 C240,40 480,120 720,80 C960,40 1200,120 1440,80 L1440,160 L0,160 Z'
             fill='#E8F5E9'
