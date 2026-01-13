@@ -339,7 +339,7 @@ export default function ActivitiesAtSchool() {
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 }}
-                  className='mb-8 flex min-h-[32px] items-center gap-3 text-2xl font-bold text-[#33B54A]'
+                  className='mb-8 flex min-h-[32px] items-center justify-center gap-3 text-2xl font-bold text-[#33B54A]'
                 >
                   <motion.div
                     animate={{ rotate: [0, 360] }}
@@ -350,29 +350,50 @@ export default function ActivitiesAtSchool() {
                   </motion.div>
                   Thời gian biểu
                 </motion.h3>
-                <ul className='space-y-2.5'>
-                  {current.schedule.map((it, i) => (
-                    <motion.li
-                      key={i}
-                      initial={{ opacity: 0, x: 15 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.5 + i * 0.05, duration: 0.4 }}
-                      whileHover={{ x: -4 }}
-                      className='group flex gap-3'
-                    >
-                      <motion.span
-                        className='mt-1.5 size-2 shrink-0 rounded-full bg-[#F78F1E]'
-                        whileHover={{ scale: 1.4 }}
-                      />
-                      <div className='text-sm leading-relaxed text-gray-700 md:text-base'>
-                        <span className='font-bold text-gray-900'>{it.time}:</span>{' '}
-                        <span className='transition-colors group-hover:text-gray-900'>
+                <div className='mt-4 overflow-hidden'>
+                  <ul>
+                    {current.schedule.map((it, i) => (
+                      <motion.li
+                        key={i}
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.35 + i * 0.05, duration: 0.35 }}
+                        className={[
+                          'group relative px-4 py-3',
+                          'md:grid md:grid-cols-12 md:items-start md:px-6 md:py-4',
+                          'hover:bg-emerald-50/60',
+                          i % 2 === 0 ? 'bg-transparent' : 'bg-emerald-50/20',
+                        ].join(' ')}
+                      >
+                        <div className='md:col-span-3 lg:col-span-2'>
+                          {/* left accent */}
+                          <span className='absolute left-0 top-0 h-full w-1 bg-transparent group-hover:bg-[#F78F1E]/80' />
+
+                          <div className='flex w-full items-start gap-3 text-wrap md:gap-3'>
+                            <motion.span
+                              className='mt-2 size-2 shrink-0 rounded-full bg-[#F78F1E]'
+                              whileHover={{ scale: 1.35 }}
+                              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                            />
+
+                            <span className='font-semibold tabular-nums text-gray-900 md:shrink-0'>
+                              {it.time}:{' '}
+                              <span className='text-justify leading-relaxed text-gray-700 transition-colors group-hover:text-gray-900 md:hidden'>
+                                {it.text}
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className='md:col-span-1'></div>
+                        {/* Activity */}
+                        <p className='hidden leading-relaxed text-gray-700 transition-colors group-hover:text-gray-900 md:col-span-8 md:block'>
                           {it.text}
-                        </span>
-                      </div>
-                    </motion.li>
-                  ))}
-                </ul>
+                        </p>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
               </motion.div>
             </div>
           </motion.div>
