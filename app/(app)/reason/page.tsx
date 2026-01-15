@@ -154,15 +154,6 @@ export default function ReasonPage() {
           </div>
         </motion.section>
       </main>
-
-      {/* NOTE */}
-      <footer className='mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8'>
-        <div className='mt-6 text-xs text-gray-500'>
-          Gợi ý: bạn thay các đường dẫn ảnh{' '}
-          <span className='font-medium text-gray-700'>/images/reasons/...</span> bằng ảnh thật của
-          trường (hoặc lấy từ CMS) để trang “ra chất” hơn.
-        </div>
-      </footer>
     </section>
   )
 }
