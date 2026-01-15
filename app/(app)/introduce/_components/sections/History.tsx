@@ -69,59 +69,7 @@ export default function History() {
           </motion.div>
 
           {/* Main Content */}
-          <div className='grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start lg:gap-16'>
-            {/* Left Column - Founders */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className='flex flex-col gap-10 lg:col-span-4 lg:h-full lg:justify-between'
-            >
-              {/* Founder */}
-              <div className='text-center'>
-                <div className='relative mx-auto mb-4 size-56 overflow-hidden rounded-full border-4 border-[#33B54A]/30 shadow-2xl ring-4 ring-[#F78F1E]/20 md:size-64'>
-                  <Image
-                    src='/assets/images/founder.jpg'
-                    alt='Người sáng lập'
-                    fill
-                    className='object-cover'
-                  />
-                  <div className='absolute inset-0 rounded-full bg-gradient-to-br from-[#33B54A]/5 to-[#F78F1E]/5' />
-                </div>
-                <div className='text-center'>
-                  <h4 className='text-lg font-black text-[#F78F1E] md:text-xl'>
-                    [Tên Người sáng lập]
-                  </h4>
-                  <p className='mt-1 text-sm font-semibold text-gray-700 md:text-base'>
-                    Người sáng lập
-                  </p>
-                </div>
-              </div>
-
-              {/* Principal */}
-              <div className='text-center'>
-                <div className='relative mx-auto mb-4 size-56 overflow-hidden rounded-full border-4 border-[#33B54A]/30 shadow-2xl ring-4 ring-[#F78F1E]/20 md:size-64'>
-                  <Image
-                    src='/assets/images/founder.jpg'
-                    alt='Nhà giáo Ưu tú Lê Thị A'
-                    fill
-                    className='object-cover'
-                  />
-                  <div className='absolute inset-0 rounded-full bg-gradient-to-br from-[#33B54A]/5 to-[#F78F1E]/5' />
-                </div>
-                <div className='text-center'>
-                  <h4 className='text-lg font-black text-[#F78F1E] md:text-xl'>
-                    Nhà giáo Ưu tú Lê Thị A
-                  </h4>
-                  <p className='mt-1 text-sm font-semibold text-gray-700 md:text-base'>
-                    Hiệu trưởng Nhà trường
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Content */}
+          <div className='px-10 text-justify leading-relaxed text-gray-700 md:text-lg'>
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -129,7 +77,7 @@ export default function History() {
               transition={{ delay: 0.3, duration: 0.6 }}
               className='flex flex-col space-y-6 lg:col-span-8 lg:h-full'
             >
-              <p className='text-justify leading-relaxed text-gray-700 md:text-lg'>
+              <p>
                 Với gần 20 năm hình thành và phát triển, Trường Mầm non Trúc Xinh luôn mang trong
                 mình khát vọng nâng cao trí thức Việt. Chúng tôi xác định vị thế và bản lĩnh của
                 mình từ sự khác biệt trong phương pháp giảng dạy sáng tạo và hiệu quả, các dịch vụ
@@ -138,7 +86,7 @@ export default function History() {
                 dưỡng kịp thời nhiều tài năng, chắp cánh cho những ước mơ của trẻ hướng tới tương
                 lai.
               </p>
-              <p className='text-justify leading-relaxed text-gray-700 md:text-lg'>
+              <p>
                 Hiểu rằng sáu năm đầu đời là giai đoạn phát triển vàng, ngay từ khi còn là một cơ sở
                 với quy mô nhỏ, Trúc Xinh đã chú trọng đầu tư không gian sân khấu đủ lớn để trẻ thể
                 hiện năng khiếu, sân chơi rộng mở, thường xuyên bổ sung đồ dùng – đồ chơi đạt chuẩn
@@ -147,7 +95,7 @@ export default function History() {
                 thiên nhiên, con người Việt Nam thông qua các hoạt động dã ngoại, trải nghiệm, xem
                 rối nước, rối cạn, tuồng và tham quan trang trại.
               </p>
-              <p className='text-justify leading-relaxed text-gray-700 md:text-lg'>
+              <p>
                 Lắng nghe để đổi mới là giá trị xuyên suốt trong hành trình phát triển của Trúc
                 Xinh. Từ sự thấu hiểu mong muốn của phụ huynh, nhà trường từng bước xây dựng và phát
                 triển thành một ngôi trường với hệ thống phòng học đạt chuẩn, cơ sở vật chất hiện
@@ -155,14 +103,14 @@ export default function History() {
                 trẻ phát triển toàn diện về thể chất, trí tuệ, kỹ năng và sự tự tin khi bước vào bậc
                 Tiểu học.
               </p>
-              <p className='text-justify leading-relaxed text-gray-700 md:text-lg'>
+              <p>
                 Song song đó, Trúc Xinh đặc biệt chú trọng xây dựng đội ngũ quản lý và giáo viên có
                 năng lực, tâm huyết, yêu nghề mến trẻ, làm việc theo quy trình khoa học, ổn định
                 chất lượng chăm sóc – giáo dục. Nhà trường luôn nỗ lực cân bằng giữa chất lượng giáo
                 dục và mức học phí hợp lý, để nhiều trẻ em trên địa bàn có cơ hội được học tập trong
                 một môi trường tốt, nhân văn và bền vững.
               </p>
-              <p className='text-justify font-semibold leading-relaxed text-gray-700 md:text-lg'>
+              <p className='font-semibold'>
                 Với nền tảng đã được bồi đắp qua thời gian, Trúc Xinh cam kết luôn &quot;Chăm sóc
                 con bạn như chính con mình&quot;, xứng đáng là &quot;Nơi phụ huynh gửi trọn niềm
                 tin&quot;.
