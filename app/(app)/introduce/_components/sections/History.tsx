@@ -11,7 +11,7 @@ export default function History() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-      className='relative overflow-hidden bg-gradient-to-b from-white via-[#E8F5E9]/30 to-white py-24 md:py-32'
+      className='relative overflow-hidden bg-gradient-to-b from-white via-[#E8F5E9]/30 to-white pt-24 pb-12 md:pt-32 md:pb-16'
     >
       {/* Subtle decorative background */}
       <div className='pointer-events-none absolute inset-0'>

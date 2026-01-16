@@ -2,9 +2,9 @@ import React from 'react'
 
 import ImageInstruction from '@/app/(app)/_components/sections/ImageInstruction'
 import Activity from './_components/sections/Activity'
-import Method from './_components/sections/Method'
 import Notification from './_components/sections/Notification'
 import Schedule from './_components/sections/Schedule'
+import CoreValues from './_components/sections/CoreValues'
 
 const LandingPage = () => {
   return (
@@ -12,8 +12,8 @@ const LandingPage = () => {
       {/* Hero / Banner */}
       <ImageInstruction />
 
-      {/* Phương pháp dạy học */}
-      <Method />
+      {/* Giá trị cốt lõi */}
+      <CoreValues />
 
       {/* Hoạt động & thời gian biểu */}
       <Schedule />
@@ -22,7 +22,7 @@ const LandingPage = () => {
       <Activity />
 
       {/* Thông báo & tin tức */}
-      <Notification />
+      {/* <Notification /> */}
     </div>
   )
 }
