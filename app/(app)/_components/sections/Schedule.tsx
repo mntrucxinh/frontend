@@ -127,24 +127,15 @@ export default function ActivitiesAtSchool() {
       }}
       className='relative -mt-12 overflow-hidden bg-gradient-to-b from-[#33B54A] via-[#2EA043] to-[#33B54A] py-20 text-white md:-mt-20 md:pb-28 md:pt-24'
     >
-      {/* Smooth top wave - continues seamlessly from Method section */}
+      {/* Smooth top wave - continues seamlessly from CoreValues section */}
       <div className='pointer-events-none absolute inset-x-0 -top-12 h-32 w-screen sm:-top-14 sm:h-36 md:-top-20 md:h-40'>
-        {/* Multi-layer gradient overlay for seamless blend - eliminates hard edge */}
-        <div className='absolute inset-0 bg-gradient-to-b from-transparent via-[#33B54A]/50 to-[#33B54A]' />
-        <div className='absolute inset-0 bg-gradient-to-b from-white/10 via-white/5 to-transparent opacity-60' />
+        {/* Background fill to cover the wave area */}
+        <div className='absolute inset-0 bg-[#33B54A]' />
 
-        {/* Main wave - starts from very top to eliminate hard line */}
+        {/* Main wave - matches CoreValues bottom wave path */}
         <svg viewBox='0 0 1440 160' className='absolute top-0 size-full' preserveAspectRatio='none'>
-          <defs>
-            <linearGradient id='waveGradient' x1='0%' y1='0%' x2='0%' y2='100%'>
-              <stop offset='0%' stopColor='#33B54A' stopOpacity='0' />
-              <stop offset='30%' stopColor='#33B54A' stopOpacity='0.3' />
-              <stop offset='70%' stopColor='#33B54A' stopOpacity='0.7' />
-              <stop offset='100%' stopColor='#33B54A' stopOpacity='1' />
-            </linearGradient>
-          </defs>
           <motion.path
-            fill='url(#waveGradient)'
+            fill='#33B54A'
             d='M0,120 C90,80 180,80 270,120 C360,160 450,160 540,120 C630,80 720,80 810,120 C900,160 990,160 1080,120 C1170,80 1260,80 1350,120 C1400,140 1420,150 1440,160 L1440,160 L0,160 L0,0 Z'
             animate={{ x: [0, 15, 0] }}
             transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
@@ -155,7 +146,7 @@ export default function ActivitiesAtSchool() {
         <svg viewBox='0 0 1440 160' className='absolute top-0 size-full' preserveAspectRatio='none'>
           <motion.path
             fill='#33B54A'
-            fillOpacity='0.25'
+            fillOpacity='0.3'
             d='M0,110 C80,70 160,70 240,110 C320,150 400,150 480,110 C560,70 640,70 720,110 C800,150 880,150 960,110 C1040,70 1120,70 1200,110 C1280,150 1360,150 1440,110 L1440,160 L0,160 L0,0 Z'
             animate={{ x: [0, -20, 0] }}
             transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
@@ -333,65 +324,82 @@ export default function ActivitiesAtSchool() {
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.35, duration: 0.6 }}
-                className='rounded-2xl bg-gradient-to-br from-[#33B54A]/10 to-[#F78F1E]/10 p-8 ring-1 ring-[#33B54A]/15'
+                className='rounded-3xl bg-white p-6 shadow-xl ring-1 ring-gray-100 sm:p-8 md:p-10'
               >
                 <motion.h3
-                  initial={{ opacity: 0, x: 10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className='mb-8 flex min-h-[32px] items-center justify-center gap-3 text-2xl font-bold text-[#33B54A]'
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.45 }}
+                  className='mb-10 flex items-center justify-center gap-3 text-2xl font-black text-gray-900 md:text-3xl'
                 >
                   <motion.div
                     animate={{ rotate: [0, 360] }}
                     transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                    className='shrink-0'
+                    className='flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-[#33B54A] to-[#2EA043] shadow-lg'
                   >
-                    <Clock className='size-6 text-[#F78F1E]' />
+                    <Clock className='size-5 text-white' />
                   </motion.div>
-                  Thời gian biểu
+                  <span className='bg-gradient-to-r from-[#33B54A] to-[#2EA043] bg-clip-text text-transparent'>
+                    Thời gian biểu
+                  </span>
                 </motion.h3>
-                <div className='mt-4 overflow-hidden'>
-                  <ul>
-                    {current.schedule.map((it, i) => (
-                      <motion.li
-                        key={i}
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.35 + i * 0.05, duration: 0.35 }}
-                        className={[
-                          'group relative px-4 py-3',
-                          'md:grid md:grid-cols-12 md:items-start md:px-6 md:py-4',
-                          'hover:bg-emerald-50/60',
-                          i % 2 === 0 ? 'bg-transparent' : 'bg-emerald-50/20',
-                        ].join(' ')}
-                      >
-                        <div className='md:col-span-3 lg:col-span-2'>
-                          {/* left accent */}
-                          <span className='absolute left-0 top-0 h-full w-1 bg-transparent group-hover:bg-[#F78F1E]/80' />
 
-                          <div className='flex w-full items-start gap-3 text-wrap md:gap-3'>
-                            <motion.span
-                              className='mt-2 size-2 shrink-0 rounded-full bg-[#F78F1E]'
-                              whileHover={{ scale: 1.35 }}
-                              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-                            />
+                {/* Timeline Container */}
+                <div className='relative'>
+                  {/* Vertical timeline line - alternating colors */}
+                  <div className='absolute left-8 top-0 hidden h-full w-0.5 bg-[#33B54A] md:block' />
 
-                            <span className='font-semibold tabular-nums text-gray-900 md:shrink-0'>
-                              {it.time}:{' '}
-                              <span className='text-justify leading-relaxed text-gray-700 transition-colors group-hover:text-gray-900 md:hidden'>
-                                {it.text}
-                              </span>
-                            </span>
+                  <ul className='space-y-6'>
+                    {current.schedule.map((it, i) => {
+                      const isEven = i % 2 === 0
+                      const badgeColor = isEven ? 'bg-[#33B54A]' : 'bg-[#F78F1E]'
+                      
+                      return (
+                        <motion.li
+                          key={i}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.5 + i * 0.06, duration: 0.4 }}
+                          className='group relative'
+                        >
+                          <div className='relative flex gap-6 md:gap-8'>
+                            {/* Timeline dot */}
+                            <div className='relative z-10 flex shrink-0 flex-col items-center md:w-16'>
+                              <motion.div
+                                whileHover={{ scale: 1.2 }}
+                                className='relative flex size-4 items-center justify-center rounded-full bg-white shadow-lg ring-4 ring-white md:size-5'
+                              >
+                                <div className='size-2 rounded-full bg-[#F78F1E] md:size-2.5' />
+                              </motion.div>
+                              {/* Connector line for mobile */}
+                              <div className='absolute left-1/2 top-4 h-full w-0.5 -translate-x-1/2 bg-[#F78F1E] opacity-30 md:hidden' />
+                            </div>
+
+                            {/* Content Card */}
+                            <div className={`flex-1 rounded-2xl bg-gradient-to-br from-gray-50 to-white p-5 shadow-md ring-1 ring-gray-100 transition-all duration-300 group-hover:shadow-xl sm:p-6 ${isEven ? 'group-hover:ring-[#33B54A]/20' : 'group-hover:ring-[#F78F1E]/20'}`}>
+                              <div className='flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-6'>
+                                {/* Time Badge */}
+                                <div className='shrink-0'>
+                                  <div className={`inline-flex items-center gap-2 rounded-full ${badgeColor} px-4 py-2 shadow-sm`}>
+                                    <Clock className='size-4 text-white' />
+                                    <span className='font-bold tabular-nums text-sm text-white md:text-base'>
+                                      {it.time}
+                                    </span>
+                                  </div>
+                                </div>
+
+                                {/* Activity Text */}
+                                <div className='flex-1'>
+                                  <p className='text-base leading-relaxed text-gray-700 transition-colors group-hover:text-gray-900 md:text-lg'>
+                                    {it.text}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-
-                        <div className='md:col-span-1'></div>
-                        {/* Activity */}
-                        <p className='hidden leading-relaxed text-gray-700 transition-colors group-hover:text-gray-900 md:col-span-8 md:block'>
-                          {it.text}
-                        </p>
-                      </motion.li>
-                    ))}
+                        </motion.li>
+                      )
+                    })}
                   </ul>
                 </div>
               </motion.div>

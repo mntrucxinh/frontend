@@ -58,13 +58,16 @@ export default function CoreValues() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-      className='relative overflow-hidden py-24 md:py-32'
+      className='relative overflow-hidden pb-24 pt-24 md:pb-32 md:pt-32'
     >
+      {/* Gradient background - full section */}
+      <div className='absolute inset-0 bg-gradient-to-br from-[#E8F5E9] via-white to-[#FFF3E0]' />
+
       {/* Top wave - above background (inverted bottom wave) */}
       <div className='pointer-events-none absolute inset-x-0 -top-12 z-30 h-32 w-full sm:-top-14 sm:h-36 md:-top-20 md:h-40'>
         <svg viewBox='0 0 1440 160' className='absolute top-0 size-full' preserveAspectRatio='none'>
           <motion.path
-            fill='#ffffff'
+            fill='#E8F5E9'
             d='M0,120 C90,80 180,80 270,120 C360,160 450,160 540,120 C630,80 720,80 810,120 C900,160 990,160 1080,120 C1170,80 1260,80 1350,120 C1400,140 1420,150 1440,160 L1440,0 L0,0 L0,120 Z'
             animate={{ x: [0, -15, 0] }}
             transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
@@ -72,8 +75,74 @@ export default function CoreValues() {
         </svg>
       </div>
 
-      {/* Background image */}
-      <div className='pointer-events-none absolute inset-0 overflow-hidden'>
+      {/* Animated background with multiple layers */}
+      <div className='pointer-events-none absolute inset-0 z-0'>
+        {/* Floating orbs */}
+        <motion.div
+          className='absolute right-[10%] top-[20%] hidden size-96 rounded-full bg-gradient-to-br from-[#33B54A]/20 to-[#33B54A]/5 blur-3xl md:block'
+          animate={{
+            x: [0, 30, 0],
+            y: [0, -20, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div
+          className='absolute bottom-[15%] left-[10%] hidden size-96 rounded-full bg-gradient-to-br from-[#F78F1E]/20 to-[#F78F1E]/5 blur-3xl md:block'
+          animate={{
+            x: [0, -30, 0],
+            y: [0, 20, 0],
+            scale: [1, 1.3, 1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div
+          className='absolute left-1/2 top-1/2 size-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-[#33B54A]/10 to-[#F78F1E]/10 blur-3xl sm:size-[500px]'
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+
+        {/* Animated particles */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className='absolute size-2 rounded-full bg-[#33B54A]/30'
+            style={{
+              left: `${20 + i * 15}%`,
+              top: `${30 + (i % 3) * 20}%`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0.3, 0.6, 0.3],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 3 + i * 0.5,
+              repeat: Infinity,
+              delay: i * 0.3,
+              ease: 'easeInOut',
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Background image - nằm đè lên gradient */}
+      <div className='pointer-events-none absolute inset-0 z-[1] overflow-hidden'>
         <Image
           src='/assets/images/corevalue.webp'
           alt='Core Values Background'
@@ -88,13 +157,13 @@ export default function CoreValues() {
         <div className='absolute inset-0 bg-black/20' />
       </div>
 
-      {/* Bottom wave */}
-      <div className='pointer-events-none absolute inset-x-0 -bottom-12 h-32 w-full sm:-bottom-14 sm:h-36 md:-bottom-20 md:h-40'>
+      {/* Bottom wave - seamless transition to Schedule */}
+      <div className='pointer-events-none absolute inset-x-0 bottom-0 z-[10] h-32 w-full sm:h-36 md:h-40'>
         <svg viewBox='0 0 1440 160' className='absolute bottom-0 size-full' preserveAspectRatio='none'>
           <motion.path
-            fill='#ffffff'
-            d='M0,40 C90,80 180,80 270,40 C360,0 450,0 540,40 C630,80 720,80 810,40 C900,0 990,0 1080,40 C1170,80 1260,80 1350,40 C1400,20 1420,10 1440,0 L1440,160 L0,160 L0,40 Z'
-            animate={{ x: [0, -15, 0] }}
+            fill='#33B54A'
+            d='M0,120 C90,80 180,80 270,120 C360,160 450,160 540,120 C630,80 720,80 810,120 C900,160 990,160 1080,120 C1170,80 1260,80 1350,120 C1400,140 1420,150 1440,160 L1440,160 L0,160 L0,120 Z'
+            animate={{ x: [0, 15, 0] }}
             transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
           />
         </svg>

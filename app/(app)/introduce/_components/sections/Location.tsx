@@ -14,20 +14,8 @@ export default function Location() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-      className='relative overflow-hidden bg-white py-24 md:py-32'
+      className='relative overflow-hidden bg-white pt-12 pb-24 md:pt-16 md:pb-32'
     >
-      {/* Top wave */}
-      <div className='pointer-events-none absolute inset-x-0 top-0'>
-        <svg viewBox='0 0 1440 120' className='h-24 w-full' preserveAspectRatio='none'>
-          <motion.path
-            fill='#ffffff'
-            d='M0,96L60,85.3C120,75,240,53,360,58.7C480,64,600,96,720,106.7C840,117,960,107,1080,96C1200,85,1320,75,1380,69.3L1440,64L1440,0L0,0Z'
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 2, ease: 'easeInOut' }}
-          />
-        </svg>
-      </div>
 
       {/* Subtle decorative elements */}
       <div className='pointer-events-none absolute inset-0'>
