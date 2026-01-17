@@ -2,43 +2,14 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/Image';
 import { useParams } from 'next/navigation';
-import { ChevronLeft, ChevronRight, Loader2, Calendar } from 'lucide-react';
+import { Loader2, Calendar, ArrowLeft, Activity } from 'lucide-react';
 import { useNewsDetail } from '@/hook/news/use-news-detail';
 import { useNewsList } from '@/hook/news/use-news-list';
 import { formatVietnameseDate, getNewsDate } from '@/utils/date';
 import { buildAssetUrl } from '@/utils/api-url';
-
-const Breadcrumb = ({newsTitle} : {newsTitle : string}) => {
-    return (
-      <nav className="bg-white border-b border-gray-200">
-        <div className="container mx-auto p-4">
-          <ol className="flex items-center space-x-2 text-sm text-gray-600">
-            <li>
-              <Link href="/" className="hover:text-emerald-600 transition-colors">
-                Trang chủ
-              </Link>
-            </li>
-            <li>
-              <ChevronRight className="size-4" />
-            </li>
-            <li>
-              <Link href="/news" className="hover:text-emerald-600 transition-colors">
-                Tin tức
-              </Link>
-            </li>
-            <li>
-              <ChevronRight className="size-4" />
-            </li>
-            <li className="text-gray-900 truncate max-w-xs lg:max-w-md" title={newsTitle}>
-              {newsTitle}
-            </li>
-          </ol>
-        </div>
-      </nav>
-    );
-};
+import { motion } from 'framer-motion';
 
 const NewsDetailPage = () => {
     const params = useParams();
@@ -47,7 +18,6 @@ const NewsDetailPage = () => {
     const { data: newsItem, isLoading, error } = useNewsDetail({ slug });
     const { data: newsListData } = useNewsList({ page: 1, pageSize: 10 });
 
-    // Get latest news excluding the current one (filter by both slug and id to be safe)
     const latestNews = React.useMemo(() => {
         if (!newsListData?.items || !newsItem) return [];
         
@@ -56,7 +26,6 @@ const NewsDetailPage = () => {
         
         return newsListData.items
             .filter(item => {
-                // Exclude current article by slug and id/public_id
                 const itemId = item.id || item.public_id;
                 const isCurrentArticle = 
                     item.slug === slug || 
@@ -69,28 +38,34 @@ const NewsDetailPage = () => {
 
     if (isLoading) {
         return (
-            <div className="container mx-auto px-4 py-8 text-center">
-                <Loader2 className="size-8 animate-spin text-green-500 mx-auto" />
-                <p className="mt-4 text-gray-500">Đang tải tin tức...</p>
+            <div className="min-h-screen flex items-center justify-center bg-gray-50">
+                <div className="text-center">
+                    <Loader2 className="size-12 animate-spin text-[#33B54A] mx-auto mb-4" />
+                    <p className="text-gray-600">Đang tải hoạt động...</p>
+                </div>
             </div>
         );
     }
 
     if (error || !newsItem) {
         return (
-            <div className="container mx-auto px-4 py-8 text-center">
-                <p className="text-red-500 text-lg">Tin tức không tồn tại.</p>
-                <Link href="/news" className="text-blue-500 hover:underline mt-4 inline-block">
-                    <ChevronLeft className="size-4 inline-block" />
-                     Quay lại trang tin tức
-                </Link>
+            <div className="min-h-screen flex items-center justify-center bg-gray-50">
+                <div className="text-center">
+                    <p className="text-red-500 text-xl mb-4">Hoạt động không tồn tại.</p>
+                    <Link 
+                        href="/activities" 
+                        className="inline-flex items-center gap-2 text-[#33B54A] hover:text-[#2EA043] transition-colors font-semibold"
+                    >
+                        <ArrowLeft className="size-5" />
+                        Quay lại trang hoạt động
+                    </Link>
+                </div>
             </div>
         );
     }
 
     const { title } = newsItem;
 
-    // Get content from content_html field (API response structure)
     const content = newsItem.content_html || 
                     newsItem.content || 
                     (newsItem as any).body || 
@@ -99,314 +74,232 @@ const NewsDetailPage = () => {
                     (newsItem as any).html || 
                     '';
 
-    // Get content_assets
     const contentAssets = newsItem.content_assets || [];
     
-    // Find video in content_assets (check mime_type for video)
     const videoAsset = contentAssets.find(
         (asset: any) => asset.asset?.mime_type?.startsWith('video/')
     );
     
-    // Get all images from content_assets, sorted by position
     const imageAssets = contentAssets
         .filter((asset: any) => asset.asset?.mime_type?.startsWith('image/'))
         .sort((a: any, b: any) => (a.position || 0) - (b.position || 0));
     
-    // Get thumbnail from content_assets (first image) or thumbnail field
     const thumbnail = newsItem.thumbnail || 
                       (imageAssets.length > 0 ? imageAssets[0].asset.url : '');
 
-    // Debug: log to see what fields are available
-    console.log('News item data:', newsItem);
-    console.log('Content value:', content);
-    console.log('Content assets:', contentAssets);
-    console.log('Video asset:', videoAsset);
-    console.log('Image assets:', imageAssets);
-    console.log('Thumbnail value:', thumbnail);
-
-    // Get date from various possible fields and format it
     const displayDate = getNewsDate(newsItem);
     const formattedDate = formatVietnameseDate(displayDate);
 
+    const thumbnailUrl = thumbnail ? buildAssetUrl(thumbnail) : '/assets/images/ex1.jpg';
+
     return (
-        <div className="bg-white min-h-screen">
-            <Breadcrumb newsTitle={title} />
-            <div className="container mx-auto px-4 py-8">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="bg-gray-50 min-h-screen">
+            <div className="container mx-auto px-4 py-8 md:py-12">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
                     {/* Main Content */}
                     <div className="lg:col-span-2">
-                        <article className="bg-white">
-                            {/* Header */}
-                            <header className="mb-6">
-                                <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                        <motion.article
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                            className="bg-white rounded-2xl shadow-lg overflow-hidden"
+                        >
+                            <div className="p-6 md:p-8">
+                                {/* Title */}
+                                <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-4 leading-tight">
                                     {title}
                                 </h1>
+
+                                {/* Date */}
                                 {formattedDate && (
-                                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                                        <Calendar className="size-4 text-gray-400" />
-                                        <span>Ngày đăng: {formattedDate}</span>
+                                    <div className="flex items-center gap-2 mb-8">
+                                        <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#33B54A]/10 to-[#33B54A]/5 border border-[#33B54A]/20">
+                                            <Calendar className="size-4 text-[#33B54A]" />
+                                            <span className="text-sm font-semibold text-gray-700">{formattedDate}</span>
+                                        </div>
                                     </div>
                                 )}
-                            </header>
 
-                            {/* Content - hiển thị trước ảnh */}
-                            {content && (
-                                <div className="mb-8 prose prose-lg md:prose-xl max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-p:text-gray-700 prose-p:leading-relaxed prose-p:text-lg md:prose-p:text-xl prose-p:mb-4 prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:list-disc prose-ol:list-decimal prose-li:my-2">
-                                    <div 
-                                        className="news-content"
-                                        dangerouslySetInnerHTML={{ __html: content }} 
-                                    />
-                                </div>
-                            )}
-
-                            {/* Video hoặc Images - hiển thị sau content */}
-                            {videoAsset ? (
-                                <div className="mb-8 max-w-4xl mx-auto">
-                                    <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-black shadow-lg">
-                                        <video 
-                                            src={buildAssetUrl(videoAsset.asset.url)}
-                                            controls
-                                            className="size-full object-contain"
-                                        >
-                                            Trình duyệt của bạn không hỗ trợ video.
-                                        </video>
+                                {/* Content */}
+                                {content && (
+                                    <div className="prose prose-lg md:prose-xl max-w-none
+                                        prose-headings:text-gray-900 prose-headings:font-black prose-headings:mt-8 prose-headings:mb-4
+                                        prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg
+                                        prose-p:text-gray-700 prose-p:leading-relaxed prose-p:text-base md:prose-p:text-lg prose-p:mb-4
+                                        prose-a:text-[#33B54A] prose-a:no-underline prose-a:font-semibold hover:prose-a:underline hover:prose-a:text-[#F78F1E] prose-a:transition-all
+                                        prose-strong:text-gray-900 prose-strong:font-bold
+                                        prose-ul:list-disc prose-ul:pl-6 prose-ul:my-6 prose-ul:space-y-1
+                                        prose-ol:list-decimal prose-ol:pl-6 prose-ol:my-6 prose-ol:space-y-1
+                                        prose-li:my-1 prose-li:leading-relaxed
+                                        prose-img:rounded-xl prose-img:shadow-lg prose-img:my-8 prose-img:w-full
+                                        prose-blockquote:border-l-4 prose-blockquote:border-[#33B54A] prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-600 prose-blockquote:bg-gray-50 prose-blockquote:py-3 prose-blockquote:rounded-r-lg prose-blockquote:my-6">
+                                        <div dangerouslySetInnerHTML={{ __html: content }} />
                                     </div>
-                                    {videoAsset.caption && (
-                                        <p className="text-sm text-gray-600 mt-3 text-center italic">
-                                            {videoAsset.caption}
-                                        </p>
-                                    )}
-                                </div>
-                            ) : imageAssets.length > 0 ? (
-                                <div className="mb-8 max-w-4xl mx-auto">
-                                    {imageAssets.length === 1 ? (
-                                        // Single image - full width
-                                        <div className="w-full">
-                                            <div className="relative w-full rounded-xl overflow-hidden shadow-lg bg-gray-100">
-                                                <Image 
-                                                    src={buildAssetUrl(imageAssets[0].asset.url)}
-                                                    alt={imageAssets[0].caption || `${title} - Hình 1`} 
-                                                    width={1200} 
-                                                    height={800} 
-                                                    className="w-full h-auto object-contain"
-                                                    unoptimized
-                                                />
-                                            </div>
-                                            {imageAssets[0].caption && (
-                                                <p className="text-sm text-gray-600 mt-3 text-center italic">
-                                                    {imageAssets[0].caption}
-                                                </p>
-                                            )}
-                                        </div>
-                                    ) : imageAssets.length === 2 ? (
-                                        // Two images - side by side
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            {imageAssets.map((imageAsset: any, index: number) => (
-                                                <div key={imageAsset.asset?.public_id || index} className="w-full">
-                                                    <div className="relative w-full rounded-xl overflow-hidden shadow-lg bg-gray-100 aspect-[4/3]">
-                                                        <Image 
-                                                            src={buildAssetUrl(imageAsset.asset.url)}
-                                                            alt={imageAsset.caption || `${title} - Hình ${index + 1}`} 
-                                                            width={800} 
-                                                            height={600} 
-                                                            className="size-full object-cover"
-                                                            unoptimized
-                                                        />
-                                                    </div>
-                                                    {imageAsset.caption && (
-                                                        <p className="text-xs text-gray-600 mt-2 text-center italic">
-                                                            {imageAsset.caption}
-                                                        </p>
-                                                    )}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    ) : imageAssets.length === 3 ? (
-                                        // Three images - first large, two below
-                                        <div className="space-y-4">
-                                            <div className="w-full">
-                                                <div className="relative w-full rounded-xl overflow-hidden shadow-lg bg-gray-100">
+                                )}
+
+                                {/* Additional Images */}
+                                {imageAssets.length > 1 && (
+                                    <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {imageAssets.slice(1).map((imageAsset: any, index: number) => (
+                                            <div key={imageAsset.asset?.public_id || index} className="rounded-xl overflow-hidden shadow-md">
+                                                <div className="relative w-full aspect-[4/3] bg-gray-100">
                                                     <Image 
-                                                        src={buildAssetUrl(imageAssets[0].asset.url)}
-                                                        alt={imageAssets[0].caption || `${title} - Hình 1`} 
-                                                        width={1200} 
-                                                        height={600} 
-                                                        className="w-full h-auto object-contain"
+                                                        src={buildAssetUrl(imageAsset.asset.url)}
+                                                        alt={imageAsset.caption || `${title} - Hình ${index + 2}`} 
+                                                        fill
+                                                        className="object-cover"
                                                         unoptimized
                                                     />
                                                 </div>
-                                                {imageAssets[0].caption && (
-                                                    <p className="text-sm text-gray-600 mt-2 text-center italic">
-                                                        {imageAssets[0].caption}
+                                                {imageAsset.caption && (
+                                                    <p className="text-xs text-gray-600 mt-2 px-2 text-center italic">
+                                                        {imageAsset.caption}
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                {imageAssets.slice(1).map((imageAsset: any, index: number) => (
-                                                    <div key={imageAsset.asset?.public_id || index + 1} className="w-full">
-                                                        <div className="relative w-full rounded-xl overflow-hidden shadow-lg bg-gray-100 aspect-[4/3]">
-                                                            <Image 
-                                                                src={buildAssetUrl(imageAsset.asset.url)}
-                                                                alt={imageAsset.caption || `${title} - Hình ${index + 2}`} 
-                                                                width={800} 
-                                                                height={600} 
-                                                                className="size-full object-cover"
-                                                                unoptimized
-                                                            />
-                                                        </div>
-                                                        {imageAsset.caption && (
-                                                            <p className="text-xs text-gray-600 mt-2 text-center italic">
-                                                                {imageAsset.caption}
-                                                            </p>
-                                                        )}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        // Four or more images - grid layout
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            {imageAssets.map((imageAsset: any, index: number) => (
-                                                <div key={imageAsset.asset?.public_id || index} className="w-full group">
-                                                    <div className="relative w-full rounded-xl overflow-hidden shadow-lg bg-gray-100 aspect-[4/3] transition-transform duration-300 group-hover:shadow-xl">
-                                                        <Image 
-                                                            src={buildAssetUrl(imageAsset.asset.url)}
-                                                            alt={imageAsset.caption || `${title} - Hình ${index + 1}`} 
-                                                            width={800} 
-                                                            height={600} 
-                                                            className="size-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                                            unoptimized
-                                                        />
-                                                    </div>
-                                                    {imageAsset.caption && (
-                                                        <p className="text-xs text-gray-600 mt-2 text-center italic">
-                                                            {imageAsset.caption}
-                                                        </p>
-                                                    )}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
-                            ) : thumbnail ? (
-                                <div className="mb-8 max-w-4xl mx-auto">
-                                    <div className="relative w-full rounded-xl overflow-hidden shadow-lg bg-gray-100">
-                                        <Image 
-                                            src={buildAssetUrl(thumbnail)}
-                                            alt={title} 
-                                            width={1200} 
-                                            height={600} 
-                                            className="w-full h-auto object-contain"
-                                            unoptimized
-                                        />
+                                        ))}
                                     </div>
-                                </div>
-                            ) : null}
+                                )}
 
-                            {!content && (
-                                <div className="text-gray-500 italic py-8">
-                                    Nội dung đang được cập nhật...
-                                </div>
-                            )}
-                        </article>
+                                {!content && (
+                                    <div className="text-gray-500 italic py-12 text-center text-lg">
+                                        Nội dung đang được cập nhật...
+                                    </div>
+                                )}
+
+                                {/* Featured Image/Video - Hiển thị ở cuối */}
+                                {(videoAsset || imageAssets.length > 0 || thumbnail) && (
+                                    <div className="mt-8 relative w-full aspect-video bg-gray-100 rounded-xl overflow-hidden">
+                                        {videoAsset ? (
+                                            <video 
+                                                src={buildAssetUrl(videoAsset.asset.url)}
+                                                controls
+                                                className="size-full object-contain"
+                                            />
+                                        ) : imageAssets.length > 0 ? (
+                                            <Image 
+                                                src={buildAssetUrl(imageAssets[0].asset.url)}
+                                                alt={title}
+                                                fill
+                                                className="object-cover"
+                                                unoptimized
+                                            />
+                                        ) : (
+                                            <Image 
+                                                src={thumbnailUrl}
+                                                alt={title}
+                                                fill
+                                                className="object-cover"
+                                                unoptimized
+                                            />
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        </motion.article>
                     </div>
 
                     {/* Sidebar */}
                     <aside className="lg:col-span-1">
-                        <div className="bg-white border border-gray-200 rounded-lg">
-                            {/* Sidebar Header */}
-                            <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
-                                <h3 className="text-lg font-bold text-gray-900">
-                                    Tin tức mới nhất
-                                </h3>
-                            </div>
-                            
-                            {/* Sidebar Content */}
-                            <div className="p-6">
-                                {latestNews.length > 0 ? (
-                                    <ul className="space-y-4">
-                                        {latestNews.map((item) => {
-                                            const itemDate = getNewsDate(item);
-                                            const formattedItemDate = formatVietnameseDate(itemDate);
-                                            
-                                            // Get content_assets for sidebar item
-                                            const itemContentAssets = item.content_assets || [];
-                                            
-                                            // Find video in content_assets
-                                            const itemVideoAsset = itemContentAssets.find(
-                                                (asset: any) => asset.asset?.mime_type?.startsWith('video/')
-                                            );
-                                            
-                                            // Find image in content_assets
-                                            const itemImageAsset = itemContentAssets.find(
-                                                (asset: any) => asset.asset?.mime_type?.startsWith('image/')
-                                            );
-                                            
-                                            // Get thumbnail from content_assets (image) or thumbnail field
-                                            const itemThumbnail = item.thumbnail || 
-                                                                  (itemImageAsset ? itemImageAsset.asset.url : '');
-                                            const itemThumbnailUrl = itemThumbnail 
-                                              ? buildAssetUrl(itemThumbnail)
-                                              : '/assets/images/ex1.jpg';
-                                            
-                                            // Get video URL if exists
-                                            const itemVideoUrl = itemVideoAsset?.asset?.url
-                                              ? buildAssetUrl(itemVideoAsset.asset.url)
-                                              : null;
-                                            
-                                            return (
-                                                <li key={item.id || item.public_id} className="border-b border-gray-100 last:border-b-0 pb-4 last:pb-0">
-                                                    <Link href={`/news/detail/${item.slug}`}>
-                                                        <div className="group flex items-start gap-3 hover:opacity-80 transition-opacity">
-                                                            <div className="shrink-0 size-20 rounded-lg overflow-hidden bg-black relative">
-                                                                {itemVideoUrl ? (
-                                                                    <>
-                                                                        <video
-                                                                            src={itemVideoUrl}
-                                                                            className="size-full object-cover"
-                                                                            muted
-                                                                            playsInline
-                                                                        />
-                                                                        <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                                                                            <div className="size-6 rounded-full bg-white/90 flex items-center justify-center">
-                                                                                <svg className="size-3 text-emerald-600 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                                                                                    <path d="M8 5v14l11-7z"/>
-                                                                                </svg>
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="sticky top-4 self-start"
+                        >
+                            <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+                                {/* Sidebar Header */}
+                                <div className="px-6 py-4 bg-gradient-to-r from-[#33B54A] to-[#2EA043]">
+                                    <div className="flex items-center gap-2">
+                                        <Activity className="size-5 text-white" />
+                                        <h3 className="text-lg font-bold text-white">
+                                            Hoạt động khác
+                                        </h3>
+                                    </div>
+                                </div>
+                                
+                                {/* Sidebar Content */}
+                                <div className="p-6">
+                                    {latestNews.length > 0 ? (
+                                        <ul className="space-y-4">
+                                            {latestNews.map((item, index) => {
+                                                const itemDate = getNewsDate(item);
+                                                const formattedItemDate = formatVietnameseDate(itemDate);
+                                                
+                                                const itemContentAssets = item.content_assets || [];
+                                                
+                                                const itemVideoAsset = itemContentAssets.find(
+                                                    (asset: any) => asset.asset?.mime_type?.startsWith('video/')
+                                                );
+                                                
+                                                const itemImageAsset = itemContentAssets.find(
+                                                    (asset: any) => asset.asset?.mime_type?.startsWith('image/')
+                                                );
+                                                
+                                                const itemThumbnail = item.thumbnail || 
+                                                                      (itemImageAsset ? itemImageAsset.asset.url : '');
+                                                const itemThumbnailUrl = itemThumbnail 
+                                                  ? buildAssetUrl(itemThumbnail)
+                                                  : '/assets/images/ex1.jpg';
+                                                
+                                                const itemVideoUrl = itemVideoAsset?.asset?.url
+                                                  ? buildAssetUrl(itemVideoAsset.asset.url)
+                                                  : null;
+                                                
+                                                return (
+                                                    <li key={item.id || item.public_id} className="pb-4 border-b border-gray-100 last:border-b-0 last:pb-0">
+                                                        <Link href={`/activities/detail/${item.slug}`}>
+                                                            <div className="group flex items-start gap-3 hover:opacity-90 transition-opacity">
+                                                                <div className="shrink-0 size-20 rounded-lg overflow-hidden bg-gray-100 relative shadow-sm">
+                                                                    {itemVideoUrl ? (
+                                                                        <>
+                                                                            <video
+                                                                                src={itemVideoUrl}
+                                                                                className="size-full object-cover"
+                                                                                muted
+                                                                                playsInline
+                                                                            />
+                                                                            <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                                                                                <div className="size-6 rounded-full bg-white/95 flex items-center justify-center">
+                                                                                    <svg className="size-3 text-[#33B54A] ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                                                                                        <path d="M8 5v14l11-7z"/>
+                                                                                    </svg>
+                                                                                </div>
                                                                             </div>
+                                                                        </>
+                                                                    ) : (
+                                                                        <Image 
+                                                                            src={itemThumbnailUrl} 
+                                                                            alt={item.title} 
+                                                                            fill
+                                                                            className="object-cover transition-transform duration-300 group-hover:scale-110"
+                                                                            unoptimized
+                                                                        />
+                                                                    )}
+                                                                </div>
+                                                                <div className="flex-1 min-w-0">
+                                                                    <h4 className="text-sm font-semibold text-gray-800 group-hover:text-[#33B54A] transition-colors line-clamp-2 mb-1 leading-snug">
+                                                                        {item.title}
+                                                                    </h4>
+                                                                    {formattedItemDate && (
+                                                                        <div className="flex items-center gap-1 text-xs text-gray-500">
+                                                                            <Calendar className="size-3" />
+                                                                            <span>{formattedItemDate}</span>
                                                                         </div>
-                                                                    </>
-                                                                ) : (
-                                                                    <Image 
-                                                                        src={itemThumbnailUrl} 
-                                                                        alt={item.title} 
-                                                                        width={80} 
-                                                                        height={80} 
-                                                                        className="size-full object-cover"
-                                                                        unoptimized
-                                                                    />
-                                                                )}
+                                                                    )}
+                                                                </div>
                                                             </div>
-                                                            <div className="flex-1 min-w-0">
-                                                                <h4 className="text-sm font-semibold text-gray-800 group-hover:text-emerald-600 transition-colors line-clamp-2 mb-1">
-                                                                    {item.title}
-                                                                </h4>
-                                                                {formattedItemDate && (
-                                                                    <p className="text-xs text-gray-500">
-                                                                        {formattedItemDate}
-                                                                    </p>
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                    </Link>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                ) : (
-                                    <p className="text-sm text-gray-500 text-center py-4">Chưa có tin tức khác</p>
-                                )}
+                                                        </Link>
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    ) : (
+                                        <p className="text-sm text-gray-500 text-center py-8">Chưa có hoạt động khác</p>
+                                    )}
+                                </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </aside>
                 </div>
             </div>

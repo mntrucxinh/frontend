@@ -1,9 +1,10 @@
 'use client'
 
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import Image from 'next/image'
 import { formatDateTime } from '@/utils/date'
-import { Card, CardBody, Chip, Divider } from '@heroui/react'
+import { buildAssetUrl } from '@/utils/api-url'
+import { Button, Card, CardBody, Chip, Divider } from '@heroui/react'
 
 export type Asset = {
   id: number
@@ -66,9 +67,13 @@ const ALBUM_STATUS_COLOR: Record<AlbumStatus, 'default' | 'success' | 'warning'>
   archived: 'warning',
 }
 
+const ITEMS_PER_PAGE = 20
+
 export default function DetailAlbumContent({ album }: { album: AlbumDetail }) {
   const images = album.items ?? []
   const videos = album.videos ?? []
+  const [imagesToShow, setImagesToShow] = useState(ITEMS_PER_PAGE)
+  const [videosToShow, setVideosToShow] = useState(ITEMS_PER_PAGE)
 
   const counts = useMemo(() => {
     const img = album.image_count ?? images.length
@@ -76,6 +81,11 @@ export default function DetailAlbumContent({ album }: { album: AlbumDetail }) {
     const total = album.item_count ?? img + vid
     return { img, vid, total }
   }, [album.image_count, album.video_count, album.item_count, images.length, videos.length])
+
+  const displayedImages = images.slice(0, imagesToShow)
+  const displayedVideos = videos.slice(0, videosToShow)
+  const hasMoreImages = images.length > imagesToShow
+  const hasMoreVideos = videos.length > videosToShow
 
   return (
     <div className='space-y-6'>
@@ -85,7 +95,7 @@ export default function DetailAlbumContent({ album }: { album: AlbumDetail }) {
           <div className='relative aspect-[21/9] w-full bg-default-100'>
             {album.cover?.url ? (
               <Image
-                src={album.cover.url}
+                src={buildAssetUrl(album.cover.url)}
                 alt='cover'
                 fill
                 className='object-cover'
@@ -176,30 +186,43 @@ export default function DetailAlbumContent({ album }: { album: AlbumDetail }) {
               Chưa có ảnh.
             </div>
           ) : (
-            <div className='grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4'>
-              {images.map((it) => (
-                <div
-                  key={`${it.asset.public_id}-${it.position}`}
-                  className='relative aspect-square overflow-hidden rounded-xl border bg-default-100'
-                  title={it.caption}
-                >
-                  <Image
-                    src={it.asset.url}
-                    alt={it.caption || 'image'}
-                    fill
-                    className='object-cover'
-                    loading='lazy'
-                    sizes='(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 220px'
-                    quality={60}
-                  />
-                  {it.caption ? (
-                    <div className='absolute inset-x-0 bottom-0 line-clamp-1 bg-black/45 p-2 text-xs text-white'>
-                      {it.caption}
-                    </div>
-                  ) : null}
+            <>
+              <div className='grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4'>
+                {displayedImages.map((it) => (
+                  <div
+                    key={`${it.asset.public_id}-${it.position}`}
+                    className='relative aspect-square overflow-hidden rounded-xl border bg-default-100'
+                    title={it.caption}
+                  >
+                    <Image
+                      src={buildAssetUrl(it.asset.url)}
+                      alt={it.caption || 'image'}
+                      fill
+                      className='object-cover'
+                      loading='lazy'
+                      sizes='(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 220px'
+                      quality={60}
+                    />
+                    {it.caption ? (
+                      <div className='absolute inset-x-0 bottom-0 line-clamp-1 bg-black/45 p-2 text-xs text-white'>
+                        {it.caption}
+                      </div>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+              {hasMoreImages && (
+                <div className='flex justify-center pt-2'>
+                  <Button
+                    variant='bordered'
+                    size='sm'
+                    onPress={() => setImagesToShow((prev) => prev + ITEMS_PER_PAGE)}
+                  >
+                    Xem thêm ({images.length - imagesToShow} ảnh còn lại)
+                  </Button>
                 </div>
-              ))}
-            </div>
+              )}
+            </>
           )}
 
           <Divider />
@@ -216,22 +239,41 @@ export default function DetailAlbumContent({ album }: { album: AlbumDetail }) {
               Chưa có video.
             </div>
           ) : (
-            <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
-              {videos.map((v, idx) => {
-                const url = getVideoUrl(v.video)
-                return (
-                  <div key={`video-${idx}`} className='rounded-xl border p-3'>
-                    {url ? (
-                      <video src={url} controls preload='metadata' className='w-full rounded-lg' />
-                    ) : (
-                      <div className='rounded-lg border border-dashed p-6 text-center text-sm text-default-500'>
-                        Video không có url
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
+            <>
+              <div className='grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4'>
+                {displayedVideos.map((v, idx) => {
+                  const videoUrl = getVideoUrl(v.video)
+                  const url = videoUrl ? buildAssetUrl(videoUrl) : null
+                  return (
+                    <div key={`video-${idx}`} className='rounded-xl border p-2'>
+                      {url ? (
+                        <video
+                          src={url}
+                          controls
+                          preload='metadata'
+                          className='w-full rounded-lg aspect-video object-cover'
+                        />
+                      ) : (
+                        <div className='rounded-lg border border-dashed p-6 text-center text-sm text-default-500'>
+                          Video không có url
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+              {hasMoreVideos && (
+                <div className='flex justify-center pt-2'>
+                  <Button
+                    variant='bordered'
+                    size='sm'
+                    onPress={() => setVideosToShow((prev) => prev + ITEMS_PER_PAGE)}
+                  >
+                    Xem thêm ({videos.length - videosToShow} video còn lại)
+                  </Button>
+                </div>
+              )}
+            </>
           )}
         </CardBody>
       </Card>

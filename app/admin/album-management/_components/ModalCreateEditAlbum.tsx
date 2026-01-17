@@ -20,6 +20,7 @@ import { z } from 'zod'
 import CustomInput from '@/components/CustomInput'
 import CustomSelect from '@/components/CustomSelect'
 import CustomTextArea from '@/components/CustomTextArea'
+import { buildAssetUrl } from '@/utils/api-url'
 
 import LazyMediaThumb from '../../_components/LazyMediaThumb'
 import LazyRemoteImageThumb from '../../_components/LazyRemoteImageThumb'
@@ -42,6 +43,8 @@ type SubmitArgs = {
   payload: Omit<TCreateEditAlbum, 'cover' | 'files'>
   coverFile?: File | null
   newFiles: File[]
+  existingImages: NonNullable<Album['items']>
+  existingVideos: NonNullable<Album['videos']>
   removedImageIds: Array<number | string>
   removedVideoIds: Array<number | string>
 }
@@ -187,6 +190,8 @@ export default function ModalCreateEditAlbum({
         payload,
         coverFile,
         newFiles,
+        existingImages: existingImagesState,
+        existingVideos: existingVideosState,
         removedImageIds,
         removedVideoIds,
       })
@@ -289,7 +294,7 @@ export default function ModalCreateEditAlbum({
                       ) : albumEdit?.cover?.url ? (
                         <div className='relative aspect-video overflow-hidden rounded-lg'>
                           <Image
-                            src={albumEdit.cover.url}
+                            src={buildAssetUrl(albumEdit.cover.url)}
                             alt='cover-existing'
                             fill
                             className='object-cover'
@@ -400,21 +405,25 @@ export default function ModalCreateEditAlbum({
                             {existingImagesState.map((it, idx) => (
                               <LazyRemoteImageThumb
                                 key={`old-img-${it.asset?.public_id}-${it.position}`}
-                                src={it.asset.url}
+                                src={buildAssetUrl(it.asset.url)}
                                 alt={it.caption || 'existing'}
                                 label='Ảnh hiện có'
                                 onRemove={() => handleRemoveExisting('image', idx)}
                               />
                             ))}
 
-                            {existingVideosState.map((v, idx) => (
-                              <LazyRemoteVideoThumb
-                                key={`old-video-${getVideoId(v.video, idx)}`}
-                                src={getVideoUrl(v.video)}
-                                label='Video hiện có'
-                                onRemove={() => handleRemoveExisting('video', idx)}
-                              />
-                            ))}
+                            {existingVideosState.map((v, idx) => {
+                              const videoUrl = getVideoUrl(v.video)
+                              const fullUrl = videoUrl ? buildAssetUrl(videoUrl) : null
+                              return (
+                                <LazyRemoteVideoThumb
+                                  key={`old-video-${getVideoId(v.video, idx)}`}
+                                  src={fullUrl}
+                                  label='Video hiện có'
+                                  onRemove={() => handleRemoveExisting('video', idx)}
+                                />
+                              )
+                            })}
                           </div>
 
                           {(removedImageIds.length > 0 || removedVideoIds.length > 0) && (

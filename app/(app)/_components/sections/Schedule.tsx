@@ -125,7 +125,7 @@ export default function ActivitiesAtSchool() {
         duration: 0.8,
         ease: [0.4, 0, 0.2, 1],
       }}
-      className='relative -mt-12 overflow-hidden bg-gradient-to-b from-[#33B54A] via-[#2EA043] to-[#33B54A] py-20 text-white md:-mt-20 md:pb-28 md:pt-24'
+      className='relative -mt-12 overflow-hidden bg-gradient-to-b from-[#33B54A] via-[#2EA043] to-[#33B54A] py-16 text-white md:-mt-20 md:pb-20 md:pt-20'
     >
       {/* Smooth top wave - continues seamlessly from CoreValues section */}
       <div className='pointer-events-none absolute inset-x-0 -top-12 h-32 w-screen sm:-top-14 sm:h-36 md:-top-20 md:h-40'>
@@ -192,7 +192,7 @@ export default function ActivitiesAtSchool() {
             duration: 0.7,
             ease: [0.4, 0, 0.2, 1],
           }}
-          className='mx-auto mb-14 max-w-3xl text-center'
+          className='mx-auto mb-10 max-w-3xl text-center md:mb-12'
         >
           <h2 className='mb-5 text-4xl font-black tracking-tight md:text-6xl'>
             Hoạt động của bé tại trường
@@ -209,7 +209,7 @@ export default function ActivitiesAtSchool() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className='mb-12 flex flex-wrap items-center justify-center gap-3'
+          className='mb-8 flex flex-wrap items-center justify-center gap-3 md:mb-10'
         >
           {programs.map((p, index) => {
             const isActive = p.key === activeKey
@@ -266,7 +266,7 @@ export default function ActivitiesAtSchool() {
               initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
-              className='relative h-[320px] overflow-hidden bg-gradient-to-br from-[#33B54A]/10 to-[#F78F1E]/10 md:h-[420px]'
+              className='relative h-[240px] overflow-hidden bg-gradient-to-br from-[#33B54A]/10 to-[#F78F1E]/10 md:h-[320px]'
             >
               <AnimatePresence mode='wait'>
                 <motion.div
@@ -318,19 +318,19 @@ export default function ActivitiesAtSchool() {
             </motion.div>
 
             {/* Content Section - Bottom */}
-            <div className='px-8 pb-12 pt-10 sm:px-12'>
+            <div className='px-6 pb-8 pt-8 sm:px-10 md:pb-10 md:pt-10'>
               {/* Schedule */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.35, duration: 0.6 }}
-                className='rounded-3xl bg-white p-6 shadow-xl ring-1 ring-gray-100 sm:p-8 md:p-10'
+                className='rounded-3xl bg-white p-4 shadow-xl ring-1 ring-gray-100 sm:p-6 md:p-8'
               >
                 <motion.h3
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.45 }}
-                  className='mb-10 flex items-center justify-center gap-3 text-2xl font-black text-gray-900 md:text-3xl'
+                  className='mb-6 flex items-center justify-center gap-3 text-xl font-black text-gray-900 md:mb-8 md:text-2xl'
                 >
                   <motion.div
                     animate={{ rotate: [0, 360] }}
@@ -347,9 +347,9 @@ export default function ActivitiesAtSchool() {
                 {/* Timeline Container */}
                 <div className='relative'>
                   {/* Vertical timeline line - alternating colors */}
-                  <div className='absolute left-8 top-0 hidden h-full w-0.5 bg-[#33B54A] md:block' />
+                  <div className='absolute left-[13px] top-0 z-0 hidden h-full w-0.5 bg-[#33B54A] md:left-[27px] md:block' />
 
-                  <ul className='space-y-6'>
+                  <ul className='space-y-3 md:space-y-4'>
                     {current.schedule.map((it, i) => {
                       const isEven = i % 2 === 0
                       const badgeColor = isEven ? 'bg-[#33B54A]' : 'bg-[#F78F1E]'
@@ -362,27 +362,27 @@ export default function ActivitiesAtSchool() {
                           transition={{ delay: 0.5 + i * 0.06, duration: 0.4 }}
                           className='group relative'
                         >
-                          <div className='relative flex gap-6 md:gap-8'>
+                          <div className='relative flex gap-4 md:gap-6'>
                             {/* Timeline dot */}
-                            <div className='relative z-10 flex shrink-0 flex-col items-center md:w-16'>
+                            <div className='relative z-10 flex w-7 shrink-0 flex-col items-center md:w-14'>
                               <motion.div
                                 whileHover={{ scale: 1.2 }}
-                                className='relative flex size-4 items-center justify-center rounded-full bg-white shadow-lg ring-4 ring-white md:size-5'
+                                className='relative z-20 flex size-3.5 items-center justify-center rounded-full bg-white shadow-lg ring-3 ring-white md:size-4'
                               >
-                                <div className='size-2 rounded-full bg-[#F78F1E] md:size-2.5' />
+                                <div className='size-1.5 rounded-full bg-[#F78F1E] md:size-2' />
                               </motion.div>
                               {/* Connector line for mobile */}
-                              <div className='absolute left-1/2 top-4 h-full w-0.5 -translate-x-1/2 bg-[#F78F1E] opacity-30 md:hidden' />
+                              <div className='absolute left-1/2 top-3.5 z-0 h-full w-0.5 -translate-x-1/2 bg-[#F78F1E] opacity-30 md:hidden' />
                             </div>
 
                             {/* Content Card */}
-                            <div className={`flex-1 rounded-2xl bg-gradient-to-br from-gray-50 to-white p-5 shadow-md ring-1 ring-gray-100 transition-all duration-300 group-hover:shadow-xl sm:p-6 ${isEven ? 'group-hover:ring-[#33B54A]/20' : 'group-hover:ring-[#F78F1E]/20'}`}>
-                              <div className='flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-6'>
+                            <div className={`flex-1 rounded-xl bg-gradient-to-br from-gray-50 to-white p-3 shadow-md ring-1 ring-gray-100 transition-all duration-300 group-hover:shadow-lg sm:p-4 md:rounded-2xl md:p-4 ${isEven ? 'group-hover:ring-[#33B54A]/20' : 'group-hover:ring-[#F78F1E]/20'}`}>
+                              <div className='flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-4'>
                                 {/* Time Badge */}
                                 <div className='shrink-0'>
-                                  <div className={`inline-flex items-center gap-2 rounded-full ${badgeColor} px-4 py-2 shadow-sm`}>
-                                    <Clock className='size-4 text-white' />
-                                    <span className='font-bold tabular-nums text-sm text-white md:text-base'>
+                                  <div className={`inline-flex items-center gap-1.5 rounded-full ${badgeColor} px-3 py-1.5 shadow-sm md:gap-2 md:px-4 md:py-2`}>
+                                    <Clock className='size-3 text-white md:size-3.5' />
+                                    <span className='font-bold tabular-nums text-xs text-white md:text-sm'>
                                       {it.time}
                                     </span>
                                   </div>
@@ -390,7 +390,7 @@ export default function ActivitiesAtSchool() {
 
                                 {/* Activity Text */}
                                 <div className='flex-1'>
-                                  <p className='text-base leading-relaxed text-gray-700 transition-colors group-hover:text-gray-900 md:text-lg'>
+                                  <p className='text-sm leading-relaxed text-gray-700 transition-colors group-hover:text-gray-900 md:text-base'>
                                     {it.text}
                                   </p>
                                 </div>

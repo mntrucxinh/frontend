@@ -1,12 +1,14 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion';
 import { GalleryHorizontal, Image as ImageIcon, Video as VideoIcon } from 'lucide-react';
+import { Pagination } from '@heroui/react'
 
-// Types and mock data
-import { Album, VideoEmbed, View } from '@/types/interface/library'
-import { assets, sampleAlbums, videoEmbeds } from './data/mock-data'
+// Types
+import { View } from '@/types/interface/library'
+import type { Asset, VideoEmbed, Album } from '@/service/library-service'
+import { useLibraryAssets, useLibraryAlbums } from '@/hook/library/use-library-query'
 
 // Static media statistics (placeholder values, matching ContactSection's static nature)
 const mediaStats = [
@@ -42,11 +44,18 @@ import { VideoPlayer } from './components/VideoPlayer'
 import { ImageLightbox } from './components/ImageLightbox'
 import { AlbumDetailModal } from './components/AlbumDetailModal'
 
-type Playlist = { videos: VideoEmbed[]; startIndex: number };
+import type { VideoEmbed as LibraryVideoEmbed } from '@/types/interface/library'
+type Playlist = { videos: LibraryVideoEmbed[]; startIndex: number };
 
 const LibraryPage = () => {
     // --- STATE MANAGEMENT ---
     const [view, setView] = useState<View>('images');
+    
+    // Pagination state for each tab
+    const [imagesPage, setImagesPage] = useState(1);
+    const [videosPage, setVideosPage] = useState(1);
+    const [albumsPage, setAlbumsPage] = useState(1);
+    const pageSize = 25; // Items per page
     
     // State for top-level lightboxes and players
     const [imageIndex, setImageIndex] = useState(-1);
@@ -55,12 +64,114 @@ const LibraryPage = () => {
     // State for the album detail modal
     const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
 
+    // Ref for the tab switcher area
+    const tabSwitcherRef = useRef<HTMLDivElement>(null);
+
+    // Helper function to scroll to tab area
+    const scrollToTab = () => {
+        setTimeout(() => {
+            if (tabSwitcherRef.current) {
+                // Get header height dynamically
+                const header = document.querySelector('header');
+                const headerHeight = header ? header.offsetHeight : 100;
+                
+                const elementPosition = tabSwitcherRef.current.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20; // Extra 20px padding
+                
+                window.scrollTo({
+                    top: Math.max(0, offsetPosition), // Ensure not negative
+                    behavior: 'smooth'
+                });
+            }
+        }, 100);
+    };
+
+    // Reset page when switching tabs and scroll to tab area
+    useEffect(() => {
+        setImagesPage(1);
+        setVideosPage(1);
+        setAlbumsPage(1);
+        scrollToTab();
+    }, [view]);
+
+    // Handlers for pagination with scroll
+    const handleImagesPageChange = (page: number) => {
+        setImagesPage(page);
+        scrollToTab();
+    };
+
+    const handleVideosPageChange = (page: number) => {
+        setVideosPage(page);
+        scrollToTab();
+    };
+
+    const handleAlbumsPageChange = (page: number) => {
+        setAlbumsPage(page);
+        scrollToTab();
+    };
+
+    // --- API DATA ---
+    const { data: imagesData, isLoading: isLoadingImages } = useLibraryAssets({
+        mimeType: 'image/',
+        page: imagesPage,
+        pageSize: pageSize,
+    })
+    
+    const { data: videosData, isLoading: isLoadingVideos } = useLibraryAssets({
+        mimeType: 'video/',
+        page: videosPage,
+        pageSize: pageSize,
+    })
+    
+    const { data: albumsData, isLoading: isLoadingAlbums } = useLibraryAlbums({
+        page: albumsPage,
+        pageSize: pageSize,
+    })
+
+    // Transform API data to component format
+    const assets: Asset[] = useMemo(() => imagesData?.items || [], [imagesData])
+    const videoEmbeds = useMemo(() => {
+        // For now, videos from assets (local videos)
+        // External videos (YouTube, Facebook) come from albums
+        return videosData?.items.map((asset, index) => ({
+            id: asset.id || index,
+            provider: 'youtube' as const, // Map local to youtube for display
+            url: asset.url,
+            title: '',
+            thumbnail_url: '',
+        })) || []
+    }, [videosData])
+    
+    const sampleAlbums = useMemo(() => albumsData?.items || [], [albumsData])
+
     // --- MEMOIZED DATA FOR LIGHTBOXES ---
-    const allImageSlides = useMemo(() => assets.map(asset => ({ src: asset.src })), []);
+    const allImageSlides = useMemo(() => assets.map(asset => ({ src: asset.url })), [assets]);
+
+    // --- STATISTICS ---
+    const mediaStats = useMemo(() => [
+        {
+            icon: ImageIcon,
+            title: 'Tổng số ảnh',
+            content: imagesData?.meta.total_items ? `${imagesData.meta.total_items}+` : '0+',
+            color: 'from-[#33B54A] to-[#2EA043]',
+        },
+        {
+            icon: VideoIcon,
+            title: 'Tổng số video',
+            content: videosData?.meta.total_items ? `${videosData.meta.total_items}+` : '0+',
+            color: 'from-[#F78F1E] to-[#E67E17]',
+        },
+        {
+            icon: GalleryHorizontal,
+            title: 'Tổng số album',
+            content: albumsData?.meta.total_items ? `${albumsData.meta.total_items}+` : '0+',
+            color: 'from-[#33B54A] to-[#2EA043]',
+        },
+    ], [imagesData, videosData, albumsData])
 
     // --- EVENT HANDLERS ---
-    const openVideoPlayer = (videos: VideoEmbed[], startIndex: number) => {
-        setActivePlaylist({ videos, startIndex });
+    const openVideoPlayer = (videos: typeof videoEmbeds, startIndex: number) => {
+        setActivePlaylist({ videos: videos as any, startIndex });
     };
 
     const handleOpenAlbum = (album: Album) => {
@@ -70,49 +181,129 @@ const LibraryPage = () => {
     const renderContent = () => {
         switch (view) {
             case 'images':
+                if (isLoadingImages) {
+                    return <div className="text-center py-12">Đang tải ảnh...</div>
+                }
+                const imagesTotalPages = imagesData?.meta.total_pages || 1;
                 return (
-                    <MediaGrid
-                        view="images"
-                        items={assets}
-                        renderItem={(asset, index) => (
-                            <ImageCard 
-                                key={asset.id} 
-                                asset={asset} 
-                                index={index} 
-                                onClick={() => setImageIndex(index)} 
-                            />
+                    <>
+                        <MediaGrid
+                            view="images"
+                            items={assets}
+                            renderItem={(asset, index) => (
+                                <ImageCard 
+                                    key={asset.public_id} 
+                                    asset={{ id: asset.id, src: asset.url }} 
+                                    index={index} 
+                                    onClick={() => setImageIndex(index)} 
+                                />
+                            )}
+                        />
+                        {imagesTotalPages > 1 && (
+                            <div className="flex justify-center mt-8">
+                                <Pagination
+                                    isCompact
+                                    showControls
+                                    showShadow
+                                    color="primary"
+                                    page={imagesPage}
+                                    total={imagesTotalPages}
+                                    onChange={handleImagesPageChange}
+                                />
+                            </div>
                         )}
-                    />
+                    </>
                 );
             case 'videos':
+                if (isLoadingVideos) {
+                    return <div className="text-center py-12">Đang tải video...</div>
+                }
+                const videosTotalPages = videosData?.meta.total_pages || 1;
                 return (
-                    <MediaGrid
-                        view="videos"
-                        items={videoEmbeds}
-                        renderItem={(video, index) => (
-                           <VideoCard 
-                                key={video.id} 
-                                video={video} 
-                                index={index} 
-                                onClick={() => openVideoPlayer(videoEmbeds, index)} 
-                           />
+                    <>
+                        <MediaGrid
+                            view="videos"
+                            items={videoEmbeds}
+                            renderItem={(video, index) => (
+                               <VideoCard 
+                                    key={video.id} 
+                                    video={video} 
+                                    index={index} 
+                                    onClick={() => openVideoPlayer(videoEmbeds, index)} 
+                               />
+                            )}
+                        />
+                        {videosTotalPages > 1 && (
+                            <div className="flex justify-center mt-8">
+                                <Pagination
+                                    isCompact
+                                    showControls
+                                    showShadow
+                                    color="primary"
+                                    page={videosPage}
+                                    total={videosTotalPages}
+                                    onChange={handleVideosPageChange}
+                                />
+                            </div>
                         )}
-                    />
+                    </>
                 );
             case 'albums':
+                if (isLoadingAlbums) {
+                    return <div className="text-center py-12">Đang tải album...</div>
+                }
+                const albumsTotalPages = albumsData?.meta.total_pages || 1;
                 return (
-                    <MediaGrid
-                        view="albums"
-                        items={sampleAlbums.filter(a => a.status === 'published')}
-                        renderItem={(album) => (
-                            <AlbumCard 
-                                key={album.id}
-                                album={album}
-                                index={0} // Index not used for album animation here
-                                onClick={() => handleOpenAlbum(album)}
-                            />
+                    <>
+                        <MediaGrid
+                            view="albums"
+                            items={sampleAlbums}
+                            renderItem={(album) => (
+                                <AlbumCard 
+                                    key={album.public_id}
+                                    album={{
+                                        id: Math.abs(album.public_id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % 1000000,
+                                        public_id: album.public_id,
+                                        title: album.title,
+                                        slug: album.slug,
+                                        description: album.description || '',
+                                        cover_asset: album.cover ? { id: album.cover.id || 0, src: album.cover.url } : { id: 0, src: '' },
+                                        status: 'published' as const,
+                                        items: (album.items || []).map(item => ({
+                                            asset: { id: item.asset.id || 0, src: item.asset.url },
+                                            position: item.position,
+                                            caption: item.caption || '',
+                                        })),
+                                        videos: (album.videos || []).map((v, idx) => ({
+                                            video: {
+                                                id: Math.abs(v.video.public_id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % 1000000,
+                                                provider: (v.video.provider === 'local' ? 'youtube' : v.video.provider) as 'youtube' | 'facebook',
+                                                url: v.video.url,
+                                                thumbnail_url: v.video.thumbnail_url || '',
+                                                title: v.video.title || '',
+                                            },
+                                            position: v.position,
+                                        })),
+                                    }}
+                                    index={0}
+                                    onClick={() => handleOpenAlbum(album)}
+                                />
+                            )}
+                        />
+                        {albumsTotalPages > 1 && (
+                            <div className="flex justify-center mt-8">
+                                <Pagination
+                                    isCompact
+                                    showControls
+                                    showShadow
+                                    color="primary"
+                                    page={albumsPage}
+                                    total={albumsTotalPages}
+                                    onChange={handleAlbumsPageChange}
+                                />
+                            </div>
                         )}
-                    />
+                    </>
                 );
             default:
                 return null;
@@ -121,7 +312,7 @@ const LibraryPage = () => {
 
     return (
         <div className='bg-white text-gray-800 antialiased'>
-            <Hero assets={assets} />
+            <Hero assets={assets.map(a => ({ id: a.id, src: a.url }))} />
 
             {/* Statistics Section */}
             <section className='relative -mt-16 z-20'>
@@ -164,7 +355,9 @@ const LibraryPage = () => {
 
             <main className='relative bg-white py-20 md:py-28'>
                 <div className='container mx-auto px-4'>
-                    <ViewSwitcher view={view} setView={setView} />
+                    <div ref={tabSwitcherRef}>
+                        <ViewSwitcher view={view} setView={setView} />
+                    </div>
                     {renderContent()}
                 </div>
             </main>
@@ -176,7 +369,7 @@ const LibraryPage = () => {
                 close={() => setImageIndex(-1)}
                 index={imageIndex}
             />
-            <VideoPlayer playlist={activePlaylist} onClose={() => setActivePlaylist(null)} />
+            <VideoPlayer playlist={activePlaylist as any} onClose={() => setActivePlaylist(null)} />
 
             {/* The new modal for displaying the contents of a single album */}
             <AlbumDetailModal album={selectedAlbum} onClose={() => setSelectedAlbum(null)} />

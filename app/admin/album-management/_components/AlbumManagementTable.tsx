@@ -53,10 +53,11 @@ export type Album = {
 
 type Props = {
   data: Album[]
-  paginationResponse: TPaginationResponse
+  paginationResponse?: TPaginationResponse
   onEdit: (album: Album) => void
   onOpenDetail?: (id: Album['id']) => void
   onDelete?: (album: Album) => Promise<void> | void
+  isLoading?: boolean
 }
 
 export default function AlbumManagementTable({
@@ -65,6 +66,7 @@ export default function AlbumManagementTable({
   onEdit,
   onOpenDetail,
   onDelete,
+  isLoading,
 }: Props) {
   const router = useRouter()
   const [deleteTarget, setDeleteTarget] = useState<Album | null>(null)
@@ -195,6 +197,7 @@ export default function AlbumManagementTable({
         paginationResponse={paginationResponse}
         renderCell={renderCell}
         selectionMode='none'
+        isLoading={isLoading}
         tableClassNames={{
           tr: 'h-14',
           th: ['text-primary text-md bg-white', 'last:[border-start-end-radius:0px]'].join(' '),

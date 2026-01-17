@@ -5,13 +5,15 @@ import { useMemo, useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { X, Camera, Video } from 'lucide-react'
 
-import { Album, Asset, VideoEmbed } from '@/types/interface/library'
+import type { Album, Asset, VideoEmbed } from '@/service/library-service'
+import type { VideoEmbed as LibraryVideoEmbed } from '@/types/interface/library'
+import { useLibraryAlbum } from '@/hook/library/use-library-query'
 import { ImageCard } from './ImageCard'
 import { VideoCard } from './VideoCard'
 import { ImageLightbox } from './ImageLightbox'
 import { VideoPlayer } from './VideoPlayer'
 
-type Playlist = { videos: VideoEmbed[]; startIndex: number };
+type Playlist = { videos: LibraryVideoEmbed[]; startIndex: number };
 
 interface AlbumDetailModalProps {
     album: Album | null;
@@ -51,12 +53,17 @@ type MediaItem =
 export const AlbumDetailModal = ({ album, onClose }: AlbumDetailModalProps) => {
     const [imageIndex, setImageIndex] = useState(-1);
     const [activePlaylist, setActivePlaylist] = useState<Playlist | null>(null);
+    
+    // Fetch album detail if we only have slug
+    const albumSlug = album?.slug
+    const { data: albumDetail, isLoading: isLoadingAlbum } = useLibraryAlbum(albumSlug || '')
+    const finalAlbum = albumDetail || album
 
     // Combine images and videos, sorted by position
     const mediaItems = useMemo<MediaItem[]>(() => {
-        if (!album) return [];
+        if (!finalAlbum) return [];
         
-        const imageItems: MediaItem[] = album.items
+        const imageItems: MediaItem[] = (finalAlbum.items || [])
             .sort((a, b) => a.position - b.position)
             .map((item, index) => ({
                 type: 'image' as const,
@@ -65,7 +72,7 @@ export const AlbumDetailModal = ({ album, onClose }: AlbumDetailModalProps) => {
                 index: index,
             }));
         
-        const videoItems: MediaItem[] = album.videos
+        const videoItems: MediaItem[] = (finalAlbum.videos || [])
             .sort((a, b) => a.position - b.position)
             .map((item, index) => ({
                 type: 'video' as const,
@@ -76,12 +83,12 @@ export const AlbumDetailModal = ({ album, onClose }: AlbumDetailModalProps) => {
         
         // Combine and sort by position
         return [...imageItems, ...videoItems].sort((a, b) => a.position - b.position);
-    }, [album]);
+    }, [finalAlbum]);
 
     const images = useMemo(() => mediaItems.filter(item => item.type === 'image').map(item => item.asset), [mediaItems]);
     const videos = useMemo(() => mediaItems.filter(item => item.type === 'video').map(item => item.video), [mediaItems]);
     
-    const imageSlides = useMemo(() => images.map(asset => ({ src: asset.src })), [images]);
+    const imageSlides = useMemo(() => images.map(asset => ({ src: asset.url })), [images]);
 
     // Lock body scroll when modal is open
     useEffect(() => {
@@ -111,9 +118,43 @@ export const AlbumDetailModal = ({ album, onClose }: AlbumDetailModalProps) => {
         onClose();
     };
 
+    if (!album) return null
+
+    // Show loading state if fetching album detail
+    if (albumSlug && !finalAlbum && isLoadingAlbum) {
+        return (
+            <AnimatePresence>
+                {album && (
+                    <>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={handleClose}
+                            className="fixed inset-0 z-[999] bg-black/70 backdrop-blur-md"
+                        />
+                        <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4">
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="w-full max-w-7xl h-[90vh] flex items-center justify-center bg-white rounded-3xl shadow-2xl"
+                            >
+                                <div className="text-center">
+                                    <div className="text-lg font-semibold text-gray-600">Đang tải album...</div>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </>
+                )}
+            </AnimatePresence>
+        )
+    }
+
+    if (!finalAlbum) return null
+
     return (
         <AnimatePresence>
-            {album && (
+            {(
                 <>
                     {/* Backdrop */}
                     <motion.div
@@ -138,15 +179,15 @@ export const AlbumDetailModal = ({ album, onClose }: AlbumDetailModalProps) => {
                                 initial={{ opacity: 0, y: -20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.1 }}
-                                className="flex-shrink-0 flex items-center justify-between border-b bg-gradient-to-r from-[#33B54A]/5 via-white to-[#F78F1E]/5 px-6 py-5"
+                                className="flex-shrink-0 flex items-center justify-between border-b bg-gradient-to-r from-[#33B54A]/5 via-white to-[#F78F1E]/5 px-6 py-6"
                             >
-                                <div className="flex-1 min-w-0 pr-4">
-                                    <h2 className="text-2xl font-black text-gray-900 md:text-3xl line-clamp-1 mb-1">
-                                        <span className="text-[#F78F1E]">{album.title}</span>
+                                <div className="flex-1 min-w-0 pr-6">
+                                    <h2 className="text-2xl font-black text-gray-900 md:text-3xl line-clamp-1 mb-2">
+                                        <span className="text-[#F78F1E]">{finalAlbum?.title || 'Đang tải...'}</span>
                                     </h2>
-                                    {album.description && (
+                                    {finalAlbum?.description && (
                                         <p className="text-sm text-gray-600 md:text-base line-clamp-1">
-                                            {album.description}
+                                            {finalAlbum.description}
                                         </p>
                                     )}
                                 </div>
@@ -163,14 +204,14 @@ export const AlbumDetailModal = ({ album, onClose }: AlbumDetailModalProps) => {
 
                             {/* Main Content */}
                             <main className="flex-1 overflow-y-auto bg-white">
-                                <div className="px-6 py-8 md:px-8 md:py-10">
+                                <div className="px-6 py-6 md:px-8 md:py-8">
                                     {mediaItems.length > 0 && (
                                         <section>
                                             <motion.div
                                                 initial={{ opacity: 0, x: -20 }}
                                                 animate={{ opacity: 1, x: 0 }}
                                                 transition={{ delay: 0.2 }}
-                                                className="mb-6"
+                                                className="mb-6 md:mb-8"
                                             >
                                                 <h3 className="flex items-center gap-2.5 text-xl font-black text-gray-900 md:text-2xl">
                                                     <div className="flex items-center gap-2">
@@ -191,35 +232,51 @@ export const AlbumDetailModal = ({ album, onClose }: AlbumDetailModalProps) => {
                                                 variants={containerVariants}
                                                 initial="hidden"
                                                 animate="visible"
-                                                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4"
+                                                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-5"
                                             >
                                                 {mediaItems.map((item, globalIndex) => {
                                                     if (item.type === 'image') {
-                                                        const imageIndexInImages = images.findIndex(img => img.id === item.asset.id);
+                                                        const imageIndexInImages = images.findIndex(img => img.public_id === item.asset.public_id);
                                                         return (
                                                             <motion.div
-                                                                key={`image-${item.asset.id}`}
+                                                                key={`image-${item.asset.public_id}`}
                                                                 variants={itemVariants}
+                                                                className="w-full"
                                                             >
                                                                 <ImageCard 
-                                                                    asset={item.asset} 
+                                                                    asset={{ id: item.asset.id || 0, src: item.asset.url }} 
                                                                     index={imageIndexInImages >= 0 ? imageIndexInImages : 0} 
                                                                     onClick={() => setImageIndex(imageIndexInImages >= 0 ? imageIndexInImages : 0)} 
                                                                 />
                                                             </motion.div>
                                                         );
                                                     } else {
-                                                        const videoIndexInVideos = videos.findIndex(vid => vid.id === item.video.id);
+                                                        const videoIndexInVideos = videos.findIndex(vid => vid.public_id === item.video.public_id);
                                                         return (
                                                             <motion.div
-                                                                key={`video-${item.video.id}`}
+                                                                key={`video-${item.video.public_id}`}
                                                                 variants={itemVariants}
-                                                                className="col-span-2 sm:col-span-1"
+                                                                className="w-full"
                                                             >
                                                                 <VideoCard 
-                                                                    video={item.video} 
+                                                                    video={{ 
+                                                                        id: Math.abs(item.video.public_id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % 1000000, 
+                                                                        provider: (item.video.provider === 'local' ? 'youtube' : item.video.provider) as 'youtube' | 'facebook', 
+                                                                        url: item.video.url, 
+                                                                        thumbnail_url: item.video.thumbnail_url || '', 
+                                                                        title: item.video.title || '' 
+                                                                    }} 
                                                                     index={videoIndexInVideos >= 0 ? videoIndexInVideos : 0} 
-                                                                    onClick={() => setActivePlaylist({ videos, startIndex: videoIndexInVideos >= 0 ? videoIndexInVideos : 0 })} 
+                                                                    onClick={() => {
+                                                                        const mappedVideos = videos.map(v => ({ 
+                                                                            id: Math.abs(v.public_id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % 1000000, 
+                                                                            provider: (v.provider === 'local' ? 'youtube' : v.provider) as 'youtube' | 'facebook', 
+                                                                            url: v.url, 
+                                                                            thumbnail_url: v.thumbnail_url || '', 
+                                                                            title: v.title || '' 
+                                                                        }))
+                                                                        setActivePlaylist({ videos: mappedVideos, startIndex: videoIndexInVideos >= 0 ? videoIndexInVideos : 0 })
+                                                                    }} 
                                                                 />
                                                             </motion.div>
                                                         );
