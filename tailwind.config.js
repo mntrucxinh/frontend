@@ -23,6 +23,14 @@ module.exports = {
     },
     extend: {
       colors: {
+        // Theme colors
+        'theme-bg-main': 'hsl(var(--theme-bg-main))',
+        'theme-bg-section': 'hsl(var(--theme-bg-section))',
+        'theme-text-main': 'hsl(var(--theme-text-main))',
+        'theme-text-muted': 'hsl(var(--theme-text-muted))',
+        'theme-brand-primary': 'hsl(var(--theme-brand-primary))',
+        'theme-brand-secondary': 'hsl(var(--theme-brand-secondary))',
+
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
