@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ChevronDown, Mail, Menu, Phone, X } from 'lucide-react'
 
@@ -95,8 +96,8 @@ const Header = () => {
       <div className='bg-white shadow-md'>
         <div className='container mx-auto flex h-16 items-center justify-between px-4 lg:h-20'>
           {/* Logo */}
-          <button
-            onClick={() => router.push('/')}
+          <Link
+            href='/'
             className='group flex shrink-0 items-center overflow-visible transition-transform duration-200 hover:scale-[1.02]'
           >
             <div className='flex w-[120px] items-center overflow-visible lg:w-[170px]'>
@@ -108,30 +109,39 @@ const Header = () => {
                 className='h-10 w-auto origin-left translate-x-[-100px] translate-y-[10px] scale-[6] object-contain transition-transform duration-300 [clip-path:inset(30%_20%_40%_25%)] group-hover:translate-y-[6px] group-hover:scale-[6.2] lg:h-12 lg:translate-x-[-100px] lg:translate-y-[8px] lg:scale-[5] lg:group-hover:translate-y-[6px] lg:group-hover:scale-[5.2]'
               />
             </div>
-          </button>
+          </Link>
 
           {/* Desktop nav */}
           <nav className='hidden items-center gap-7 text-[15px] font-semibold text-primary lg:flex'>
             {NAV_ITEMS.map((item) => {
+              const isAnchor = item.href.startsWith('#')
               if (!item.children?.length) {
-                return (
-                  <button
-                    key={item.label}
-                    onClick={() => {
-                      if (item.href.startsWith('#')) {
-                        // Handle anchor links
+                if (isAnchor) {
+                  return (
+                    <button
+                      key={item.label}
+                      onClick={() => {
                         const element = document.querySelector(item.href)
                         if (element) {
                           element.scrollIntoView({ behavior: 'smooth' })
                         }
-                      } else {
-                        router.push(item.href)
-                      }
-                    }}
+                      }}
+                      className='relative pb-1.5 transition-all duration-300 after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-0 after:rounded-full after:bg-gradient-to-r after:from-[#33B54A] after:to-[#F78F1E] after:transition-all after:duration-300 hover:text-[#33B54A] hover:after:w-full'
+                    >
+                      {item.label}
+                    </button>
+                  )
+                }
+
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onMouseEnter={() => router.prefetch(item.href)}
                     className='relative pb-1.5 transition-all duration-300 after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-0 after:rounded-full after:bg-gradient-to-r after:from-[#33B54A] after:to-[#F78F1E] after:transition-all after:duration-300 hover:text-[#33B54A] hover:after:w-full'
                   >
                     {item.label}
-                  </button>
+                  </Link>
                 )
               }
 
@@ -146,13 +156,14 @@ const Header = () => {
                   <div className='invisible absolute left-0 top-full mt-2 w-64 translate-y-2 rounded-2xl bg-white opacity-0 shadow-2xl ring-1 ring-[#33B54A]/20 transition-all duration-300 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100'>
                     <div className='py-2'>
                       {item.children.map((c) => (
-                        <button
+                        <Link
                           key={c.label}
-                          onClick={() => router.push(c.href)}
+                          href={c.href}
+                          onMouseEnter={() => router.prefetch(c.href)}
                           className='block w-full px-5 py-2.5 text-left text-[15px] text-primary transition-all duration-200 hover:bg-gradient-to-r hover:from-[#33B54A]/10 hover:to-[#F78F1E]/10 hover:pl-6 hover:text-[#33B54A]'
                         >
                           {c.label}
-                        </button>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -180,26 +191,35 @@ const Header = () => {
                 {NAV_ITEMS.map((item) => {
                   const hasChildren = !!item.children?.length
                   const isOpen = mobileOpenKey === item.label
+                  const isAnchor = item.href.startsWith('#')
 
                   if (!hasChildren) {
                     return (
-                      <button
-                        key={item.label}
-                        onClick={() => {
-                          closeMobileMenu()
-                          if (item.href.startsWith('#')) {
+                      isAnchor ? (
+                        <button
+                          key={item.label}
+                          onClick={() => {
+                            closeMobileMenu()
                             const element = document.querySelector(item.href)
                             if (element) {
                               element.scrollIntoView({ behavior: 'smooth' })
                             }
-                          } else {
-                            router.push(item.href)
-                          }
-                        }}
-                        className='active:scale-98 w-full rounded-xl p-3.5 text-left transition-all duration-200 hover:bg-gradient-to-r hover:from-[#33B54A]/10 hover:to-[#F78F1E]/10 hover:text-[#33B54A]'
-                      >
-                        {item.label}
-                      </button>
+                          }}
+                          className='active:scale-98 w-full rounded-xl p-3.5 text-left transition-all duration-200 hover:bg-gradient-to-r hover:from-[#33B54A]/10 hover:to-[#F78F1E]/10 hover:text-[#33B54A]'
+                        >
+                          {item.label}
+                        </button>
+                      ) : (
+                        <Link
+                          key={item.label}
+                          href={item.href}
+                          onClick={closeMobileMenu}
+                          onMouseEnter={() => router.prefetch(item.href)}
+                          className='active:scale-98 block w-full rounded-xl p-3.5 text-left transition-all duration-200 hover:bg-gradient-to-r hover:from-[#33B54A]/10 hover:to-[#F78F1E]/10 hover:text-[#33B54A]'
+                        >
+                          {item.label}
+                        </Link>
+                      )
                     )
                   }
 
@@ -220,16 +240,15 @@ const Header = () => {
                       {isOpen && (
                         <div className='pb-2 pl-4'>
                           {item.children!.map((c) => (
-                            <button
+                            <Link
                               key={c.label}
-                              onClick={() => {
-                                closeMobileMenu()
-                                router.push(c.href)
-                              }}
+                              href={c.href}
+                              onClick={closeMobileMenu}
+                              onMouseEnter={() => router.prefetch(c.href)}
                               className='active:scale-98 block w-full rounded-lg px-4 py-2.5 text-left text-[14px] text-primary transition-all duration-200 hover:bg-[#33B54A]/10 hover:pl-5 hover:text-[#33B54A]'
                             >
                               {c.label}
-                            </button>
+                            </Link>
                           ))}
                         </div>
                       )}

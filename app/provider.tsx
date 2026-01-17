@@ -3,9 +3,9 @@
 import { useState } from "react"
 import { SessionProvider } from "next-auth/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import NextNProgress from "nextjs-progressbar"
 import { usePathname } from "next/navigation"
 import { AuthProvider } from "@/components/context/auth-context"
+import RouteProgressBar from "@/components/RouteProgressBar"
 
 interface Props {
   children: React.ReactNode
@@ -34,7 +34,7 @@ export default function Providers({ children }: Props) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <NextNProgress />
+      <RouteProgressBar color="#33B54A" height={3} />
       {needsSession ? (
         <SessionProvider
           refetchOnWindowFocus={false}

@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import NoticeSidebarSkeleton from './_components/NoticeSidebarSkeleton'
 
 interface NoticeLayoutProps {
   children: React.ReactNode
@@ -6,7 +7,7 @@ interface NoticeLayoutProps {
 
 const ConditionalSidebar = dynamic(()=> import('./_components/ConditionalSidebar'), {
   ssr: false,
-  loading: () => <div>Đang tải dữ liệu...</div>
+  loading: () => <NoticeSidebarSkeleton />
 })
 
 async function NoticeLayout({ children }: NoticeLayoutProps) {

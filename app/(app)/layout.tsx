@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 
 import Footer from '@/app/(app)/_components/Footer'
 import Header from '@/app/(app)/_components/Header'
+import RoutePrefetcher from '@/app/(app)/_components/RoutePrefetcher'
 
 export const metadata: Metadata = {
   title: 'Landing Page',
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <RoutePrefetcher />
       <Header />
       <main className='flex-1'>{children}</main>
       <Footer />

@@ -1,15 +1,13 @@
 'use client'
 
 import React from 'react'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 import { CONTACT_INFO } from '@/types/constants/infomations'
 import { Icons } from '@/components/icons'
 
 const Footer = () => {
-  const router = useRouter()
-
   const phoneHref = CONTACT_INFO.phone.replace(/\D+/g, '')
 
   const mapAddress = '614 Tôn Đức Thắng, Liên Chiểu, Đà Nẵng, Việt Nam'
@@ -89,69 +87,69 @@ const Footer = () => {
               <ul className='space-y-3 text-lg leading-relaxed text-white/95'>
                 <li className='flex items-center gap-2'>
                   <span className='text-[#F78F1E]'>•</span>
-                  <button
-                    onClick={() => router.push('/')}
+                  <Link
+                    href='/'
                     className='text-left transition-colors hover:text-[#F78F1E] hover:underline'
                   >
                     Trang chủ
-                  </button>
+                  </Link>
                 </li>
                 <li className='flex items-center gap-2'>
                   <span className='text-[#F78F1E]'>•</span>
-                  <button
-                    onClick={() => router.push('/recruit')}
+                  <Link
+                    href='/recruit'
                     className='text-left transition-colors hover:text-[#F78F1E] hover:underline'
                   >
                     Tuyển dụng
-                  </button>
+                  </Link>
                 </li>
                 <li className='flex items-center gap-2'>
                   <span className='text-[#F78F1E]'>•</span>
-                  <button
-                    onClick={() => router.push('/introduce/general')}
+                  <Link
+                    href='/introduce/general'
                     className='text-left transition-colors hover:text-[#F78F1E] hover:underline'
                   >
                     Giới thiệu
-                  </button>
+                  </Link>
                 </li>
                 <li className='flex items-center gap-2'>
                   <span className='text-[#F78F1E]'>•</span>
-                  <button
-                    onClick={() => router.push('/contact')}
+                  <Link
+                    href='/contact'
                     className='text-left transition-colors hover:text-[#F78F1E] hover:underline'
                   >
                     Liên hệ
-                  </button>
+                  </Link>
                 </li>
               </ul>
 
               <ul className='space-y-3 text-lg leading-relaxed text-white/95'>
                 <li className='flex items-center gap-2'>
                   <span className='text-[#F78F1E]'>•</span>
-                  <button
-                    onClick={() => router.push('/notice')}
+                  <Link
+                    href='/notice'
                     className='text-left transition-colors hover:text-[#F78F1E] hover:underline'
                   >
                     Tuyển sinh
-                  </button>
+                  </Link>
                 </li>
                 <li className='flex items-center gap-2'>
                   <span className='text-[#F78F1E]'>•</span>
-                  <button
-                    onClick={() => router.push('/news')}
+                  <Link
+                    href='/news'
                     className='text-left transition-colors hover:text-[#F78F1E] hover:underline'
                   >
                     Tin tức
-                  </button>
+                  </Link>
                 </li>
                 <li className='flex items-center gap-2'>
                   <span className='text-[#F78F1E]'>•</span>
-                  <button
-                    onClick={() => router.push('/library/gallery')}
+                  <Link
+                    href='/library/gallery'
                     className='text-left transition-colors hover:text-[#F78F1E] hover:underline'
                   >
                     Thư viện
-                  </button>
+                  </Link>
                 </li>
               </ul>
             </div>

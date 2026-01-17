@@ -1,8 +1,9 @@
 import dynamic from "next/dynamic";
+import NoticeListSkeleton from './_components/NoticeListSkeleton'
 
 const SearchNotice = dynamic(()=> import('./_components/SearchNotice'), {
   ssr: false,
-  loading: () => <div>Đang tải dữ liệu...</div>
+  loading: () => <NoticeListSkeleton />
 })
 
 async function NoticePage () {

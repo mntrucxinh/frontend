@@ -1,9 +1,10 @@
 import { Metadata } from 'next'
 import dynamic from 'next/dynamic'
+import AdminDetailSkeleton from '@/components/AdminDetailSkeleton'
 
 const DetailAlbumForm = dynamic(() => import('./_components/DetailAlbumForm'), {
   ssr: false,
-  loading: () => <p>Đang tải dữ liệu...</p>,
+  loading: () => <AdminDetailSkeleton />,
 })
 
 const metaData: Metadata = {
