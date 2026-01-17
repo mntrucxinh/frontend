@@ -11,7 +11,7 @@ type Theme =
   | 'nationalDay'
   | 'teachersDay'
   | 'vietnamPeoplesArmyDay'
-  | 'defaultTheme'
+  | 'root'
 
 function getSeason(date: Date): Theme {
   const m = date.getMonth() + 1
@@ -37,7 +37,7 @@ function getSeason(date: Date): Theme {
   // 22/12
   if (m === 12 && d === 22) return 'vietnamPeoplesArmyDay'
 
-  return 'defaultTheme'
+  return 'root'
 }
 
 function computeSeason(): Theme {

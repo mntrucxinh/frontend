@@ -8,6 +8,21 @@
        - Xanh lá tươi làm màu chủ đạo
        - Cam đậm làm màu nhấn
     */
+
+    /* === THEME CONFIG COLORS === */
+    --theme-bg-main: 138 42% 97%;
+    --theme-bg-section: 138 42% 98%;
+
+    --theme-text-main: 152 32% 16%;
+    --theme-text-muted: 150 22% 34%;
+
+    --theme-brand-primary: 138 72% 40%; /* Xanh Trúc Xinh */
+    --theme-brand-secondary: 27 96% 54%; /* Cam nhấn */
+
+    --theme-border-default: 138 26% 84%;
+    --theme-ring-focus: 147 40% 50%;
+
+    /* === GENERIC COLORS === */
     --background: 138 42% 97%;
     --foreground: 152 32% 16%;
 
@@ -42,37 +57,102 @@
     --radius: 0.5rem;
   }
 
-  .dark {
-    --background: 144 48% 10%;
-    --foreground: 144 45% 92%;
+  .womenDay {
+    --theme-bg-main: 350 100% 97%;
+    --theme-bg-section: 350 100% 98%;
 
-    --muted: 152 32% 16%;
-    --muted-foreground: 144 35% 78%;
+    --theme-text-main: 340 60% 25%;
+    --theme-text-muted: 340 40% 45%;
 
-    --accent: 27 96% 54%;
-    --accent-foreground: 149 44% 10%;
+    --theme-brand-primary: 340 82% 52%; /* Hồng */
+    --theme-brand-secondary: 27 96% 54%;
 
-    --popover: 144 48% 10%;
-    --popover-foreground: 144 45% 92%;
+    --theme-border-default: 340 40% 85%;
+    --theme-ring-focus: 340 70% 55%;
+  }
 
-    --border: 151 24% 26%;
-    --input: 151 24% 26%;
+  .tet {
+    --theme-bg-main: 48 100% 95%;
+    --theme-bg-section: 48 100% 97%;
 
-    --card: 144 48% 12%;
-    --card-foreground: 144 45% 92%;
+    --theme-text-main: 12 65% 20%;
+    --theme-text-muted: 12 45% 40%;
 
-    --primary: 138 72% 52%;
-    --primary-foreground: 149 44% 10%;
+    --theme-brand-primary: 0 85% 50%; /* Đỏ Tết */
+    --theme-brand-secondary: 48 95% 50%; /* Vàng */
 
-    --secondary: 152 30% 22%;
-    --secondary-foreground: 144 45% 92%;
+    --theme-border-default: 12 40% 80%;
+    --theme-ring-focus: 0 85% 55%;
+  }
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+  .reunificationDay {
+    --theme-bg-main: 0 100% 96%;
+    --theme-bg-section: 0 100% 98%;
 
-    --ring: 144 40% 45%;
+    --theme-text-main: 0 70% 20%;
+    --theme-text-muted: 0 50% 40%;
 
-    --radius: 0.5rem;
+    --theme-brand-primary: 0 85% 45%; /* Đỏ cờ */
+    --theme-brand-secondary: 48 95% 50%; /* Sao vàng */
+
+    --theme-border-default: 0 40% 80%;
+    --theme-ring-focus: 48 95% 55%;
+  }
+
+  .uncleHoBirthday {
+    --theme-bg-main: 120 30% 96%;
+    --theme-bg-section: 120 30% 98%;
+
+    --theme-text-main: 120 40% 18%;
+    --theme-text-muted: 120 30% 38%;
+
+    --theme-brand-primary: 120 55% 35%; /* Xanh giản dị */
+    --theme-brand-secondary: 48 80% 55%;
+
+    --theme-border-default: 120 25% 80%;
+    --theme-ring-focus: 120 55% 45%;
+  }
+
+  .nationalDay {
+    --theme-bg-main: 0 100% 95%;
+    --theme-bg-section: 0 100% 97%;
+
+    --theme-text-main: 0 70% 18%;
+    --theme-text-muted: 0 50% 38%;
+
+    --theme-brand-primary: 0 85% 45%;
+    --theme-brand-secondary: 48 95% 50%;
+
+    --theme-border-default: 0 40% 80%;
+    --theme-ring-focus: 48 95% 55%;
+  }
+
+  .teachersDay {
+    --theme-bg-main: 35 100% 96%;
+    --theme-bg-section: 35 100% 98%;
+
+    --theme-text-main: 30 60% 20%;
+    --theme-text-muted: 30 40% 40%;
+
+    --theme-brand-primary: 30 85% 45%; /* Nâu vàng tri ân */
+    --theme-brand-secondary: 138 72% 40%;
+
+    --theme-border-default: 30 40% 80%;
+    --theme-ring-focus: 30 85% 50%;
+  }
+
+  .vietnamPeoplesArmyDay {
+    --theme-bg-main: 110 30% 94%;
+    --theme-bg-section: 110 30% 96%;
+
+    --theme-text-main: 110 45% 18%;
+    --theme-text-muted: 110 30% 38%;
+
+    --theme-brand-primary: 110 45% 35%; /* Xanh quân đội */
+    --theme-brand-secondary: 0 80% 45%;
+
+    --theme-border-default: 110 25% 75%;
+    --theme-ring-focus: 110 45% 45%;
   }
 
   ::-webkit-scrollbar {
@@ -95,13 +175,13 @@
   * {
     @apply border-border;
   }
-  
+
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   body {
     @apply bg-background text-foreground;
     font-feature-settings:
@@ -112,9 +192,10 @@
     /* Optimize rendering */
     text-rendering: optimizeLegibility;
   }
-  
+
   /* Smooth transitions for all interactive elements */
-  a, button {
+  a,
+  button {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
