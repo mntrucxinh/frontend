@@ -111,7 +111,7 @@ const Header = () => {
           </button>
 
           {/* Desktop nav */}
-          <nav className='hidden items-center gap-7 text-[15px] font-semibold text-primary lg:flex'>
+          <nav className="hidden lg:flex items-center font-semibold text-primary lg:gap-4 xl:gap-7 text-fluid-nav">
             {NAV_ITEMS.map((item) => {
               if (!item.children?.length) {
                 return (
@@ -143,13 +143,14 @@ const Header = () => {
                   </div>
 
                   {/* Dropdown */}
-                  <div className='invisible absolute left-0 top-full mt-2 w-64 translate-y-2 rounded-2xl bg-white opacity-0 shadow-2xl ring-1 ring-[#33B54A]/20 transition-all duration-300 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100'>
+                  <div className='invisible absolute left-0 top-full mt-2 w-64 translate-y-2 rounded-2xl bg-white opacity-0 shadow-2xl ring-1 ring-[#33B54A]/20 text-fluid-nav transition-all duration-300 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100'>
                     <div className='py-2'>
                       {item.children.map((c) => (
                         <button
                           key={c.label}
                           onClick={() => router.push(c.href)}
-                          className='block w-full px-5 py-2.5 text-left text-[15px] text-primary transition-all duration-200 hover:bg-gradient-to-r hover:from-[#33B54A]/10 hover:to-[#F78F1E]/10 hover:pl-6 hover:text-[#33B54A]'
+                          className='block w-full px-5 py-2 text-left text-primary transition-all duration-200
+                                     hover:bg-gradient-to-r hover:from-[#33B54A]/10 hover:to-[#F78F1E]/10 hover:pl-6 hover:text-[#33B54A]'
                         >
                           {c.label}
                         </button>

@@ -81,6 +81,7 @@ module.exports = {
       },
       fontSize: {
         ...FONTS_SIZE,
+        'fluid-nav': 'clamp(12px, 1vw + 2px, 16px)',
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
