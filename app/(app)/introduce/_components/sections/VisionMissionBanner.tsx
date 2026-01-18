@@ -74,13 +74,13 @@ export default function VisionMissionBanner() {
       </div>
 
       <div className='container relative z-10 mx-auto px-4'>
-        <div className='relative flex min-h-[60vh] items-start justify-center pt-12 md:pt-16'>
+        <div className='relative flex min-h-[50vh] lg:min-h-[60vh] items-start justify-between gap-4 pt-12 md:gap-8 md:pt-16'>
           {/* Left side - Vision (facing right) */}
           <motion.div
             initial={{ opacity: 0, x: -100, rotate: -3 }}
             animate={{ opacity: 1, x: 0, rotate: -3 }}
             transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
-            className='relative w-[45%] origin-center'
+            className='relative flex-1 min-w-0 origin-center'
           >
             {/* Energy aura from Vision */}
             <motion.div
@@ -93,7 +93,7 @@ export default function VisionMissionBanner() {
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
-              className='absolute -left-8 top-8 z-0 hidden lg:block'
+              className='absolute -left-8 top-8 z-0 hidden min-[1450px]:block'
             >
               <div className='flex size-24 items-center justify-center rounded-full bg-gradient-to-br from-[#33B54A] to-[#2EA043] text-4xl font-black text-white shadow-2xl ring-8 ring-white'>
                 01
@@ -106,7 +106,7 @@ export default function VisionMissionBanner() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.8 }}
-                className='text-4xl font-black leading-[0.9] tracking-tight text-[#33B54A] md:text-6xl'
+                className='text-[clamp(28px,4vw,64px)] font-black leading-[1.05] tracking-tight text-[#33B54A]'
               >
                 TẦM
                 <br />
@@ -118,7 +118,7 @@ export default function VisionMissionBanner() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className='max-w-md text-base leading-relaxed text-gray-700 md:text-lg'
+                className='max-w-md text-[clamp(13px,1.2vw,18px)] leading-relaxed text-gray-700'
               >
                 Định hướng phát triển dài hạn, xây dựng môi trường giáo dục chất lượng cao, nơi mỗi
                 trẻ em đều có cơ hội phát triển toàn diện.
@@ -131,7 +131,7 @@ export default function VisionMissionBanner() {
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
-            className='relative z-20 mx-4'
+            className='relative z-20 shrink-0 px-2 md:px-4'
           >
             {/* Energy lines from left (Vision) */}
             <div className='absolute right-full top-1/2 -translate-y-1/2 pr-4'>
@@ -173,7 +173,7 @@ export default function VisionMissionBanner() {
               <motion.span
                 animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                className='text-4xl font-black tracking-tight md:text-6xl drop-shadow-lg'
+                className='text-[clamp(24px,3.5vw,64px)] font-black tracking-tight drop-shadow-lg'
               >
                 <span className='text-[#33B54A]'>V</span>
                 <span className='text-[#F78F1E]'>S</span>
@@ -186,7 +186,7 @@ export default function VisionMissionBanner() {
             initial={{ opacity: 0, x: 100, rotate: 3 }}
             animate={{ opacity: 1, x: 0, rotate: 3 }}
             transition={{ duration: 1, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className='relative w-[45%] origin-center'
+            className='relative flex-1 min-w-0 origin-center'
           >
             {/* Energy aura from Mission */}
             <motion.div
@@ -199,20 +199,20 @@ export default function VisionMissionBanner() {
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.6, type: 'spring', stiffness: 200 }}
-              className='absolute -right-8 top-8 z-0 hidden lg:block'
+              className='absolute -right-8 top-8 z-0 hidden min-[1450px]:block'
             >
               <div className='flex size-24 items-center justify-center rounded-full bg-gradient-to-br from-[#F78F1E] to-[#E67E17] text-4xl font-black text-white shadow-2xl ring-8 ring-white'>
                 02
               </div>
             </motion.div>
 
-            <div className='relative z-10 space-y-4 pr-0 lg:pr-20 lg:text-right'>
+            <div className='relative z-10 space-y-4 pr-0 lg:pr-20 text-right'>
               {/* Large title */}
               <motion.h1
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.8 }}
-                className='text-4xl font-black leading-[0.9] tracking-tight text-[#F78F1E] md:text-6xl'
+                className='text-[clamp(28px,4vw,64px)] font-black leading-[1.05] tracking-tight text-[#F78F1E]'
               >
                 SỨ
                 <br />
@@ -224,7 +224,7 @@ export default function VisionMissionBanner() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
-                className='ml-auto max-w-md text-base leading-relaxed text-gray-700 md:text-lg'
+                className='ml-auto max-w-md text-[clamp(13px,1.2vw,18px)] leading-relaxed text-gray-700'
               >
                 Cam kết mang đến chương trình giáo dục toàn diện, phát triển kỹ năng sống, tư duy
                 sáng tạo và nhân cách cho thế hệ tương lai.

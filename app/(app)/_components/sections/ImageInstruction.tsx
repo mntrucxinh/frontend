@@ -134,7 +134,7 @@ export default function ImageInstruction() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.7 }}
-                className='text-3xl font-black leading-[1.1] tracking-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl'
+                className='font-black leading-[1.05] tracking-tight text-gray-900 text-[clamp(3rem,4.2vw,3.75rem)]'
               >
                 Trường Mầm Non
               </motion.h1>
@@ -142,7 +142,7 @@ export default function ImageInstruction() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.7 }}
-                className='text-3xl font-black leading-[1.1] tracking-tight text-[#33B54A] sm:text-4xl md:text-5xl lg:text-6xl'
+                className='font-black leading-[1.05] tracking-tight text-[#33B54A] text-[clamp(3rem,4.2vw,3.75rem)]'
               >
                 Trúc Xinh
               </motion.h1>
@@ -153,7 +153,7 @@ export default function ImageInstruction() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.7 }}
-              className='text-lg leading-relaxed text-gray-600 md:text-xl'
+              className='leading-relaxed text-gray-600 text-[clamp(1rem,1.2vw+0.6rem,1.25rem)]'
             >
               Môi trường học tập an toàn, thân thiện, giúp bé phát triển toàn diện về{' '}
               <motion.span
@@ -193,7 +193,12 @@ export default function ImageInstruction() {
               >
                 <button
                   onClick={() => router.push('/introduce')}
-                  className='group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full bg-[#33B54A] px-6 py-4 text-base font-bold text-white shadow-xl shadow-[#33B54A]/30 transition-all duration-300 hover:shadow-2xl sm:w-auto sm:min-w-[240px] sm:gap-3 sm:px-9 sm:py-5 sm:text-lg'
+                  className='group relative inline-flex w-full items-center justify-center gap-2
+                             overflow-hidden rounded-full bg-[#F78F1E]
+                             text-white font-bold shadow-xl shadow-[#F78F1E]/30 transition-all duration-300 hover:shadow-2xl
+                             px-[clamp(1.25rem,2vw,2.25rem)] py-[clamp(0.95rem,1.2vw,1.25rem)]
+                             text-[clamp(0.95rem,0.7vw+0.65rem,1.125rem)]
+                             sm:w-auto'
                 >
                   <span className='relative z-10 flex items-center gap-2 whitespace-nowrap'>
                     Tìm hiểu về trường
@@ -209,7 +214,12 @@ export default function ImageInstruction() {
               >
                 <button
                   onClick={() => router.push('/notice')}
-                  className='group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full bg-[#F78F1E] px-6 py-4 text-base font-bold text-white shadow-xl shadow-[#F78F1E]/30 transition-all duration-300 hover:shadow-2xl sm:w-auto sm:min-w-[240px] sm:gap-3 sm:px-9 sm:py-5 sm:text-lg'
+                  className='group relative inline-flex w-full items-center justify-center gap-2
+                             overflow-hidden rounded-full bg-[#33B54A]
+                             text-white font-bold shadow-xl shadow-[#33B54A]/30 transition-all duration-300 hover:shadow-2xl
+                             px-[clamp(1.25rem,2vw,2.25rem)] py-[clamp(0.95rem,1.2vw,1.25rem)]
+                             text-[clamp(0.95rem,0.7vw+0.65rem,1.125rem)]
+                             sm:w-auto'
                 >
                   <span className='relative z-10 flex items-center gap-2 whitespace-nowrap'>
                     Thông báo tuyển sinh
