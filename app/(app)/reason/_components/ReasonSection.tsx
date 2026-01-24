@@ -180,14 +180,92 @@ export default function ReasonSection() {
             </motion.p>
           </motion.div>
 
-          {/* Creative Alternating Layout with Timeline */}
-          <div className='relative mb-16 min-h-[200px]'>
-            {/* Vertical Timeline Line - Behind everything */}
-            <div className='pointer-events-none absolute left-1/2 top-0 z-0 hidden h-full w-0.5 -translate-x-1/2 md:block'>
+          {/* Mobile Layout - Side by side (Icon + Content in card) */}
+          <div className='relative mb-16 md:hidden space-y-4'>
+            {reasons.slice(0, 9).map((reason, index) => {
+              const Icon = reason.icon
+              const isEven = index % 2 === 0
+
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1, margin: "-50px" }}
+                  transition={{ delay: 0.1 + index * 0.03, duration: 0.4 }}
+                  className='relative z-10 flex items-center'
+                >
+                  <div className='flex w-full flex-col gap-4'>
+                    {/* Mobile Card - Icon and content side by side */}
+                    <div className='relative z-20 flex-1'>
+                      <motion.div
+                        whileHover={{ y: -6, scale: 1.01 }}
+                        className='group relative overflow-hidden rounded-3xl bg-white p-4 shadow-xl ring-1 ring-gray-200/50 transition-all duration-300 hover:shadow-2xl md:p-7 h-full flex flex-col md:flex-row md:items-center md:gap-4 lg:gap-6 lg:p-10'
+                      >
+                        {/* Gradient accent bar */}
+                        <div
+                          className={`absolute left-0 top-0 h-1.5 w-full bg-gradient-to-r ${reason.color}`}
+                        />
+
+                        {/* Gradient background overlay */}
+                        <div
+                          className={`absolute inset-0 bg-gradient-to-br ${reason.color} opacity-0 transition-opacity duration-300 group-hover:opacity-8`}
+                        />
+
+                        {/* Icon Box */}
+                        <motion.div
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          className='relative z-10 mb-3 flex shrink-0 justify-center md:mb-0'
+                        >
+                          <div
+                            className={`relative flex size-20 flex-col items-center justify-center rounded-3xl bg-gradient-to-br ${reason.color} p-3 shadow-lg ring-4 ring-white transition-all duration-300 md:size-24 md:p-4 lg:size-28 lg:p-5`}
+                          >
+                            <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${reason.color} blur-xl opacity-50`} />
+                            <div className='relative z-10 mb-1 text-2xl font-black text-white md:mb-2 md:text-3xl lg:text-4xl'>
+                              {reason.number}
+                            </div>
+                            <div className='relative z-10 flex size-10 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm ring-2 ring-white/40 md:size-12 lg:size-14'>
+                              <Icon className='size-5 text-white md:size-6 lg:size-7' />
+                            </div>
+                          </div>
+                        </motion.div>
+
+                        {/* Content */}
+                        <div className='relative z-10 flex-1 text-center md:text-left'>
+                          <div className='mb-2 flex items-center justify-center gap-2 md:justify-start md:mb-3'>
+                            <div className={`h-0.5 w-6 rounded-full bg-gradient-to-r ${reason.color} md:h-1 md:w-8`} />
+                            <span className={`text-xs font-black uppercase tracking-wider ${reason.color.includes('33B54A') ? 'text-[#33B54A]' : 'text-[#F78F1E]'}`}>
+                              Điểm {reason.number}
+                            </span>
+                          </div>
+                          <h3 className={`mb-2 text-sm font-black leading-snug transition-colors duration-300 md:mb-3 md:text-lg lg:text-xl lg:mb-4 ${reason.color.includes('33B54A') ? 'text-[#33B54A] group-hover:text-[#2EA043]' : 'text-[#F78F1E] group-hover:text-[#E67E17]'}`}>
+                            {reason.title}
+                          </h3>
+                          <p className='text-justify text-xs leading-relaxed text-gray-700 md:text-sm md:text-left lg:text-base'>
+                            {reason.description}
+                          </p>
+                        </div>
+
+                        <div className={`absolute right-0 top-0 size-24 -translate-y-1/2 translate-x-1/2 rounded-full bg-gradient-to-br ${reason.color} opacity-10 blur-3xl transition-opacity duration-300 group-hover:opacity-25`} />
+                      </motion.div>
+                    </div>
+
+                    {/* Spacer */}
+                    <div className='hidden shrink-0 md:block md:w-0.5' />
+                  </div>
+                </motion.div>
+              )
+            })}
+          </div>
+
+          {/* Desktop Layout - Timeline with separate icon boxes */}
+          <div className='relative mb-16 hidden min-h-[200px] md:block'>
+            {/* Vertical Timeline Line */}
+            <div className='pointer-events-none absolute left-1/2 top-0 z-0 h-full w-0.5 -translate-x-1/2'>
               <div className='h-full w-full bg-gradient-to-b from-[#33B54A] via-[#F78F1E] to-[#33B54A] opacity-30' />
             </div>
 
-            <div className='relative z-10 space-y-4 md:space-y-6'>
+            <div className='relative z-10 space-y-6'>
               {reasons.slice(0, 9).map((reason, index) => {
                 const Icon = reason.icon
                 const isEven = index % 2 === 0
@@ -203,175 +281,106 @@ export default function ReasonSection() {
                     className='relative z-10 flex items-center'
                   >
                     <div className='flex w-full flex-col gap-6 md:flex-row md:items-center md:gap-0'>
-                      {/* Icon Box - Alternating left/right */}
                       {isLeft ? (
                         <>
-                          {/* Icon Box on Left */}
+                          {/* Left Icon */}
                           <div className='relative z-20 flex shrink-0 justify-end md:w-[calc(50%-0.25rem)]'>
                             <motion.div
                               whileHover={{ scale: 1.1, rotate: 5 }}
                               className='relative'
                             >
                               <div
-                                className={`relative flex size-24 flex-col items-center justify-center rounded-3xl bg-gradient-to-br ${reason.color} p-5 shadow-2xl ring-4 ring-white transition-all duration-300 md:size-28`}
+                                className={`relative flex size-28 flex-col items-center justify-center rounded-3xl bg-gradient-to-br ${reason.color} p-5 shadow-2xl ring-4 ring-white transition-all duration-300`}
                               >
-                                {/* Glow effect */}
-                                <div
-                                  className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${reason.color} blur-xl opacity-50`}
-                                />
-                                
-                                <div className='relative z-10 mb-2 text-3xl font-black text-white md:text-4xl'>
+                                <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${reason.color} blur-xl opacity-50`} />
+                                <div className='relative z-10 mb-2 text-4xl font-black text-white'>
                                   {reason.number}
                                 </div>
-                                <div className='relative z-10 flex size-14 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm ring-2 ring-white/40 md:size-16'>
-                                  <Icon className='size-7 text-white md:size-8' />
+                                <div className='relative z-10 flex size-16 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm ring-2 ring-white/40'>
+                                  <Icon className='size-8 text-white' />
                                 </div>
-                                
-                                {/* Decorative corner elements */}
                                 <div className='absolute -left-2 -top-2 size-6 rounded-full bg-white/40 blur-md' />
                                 <div className='absolute -bottom-2 -right-2 size-6 rounded-full bg-white/40 blur-md' />
                               </div>
                             </motion.div>
                           </div>
 
-                          {/* Timeline Line Spacer */}
+                          {/* Timeline Spacer */}
                           <div className='hidden shrink-0 md:block md:w-0.5' />
 
-                          {/* Content Card on Right */}
+                          {/* Right Content */}
                           <div className='relative z-20 flex-1 md:w-[calc(50%-0.25rem)] md:pl-6'>
                             <motion.div
                               whileHover={{ y: -6, scale: 1.01 }}
-                              className='group relative overflow-hidden rounded-3xl bg-white p-7 shadow-xl ring-1 ring-gray-200/50 transition-all duration-300 hover:shadow-2xl md:p-10'
+                              className='group relative overflow-hidden rounded-3xl bg-white p-10 shadow-xl ring-1 ring-gray-200/50 transition-all duration-300 hover:shadow-2xl'
                             >
-                              {/* Gradient accent bar - always visible */}
-                              <div
-                                className={`absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b ${reason.color}`}
-                              />
-
-                              {/* Gradient background overlay */}
-                              <div
-                                className={`absolute inset-0 bg-gradient-to-br ${reason.color} opacity-0 transition-opacity duration-300 group-hover:opacity-8`}
-                              />
-
-                              {/* Content */}
-                              <div className='relative z-10 pl-4 md:pl-6'>
+                              <div className={`absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b ${reason.color}`} />
+                              <div className={`absolute inset-0 bg-gradient-to-br ${reason.color} opacity-0 transition-opacity duration-300 group-hover:opacity-8`} />
+                              <div className='relative z-10 pl-6'>
                                 <div className='mb-4 flex items-center gap-3'>
-                                  <div
-                                    className={`h-1 w-12 rounded-full bg-gradient-to-r ${reason.color}`}
-                                  />
-                                  <span
-                                    className={`text-xs font-black uppercase tracking-wider ${
-                                      reason.color.includes('33B54A')
-                                        ? 'text-[#33B54A]'
-                                        : 'text-[#F78F1E]'
-                                    }`}
-                                  >
+                                  <div className={`h-1 w-12 rounded-full bg-gradient-to-r ${reason.color}`} />
+                                  <span className={`text-xs font-black uppercase tracking-wider ${reason.color.includes('33B54A') ? 'text-[#33B54A]' : 'text-[#F78F1E]'}`}>
                                     Điểm {reason.number}
                                   </span>
                                 </div>
-                                
-                                <h3
-                                  className={`mb-4 text-xl font-black leading-tight transition-colors duration-300 md:text-2xl lg:text-3xl ${
-                                    reason.color.includes('33B54A')
-                                      ? 'text-[#33B54A] group-hover:text-[#2EA043]'
-                                      : 'text-[#F78F1E] group-hover:text-[#E67E17]'
-                                  }`}
-                                >
+                                <h3 className={`mb-4 text-2xl font-black leading-tight transition-colors duration-300 lg:text-3xl ${reason.color.includes('33B54A') ? 'text-[#33B54A] group-hover:text-[#2EA043]' : 'text-[#F78F1E] group-hover:text-[#E67E17]'}`}>
                                   {reason.title}
                                 </h3>
-                                <p className='text-justify text-sm leading-relaxed text-gray-700 md:text-base lg:text-lg'>
+                                <p className='text-justify text-base leading-relaxed text-gray-700 lg:text-lg'>
                                   {reason.description}
                                 </p>
                               </div>
-
-                              {/* Decorative corner accent */}
-                              <div
-                                className={`absolute right-0 top-0 size-32 -translate-y-1/2 translate-x-1/2 rounded-full bg-gradient-to-br ${reason.color} opacity-10 blur-3xl transition-opacity duration-300 group-hover:opacity-25`}
-                              />
+                              <div className={`absolute right-0 top-0 size-32 -translate-y-1/2 translate-x-1/2 rounded-full bg-gradient-to-br ${reason.color} opacity-10 blur-3xl transition-opacity duration-300 group-hover:opacity-25`} />
                             </motion.div>
                           </div>
                         </>
                       ) : (
                         <>
-                          {/* Content Card on Left */}
+                          {/* Left Content */}
                           <div className='relative z-20 flex-1 md:w-[calc(50%-0.25rem)] md:pr-6'>
                             <motion.div
                               whileHover={{ y: -6, scale: 1.01 }}
-                              className='group relative overflow-hidden rounded-3xl bg-white p-7 shadow-xl ring-1 ring-gray-200/50 transition-all duration-300 hover:shadow-2xl md:p-10'
+                              className='group relative overflow-hidden rounded-3xl bg-white p-10 shadow-xl ring-1 ring-gray-200/50 transition-all duration-300 hover:shadow-2xl'
                             >
-                              {/* Gradient accent bar - always visible */}
-                              <div
-                                className={`absolute right-0 top-0 h-full w-1.5 bg-gradient-to-b ${reason.color}`}
-                              />
-
-                              {/* Gradient background overlay */}
-                              <div
-                                className={`absolute inset-0 bg-gradient-to-br ${reason.color} opacity-0 transition-opacity duration-300 group-hover:opacity-8`}
-                              />
-
-                              {/* Content */}
-                              <div className='relative z-10 pr-4 md:pr-6 text-right'>
+                              <div className={`absolute right-0 top-0 h-full w-1.5 bg-gradient-to-b ${reason.color}`} />
+                              <div className={`absolute inset-0 bg-gradient-to-br ${reason.color} opacity-0 transition-opacity duration-300 group-hover:opacity-8`} />
+                              <div className='relative z-10 pr-6 text-right'>
                                 <div className='mb-4 flex items-center justify-end gap-3'>
-                                  <span
-                                    className={`text-xs font-black uppercase tracking-wider ${
-                                      reason.color.includes('33B54A')
-                                        ? 'text-[#33B54A]'
-                                        : 'text-[#F78F1E]'
-                                    }`}
-                                  >
+                                  <span className={`text-xs font-black uppercase tracking-wider ${reason.color.includes('33B54A') ? 'text-[#33B54A]' : 'text-[#F78F1E]'}`}>
                                     Điểm {reason.number}
                                   </span>
-                                  <div
-                                    className={`h-1 w-12 rounded-full bg-gradient-to-l ${reason.color}`}
-                                  />
+                                  <div className={`h-1 w-12 rounded-full bg-gradient-to-l ${reason.color}`} />
                                 </div>
-                                
-                                <h3
-                                  className={`mb-4 text-xl font-black leading-tight transition-colors duration-300 md:text-2xl lg:text-3xl ${
-                                    reason.color.includes('33B54A')
-                                      ? 'text-[#33B54A] group-hover:text-[#2EA043]'
-                                      : 'text-[#F78F1E] group-hover:text-[#E67E17]'
-                                  }`}
-                                >
+                                <h3 className={`mb-4 text-2xl font-black leading-tight transition-colors duration-300 lg:text-3xl ${reason.color.includes('33B54A') ? 'text-[#33B54A] group-hover:text-[#2EA043]' : 'text-[#F78F1E] group-hover:text-[#E67E17]'}`}>
                                   {reason.title}
                                 </h3>
-                                <p className='text-justify text-sm leading-relaxed text-gray-700 md:text-base lg:text-lg'>
+                                <p className='text-justify text-base leading-relaxed text-gray-700 lg:text-lg'>
                                   {reason.description}
                                 </p>
                               </div>
-
-                              {/* Decorative corner accent */}
-                              <div
-                                className={`absolute left-0 top-0 size-32 -translate-y-1/2 -translate-x-1/2 rounded-full bg-gradient-to-br ${reason.color} opacity-10 blur-3xl transition-opacity duration-300 group-hover:opacity-25`}
-                              />
+                              <div className={`absolute left-0 top-0 size-32 -translate-y-1/2 -translate-x-1/2 rounded-full bg-gradient-to-br ${reason.color} opacity-10 blur-3xl transition-opacity duration-300 group-hover:opacity-25`} />
                             </motion.div>
                           </div>
 
-                          {/* Timeline Line Spacer */}
+                          {/* Timeline Spacer */}
                           <div className='hidden shrink-0 md:block md:w-0.5' />
 
-                          {/* Icon Box on Right */}
+                          {/* Right Icon */}
                           <div className='relative z-20 flex shrink-0 justify-start md:w-[calc(50%-0.25rem)]'>
                             <motion.div
                               whileHover={{ scale: 1.1, rotate: 5 }}
                               className='relative'
                             >
                               <div
-                                className={`relative flex size-24 flex-col items-center justify-center rounded-3xl bg-gradient-to-br ${reason.color} p-5 shadow-2xl ring-4 ring-white transition-all duration-300 md:size-28`}
+                                className={`relative flex size-28 flex-col items-center justify-center rounded-3xl bg-gradient-to-br ${reason.color} p-5 shadow-2xl ring-4 ring-white transition-all duration-300`}
                               >
-                                {/* Glow effect */}
-                                <div
-                                  className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${reason.color} blur-xl opacity-50`}
-                                />
-                                
-                                <div className='relative z-10 mb-2 text-3xl font-black text-white md:text-4xl'>
+                                <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${reason.color} blur-xl opacity-50`} />
+                                <div className='relative z-10 mb-2 text-4xl font-black text-white'>
                                   {reason.number}
                                 </div>
-                                <div className='relative z-10 flex size-14 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm ring-2 ring-white/40 md:size-16'>
-                                  <Icon className='size-7 text-white md:size-8' />
+                                <div className='relative z-10 flex size-16 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm ring-2 ring-white/40'>
+                                  <Icon className='size-8 text-white' />
                                 </div>
-                                
-                                {/* Decorative corner elements */}
                                 <div className='absolute -left-2 -top-2 size-6 rounded-full bg-white/40 blur-md' />
                                 <div className='absolute -bottom-2 -right-2 size-6 rounded-full bg-white/40 blur-md' />
                               </div>
@@ -386,7 +395,7 @@ export default function ReasonSection() {
             </div>
           </div>
 
-          {/* Last Card - Special Highlight Layout - Centered */}
+          {/* Last Card - Item 10 Centered */}
           {reasons.slice(9).map((reason, index) => {
             const Icon = reason.icon
             const actualIndex = 9
@@ -399,22 +408,6 @@ export default function ReasonSection() {
                 transition={{ delay: 0.5, duration: 0.7 }}
                 className='relative z-10 mb-16 flex flex-col items-center'
               >
-                {/* Enhanced Timeline connection */}
-                <div className='pointer-events-none absolute left-1/2 top-0 z-0 hidden h-16 -translate-x-1/2 md:block'>
-                  <div className='h-full w-0.5 bg-gradient-to-b from-[#33B54A] to-[#F78F1E] opacity-30' />
-                </div>
-
-                {/* Timeline Dot - At the end of timeline */}
-                <motion.div
-                  whileHover={{ scale: 1.2 }}
-                  className='relative z-30 mb-8 hidden md:block'
-                >
-                  <div className='relative size-10 rounded-full bg-gradient-to-br from-[#F78F1E] to-[#E67E17] ring-4 ring-white shadow-xl'>
-                    <div className='absolute inset-0 rounded-full bg-white/30 blur-sm' />
-                    <div className='absolute inset-0 rounded-full bg-gradient-to-br from-white/40 to-transparent' />
-                  </div>
-                </motion.div>
-
                 {/* Centered Card */}
                 <div className='relative z-20 w-full max-w-5xl'>
                   <motion.div
@@ -526,4 +519,3 @@ export default function ReasonSection() {
     </motion.section>
   )
 }
-
