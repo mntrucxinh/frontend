@@ -35,7 +35,7 @@ export const ViewSwitcher = ({ view, setView }: ViewSwitcherProps) => {
                             />
                         )}
                         <span className={`relative flex items-center transition-colors duration-500 font-black leading-tight ${view === tab.id ? 'text-white' : 'text-gray-700 hover:text-gray-900'}`}>
-                            <tab.icon className="mr-1.5 inline-block h-5 w-5"/>
+                            <tab.icon className="mr-1.5 inline-block size-5"/>
                             {tab.label}
                         </span>
                     </button>

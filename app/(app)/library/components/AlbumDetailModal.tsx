@@ -179,7 +179,7 @@ export const AlbumDetailModal = ({ album, onClose }: AlbumDetailModalProps) => {
                                 initial={{ opacity: 0, y: -20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.1 }}
-                                className="flex-shrink-0 flex items-center justify-between border-b bg-gradient-to-r from-[#33B54A]/5 via-white to-[#F78F1E]/5 px-6 py-6"
+                                className="shrink-0 flex items-center justify-between border-b bg-gradient-to-r from-[#33B54A]/5 via-white to-[#F78F1E]/5 p-6"
                             >
                                 <div className="flex-1 min-w-0 pr-6">
                                     <h2 className="text-2xl font-black text-gray-900 md:text-3xl line-clamp-1 mb-2">
@@ -195,7 +195,7 @@ export const AlbumDetailModal = ({ album, onClose }: AlbumDetailModalProps) => {
                                     whileHover={{ scale: 1.1, rotate: 90 }}
                                     whileTap={{ scale: 0.9 }}
                                     onClick={handleClose}
-                                    className="flex-shrink-0 flex size-10 items-center justify-center rounded-full transition-colors hover:bg-gray-200"
+                                    className="shrink-0 flex size-10 items-center justify-center rounded-full transition-colors hover:bg-gray-200"
                                     aria-label="Close album detail view"
                                 >
                                     <X className="size-5 text-gray-600" />
@@ -204,7 +204,7 @@ export const AlbumDetailModal = ({ album, onClose }: AlbumDetailModalProps) => {
 
                             {/* Main Content */}
                             <main className="flex-1 overflow-y-auto bg-white">
-                                <div className="px-6 py-6 md:px-8 md:py-8">
+                                <div className="p-6 md:p-8">
                                     {mediaItems.length > 0 && (
                                         <section>
                                             <motion.div
@@ -215,10 +215,10 @@ export const AlbumDetailModal = ({ album, onClose }: AlbumDetailModalProps) => {
                                             >
                                                 <h3 className="flex items-center gap-2.5 text-xl font-black text-gray-900 md:text-2xl">
                                                     <div className="flex items-center gap-2">
-                                                        <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-[#33B54A]/10">
+                                                        <div className="flex items-center justify-center size-9 rounded-lg bg-[#33B54A]/10">
                                                             <Camera className="text-[#33B54A] size-4.5 md:size-5"/>
                                                         </div>
-                                                        <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-[#F78F1E]/10">
+                                                        <div className="flex items-center justify-center size-9 rounded-lg bg-[#F78F1E]/10">
                                                             <Video className="text-[#F78F1E] size-4.5 md:size-5"/>
                                                         </div>
                                                     </div>

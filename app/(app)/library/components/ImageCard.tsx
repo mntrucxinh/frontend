@@ -36,7 +36,7 @@ export const ImageCard = ({ asset, index, onClick }: ImageCardProps) => {
                     whileHover={{ scale: 1.1 }}
                     className="flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm p-4"
                 >
-                    <Camera className="w-8 h-8 text-white transform transition-transform" />
+                    <Camera className="size-8 text-white transition-transform" />
                 </motion.div>
             </div>
         </motion.div>

@@ -125,7 +125,7 @@ export default function ActivitiesAtSchool() {
         duration: 0.8,
         ease: [0.4, 0, 0.2, 1],
       }}
-      className='relative -mt-12 overflow-hidden bg-gradient-to-b from-[#33B54A] via-[#2EA043] to-[#33B54A] py-16 text-white md:-mt-20 md:pb-20 md:pt-20'
+      className='relative -mt-12 overflow-hidden bg-gradient-to-b from-[#33B54A] via-[#2EA043] to-[#33B54A] py-16 text-white md:-mt-20 md:py-20'
     >
       {/* Smooth top wave - continues seamlessly from CoreValues section */}
       <div className='pointer-events-none absolute inset-x-0 -top-12 h-32 w-screen sm:-top-14 sm:h-36 md:-top-20 md:h-40'>
@@ -318,7 +318,7 @@ export default function ActivitiesAtSchool() {
             </motion.div>
 
             {/* Content Section - Bottom */}
-            <div className='px-6 pb-8 pt-8 sm:px-10 md:pb-10 md:pt-10'>
+            <div className='px-6 py-8 sm:px-10 md:py-10'>
               {/* Schedule */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}

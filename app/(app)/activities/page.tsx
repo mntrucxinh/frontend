@@ -175,7 +175,7 @@ const ActivitiesHero = ({ featuredImages, totalItems }: { featuredImages: string
       </div>
 
       {/* Bottom curved edge */}
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+      <div className="absolute bottom-0 inset-x-0 pointer-events-none">
         <svg
           viewBox="0 0 1440 200"
           className="h-20 w-full md:h-24"

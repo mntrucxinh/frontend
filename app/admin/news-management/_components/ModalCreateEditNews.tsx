@@ -388,7 +388,7 @@ const ModalCreateEditNews = ({
                             {isVideo ? (
                               <video
                                 src={assetUrl}
-                                className='h-full w-full object-cover'
+                                className='size-full object-cover'
                                 controls
                                 preload='metadata'
                               />
@@ -401,7 +401,7 @@ const ModalCreateEditNews = ({
                                 unoptimized
                               />
                             ) : (
-                              <div className='h-full w-full bg-default-100 flex items-center justify-center'>
+                              <div className='size-full bg-default-100 flex items-center justify-center'>
                                 <FileText className='size-8 text-default-400' />
                               </div>
                             )}
@@ -411,12 +411,12 @@ const ModalCreateEditNews = ({
                               isIconOnly
                               color='danger'
                               radius='full'
-                              className='absolute right-2 top-2 h-6 w-6 min-w-0 opacity-0 group-hover:opacity-100 transition-opacity'
+                              className='absolute right-2 top-2 size-6 min-w-0 opacity-0 group-hover:opacity-100 transition-opacity'
                             >
                               <X className='size-4 text-white' />
                             </Button>
                             {file.caption && (
-                              <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-1.5'>
+                              <div className='absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent p-1.5'>
                                 <p className='text-xs text-white truncate'>{file.caption}</p>
                               </div>
                             )}
@@ -433,14 +433,14 @@ const ModalCreateEditNews = ({
                           {file.type.startsWith('video') ? (
                             <video
                               src={previewUrls[index]}
-                              className='h-full w-full object-cover'
+                              className='size-full object-cover'
                               controls
                             />
                           ) : (
                             <img
                               src={previewUrls[index]}
                               alt='preview'
-                              className='h-full w-full object-cover'
+                              className='size-full object-cover'
                               loading='lazy'
                             />
                           )}
@@ -454,7 +454,7 @@ const ModalCreateEditNews = ({
                             isIconOnly
                             color='danger'
                             radius='full'
-                            className='absolute right-2 top-2 h-6 w-6 min-w-0'
+                            className='absolute right-2 top-2 size-6 min-w-0'
                           >
                             <X className='size-4 text-white' />
                           </Button>

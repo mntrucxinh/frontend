@@ -384,7 +384,7 @@ const LibraryPage = () => {
                                             transition={{ duration: 0.6 }}
                                             className={`mb-3 inline-flex items-center justify-center rounded-xl bg-gradient-to-br ${stat.color} p-3 shadow-lg`}
                                         >
-                                            <IconComponent className='h-6 w-6 text-white' />
+                                            <IconComponent className='size-6 text-white' />
                                         </motion.div>
                                         <div className='mb-1 text-3xl font-black text-gray-900 md:text-4xl'>
                                             {stat.content}

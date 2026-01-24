@@ -189,14 +189,14 @@ export default function EducationProgramSection() {
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute -top-20 -left-20 w-[250px] h-[250px] sm:-top-30 sm:-left-30 sm:w-[350px] sm:h-[350px] md:-top-40 md:-left-40 md:w-[500px] md:h-[500px] rounded-full opacity-30"
+          className="absolute -top-20 -left-20 size-[250px] sm:-top-30 sm:-left-30 sm:size-[350px] md:-top-40 md:-left-40 md:size-[500px] rounded-full opacity-30"
           style={{
             background: "radial-gradient(circle, rgba(247,143,30,0.35) 0%, transparent 70%)",
             y: backgroundY,
           }}
         />
         <motion.div
-          className="absolute -bottom-20 -right-20 w-[300px] h-[300px] sm:-bottom-30 sm:-right-30 sm:w-[400px] sm:h-[400px] md:-bottom-40 md:-right-40 md:w-[600px] md:h-[600px] rounded-full opacity-30"
+          className="absolute -bottom-20 -right-20 size-[300px] sm:-bottom-30 sm:-right-30 sm:size-[400px] md:-bottom-40 md:-right-40 md:size-[600px] rounded-full opacity-30"
           style={{
             background: "radial-gradient(circle, rgba(51,181,74,0.35) 0%, transparent 70%)",
           }}
@@ -212,7 +212,7 @@ export default function EducationProgramSection() {
           
           {/* Animated gradient orbs */}
           <motion.div
-            className="absolute -top-40 -left-40 w-[600px] h-[600px] sm:w-[800px] sm:h-[800px] md:w-[1000px] md:h-[1000px] rounded-full opacity-40"
+            className="absolute -top-40 -left-40 size-[600px] sm:size-[800px] md:size-[1000px] rounded-full opacity-40"
             style={{
               background: "radial-gradient(circle, rgba(247,143,30,0.5) 0%, transparent 70%)",
             }}
@@ -228,7 +228,7 @@ export default function EducationProgramSection() {
             }}
           />
           <motion.div
-            className="absolute -bottom-40 -right-40 w-[600px] h-[600px] sm:w-[800px] sm:h-[800px] md:w-[1000px] md:h-[1000px] rounded-full opacity-40"
+            className="absolute -bottom-40 -right-40 size-[600px] sm:size-[800px] md:size-[1000px] rounded-full opacity-40"
             style={{
               background: "radial-gradient(circle, rgba(51,181,74,0.5) 0%, transparent 70%)",
             }}
@@ -247,27 +247,27 @@ export default function EducationProgramSection() {
           
           {/* Floating decorative elements */}
           <motion.div
-            className="hidden sm:block absolute top-20 right-[10%] w-20 h-20 md:w-28 md:h-28 rounded-3xl bg-gradient-to-br from-[#F78F1E] to-[#FFB357] opacity-25 shadow-2xl"
+            className="hidden sm:block absolute top-20 right-[10%] size-20 md:size-28 rounded-3xl bg-gradient-to-br from-[#F78F1E] to-[#FFB357] opacity-25 shadow-2xl"
             animate={{ y: [0, -20, 0], rotate: [0, 15, 0] }}
             transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
           />
           <motion.div
-            className="hidden sm:block absolute bottom-20 left-[10%] w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-[#33B54A] to-[#2EA44F] opacity-25 shadow-2xl"
+            className="hidden sm:block absolute bottom-20 left-[10%] size-24 md:size-32 rounded-full bg-gradient-to-br from-[#33B54A] to-[#2EA44F] opacity-25 shadow-2xl"
             animate={{ y: [0, 25, 0], scale: [1, 1.15, 1] }}
             transition={{ duration: 7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 0.5 }}
           />
           <motion.div
-            className="hidden md:block absolute top-1/2 left-[5%] w-16 h-16 rounded-2xl bg-gradient-to-br from-[#F78F1E] to-[#FFB357] opacity-20 shadow-xl"
+            className="hidden md:block absolute top-1/2 left-[5%] size-16 rounded-2xl bg-gradient-to-br from-[#F78F1E] to-[#FFB357] opacity-20 shadow-xl"
             animate={{ y: [0, -25, 0], rotate: [0, -20, 0] }}
             transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 1 }}
           />
           <motion.div
-            className="hidden lg:block absolute top-32 left-[30%] w-12 h-12 rounded-full bg-[#33B54A] opacity-30 shadow-lg"
+            className="hidden lg:block absolute top-32 left-[30%] size-12 rounded-full bg-[#33B54A] opacity-30 shadow-lg"
             animate={{ scale: [1, 1.4, 1], opacity: [0.3, 0.5, 0.3] }}
             transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
           />
           <motion.div
-            className="hidden lg:block absolute bottom-32 right-[25%] w-14 h-14 rounded-xl bg-[#F78F1E] opacity-25 shadow-lg"
+            className="hidden lg:block absolute bottom-32 right-1/4 size-14 rounded-xl bg-[#F78F1E] opacity-25 shadow-lg"
             animate={{ rotate: [0, 180, 360], scale: [1, 1.2, 1] }}
             transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
           />
@@ -430,7 +430,7 @@ export default function EducationProgramSection() {
                     <div className="relative z-10 space-y-2.5 sm:space-y-3">
                       <div className="flex items-center gap-2.5 sm:gap-3">
                         <motion.span
-                          className="text-3xl sm:text-4xl md:text-5xl flex-shrink-0 drop-shadow-2xl leading-none"
+                          className="text-3xl sm:text-4xl md:text-5xl shrink-0 drop-shadow-2xl leading-none"
                           animate={{ rotate: [-8, 8, -8], scale: [1, 1.1, 1] }}
                           transition={{
                             duration: 3,
@@ -456,8 +456,8 @@ export default function EducationProgramSection() {
                     </div>
 
                     {/* Enhanced decorative elements */}
-                    <div className="absolute -bottom-4 -right-4 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/15 backdrop-blur-sm" />
-                    <div className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/10" />
+                    <div className="absolute -bottom-4 -right-4 size-16 sm:size-20 rounded-full bg-white/15 backdrop-blur-sm" />
+                    <div className="absolute top-2 right-2 size-8 rounded-full bg-white/10" />
                   </motion.div>
                 ))}
               </div>
@@ -532,7 +532,7 @@ export default function EducationProgramSection() {
                       <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
                         {/* Icon */}
                         <motion.div
-                          className="flex-shrink-0 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl shadow-lg"
+                          className="shrink-0 flex items-center justify-center size-10 sm:size-12 rounded-lg sm:rounded-xl shadow-lg"
                           style={{ 
                             background: `linear-gradient(135deg, ${program.color}, ${program.color}dd)`,
                             willChange: "transform"
@@ -540,7 +540,7 @@ export default function EducationProgramSection() {
                           whileHover={{ scale: 1.1 }}
                           transition={{ type: "spring", stiffness: 400, damping: 25 }}
                         >
-                          <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                          <Icon className="size-5 sm:size-6 text-white" />
                         </motion.div>
 
                         {/* Content */}
@@ -569,7 +569,7 @@ export default function EducationProgramSection() {
                                 className="flex items-start sm:items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-md sm:rounded-lg bg-gray-50 border border-gray-100 text-[10px] sm:text-xs text-gray-700"
                               >
                                 <Check
-                                  className="w-2.5 h-2.5 sm:w-3 sm:h-3 flex-shrink-0 mt-0.5 sm:mt-0"
+                                  className="size-2.5 sm:size-3 shrink-0 mt-0.5 sm:mt-0"
                                   style={{ color: program.color }}
                                 />
                                 <span className="leading-tight">{detail}</span>
@@ -758,7 +758,7 @@ export default function EducationProgramSection() {
                           <div className="relative">
                             <div className="flex items-center gap-1.5 mb-1.5">
                               <div 
-                                className="w-1.5 h-1.5 rounded-full"
+                                className="size-1.5 rounded-full"
                                 style={{ background: stage.color }}
                               />
                               <div 
@@ -818,8 +818,8 @@ export default function EducationProgramSection() {
                         }}
                       >
                         {/* Animated background elements */}
-                        <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
-                        <div className="absolute bottom-0 left-0 w-20 h-20 sm:w-28 sm:h-28 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-xl" />
+                        <div className="absolute top-0 right-0 size-24 sm:size-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
+                        <div className="absolute bottom-0 left-0 size-20 sm:size-28 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-xl" />
                         
                         {/* Shine effect */}
                         <motion.div
@@ -840,7 +840,7 @@ export default function EducationProgramSection() {
                               animate={{ rotate: [0, 10, -10, 0] }}
                               transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
                             >
-                              <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6" />
+                              <GraduationCap className="size-5 sm:size-6" />
                             </motion.div>
                             <span className="text-sm sm:text-base font-black">{stage.specialProgram.title}</span>
                           </div>

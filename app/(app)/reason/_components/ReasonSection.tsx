@@ -262,7 +262,7 @@ export default function ReasonSection() {
           <div className='relative mb-16 hidden min-h-[200px] md:block'>
             {/* Vertical Timeline Line */}
             <div className='pointer-events-none absolute left-1/2 top-0 z-0 h-full w-0.5 -translate-x-1/2'>
-              <div className='h-full w-full bg-gradient-to-b from-[#33B54A] via-[#F78F1E] to-[#33B54A] opacity-30' />
+              <div className='size-full bg-gradient-to-b from-[#33B54A] via-[#F78F1E] to-[#33B54A] opacity-30' />
             </div>
 
             <div className='relative z-10 space-y-6'>
@@ -419,7 +419,7 @@ export default function ReasonSection() {
                     
                     {/* Pattern overlay */}
                     <div className='absolute inset-0 opacity-[0.02]'>
-                      <div className='h-full w-full bg-[radial-gradient(circle_at_1px_1px,_currentColor_1px,_transparent_0)] bg-[length:40px_40px]' />
+                      <div className='size-full bg-[radial-gradient(circle_at_1px_1px,_currentColor_1px,_transparent_0)] bg-[length:40px_40px]' />
                     </div>
 
                     <div className='relative z-10 flex flex-col gap-10 md:flex-row md:items-center md:gap-16'>
@@ -486,7 +486,7 @@ export default function ReasonSection() {
               
               {/* Pattern overlay */}
               <div className='absolute inset-0 opacity-10'>
-                <div className='h-full w-full bg-[radial-gradient(circle_at_2px_2px,_white_1px,_transparent_0)] bg-[length:30px_30px]' />
+                <div className='size-full bg-[radial-gradient(circle_at_2px_2px,_white_1px,_transparent_0)] bg-[length:30px_30px]' />
               </div>
 
               <div className='relative z-10 text-center'>

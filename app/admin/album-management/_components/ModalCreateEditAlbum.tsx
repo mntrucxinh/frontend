@@ -356,7 +356,7 @@ export default function ModalCreateEditAlbum({
 
                     {/* RIGHT — ✅ Thêm scroll riêng */}
                     <div className='flex max-h-[60vh] flex-col space-y-4 overflow-y-auto pr-1'>
-                      <p className='text-ct-blue flex-shrink-0 text-lg font-semibold'>
+                      <p className='text-ct-blue shrink-0 text-lg font-semibold'>
                         Ảnh/Video trong album
                       </p>
 
@@ -386,7 +386,7 @@ export default function ModalCreateEditAlbum({
                               variant='bordered'
                               onPress={() => filesRef.current?.click()}
                               startContent={<Upload className='size-4' />}
-                              className='w-full flex-shrink-0 justify-center'
+                              className='w-full shrink-0 justify-center'
                             >
                               Chọn file (ảnh/video)
                             </Button>

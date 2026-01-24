@@ -93,7 +93,7 @@ export default function AnnouncementDetailContent({
   }
 
   return (
-    <div className='mx-auto max-w-[1400px] space-y-6 px-6 py-6'>
+    <div className='mx-auto max-w-[1400px] space-y-6 p-6'>
       {/* ===== HEADER ===== */}
       <Card shadow='sm' className='border border-default-200 bg-gradient-to-r from-default-50 to-white'>
         <CardBody className='p-6'>
@@ -121,7 +121,7 @@ export default function AnnouncementDetailContent({
                   )}
                 </div>
               </div>
-              <div className='flex gap-2 flex-shrink-0'>
+              <div className='flex gap-2 shrink-0'>
                 <Button
                   color='primary'
                   variant='flat'
@@ -160,7 +160,7 @@ export default function AnnouncementDetailContent({
                 <FileText className='size-4.5 text-default-500' />
                 <h2 className='text-base font-semibold text-default-800'>Mô tả ngắn</h2>
               </CardHeader>
-              <CardBody className='px-5 py-5'>
+              <CardBody className='p-5'>
                 <p className='text-justify text-sm leading-relaxed text-default-700'>{announcement.excerpt}</p>
               </CardBody>
             </Card>
@@ -172,7 +172,7 @@ export default function AnnouncementDetailContent({
               <FileText className='size-4.5 text-default-500' />
               <h2 className='text-base font-semibold text-default-800'>Nội dung</h2>
             </CardHeader>
-            <CardBody className='px-5 py-5'>
+            <CardBody className='p-5'>
               <article
                 className='prose prose-neutral prose-sm max-w-none text-justify text-default-700 prose-headings:text-default-900 prose-headings:font-semibold prose-p:leading-relaxed prose-p:mb-4 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-default-900 prose-ul:list-disc prose-ol:list-decimal prose-li:my-1.5'
                 dangerouslySetInnerHTML={{ __html: announcement.content_html }}
@@ -190,7 +190,7 @@ export default function AnnouncementDetailContent({
                 </h2>
               </CardHeader>
 
-              <CardBody className='px-5 py-5'>
+              <CardBody className='p-5'>
                 <div className='grid gap-4 sm:grid-cols-2'>
                   {assets.map(({ asset, caption }) => {
                     const isImage = asset.mime_type?.startsWith('image/')
@@ -205,7 +205,7 @@ export default function AnnouncementDetailContent({
                         {isVideo ? (
                           <video
                             src={assetUrl}
-                            className='h-full w-full object-cover'
+                            className='size-full object-cover'
                             controls
                             preload='metadata'
                           />
@@ -221,7 +221,7 @@ export default function AnnouncementDetailContent({
 
                         {/* caption */}
                         {caption && (
-                          <figcaption className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent p-3 text-xs text-white leading-relaxed'>
+                          <figcaption className='absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent p-3 text-xs text-white leading-relaxed'>
                             {caption}
                           </figcaption>
                         )}
@@ -250,7 +250,7 @@ export default function AnnouncementDetailContent({
                 <Globe className='size-4.5 text-default-500' />
                 <h2 className='text-base font-semibold text-default-800'>Thông tin SEO</h2>
               </CardHeader>
-              <CardBody className='px-5 py-5 space-y-4'>
+              <CardBody className='p-5 space-y-4'>
                 <div>
                   <p className='font-semibold text-default-800 mb-2 text-sm'>Meta Title</p>
                   <p className='text-sm text-default-600 break-words leading-relaxed'>
@@ -281,9 +281,9 @@ export default function AnnouncementDetailContent({
               <Info className='size-4.5 text-default-500' />
               <h2 className='text-base font-semibold text-default-800'>Thông tin chi tiết</h2>
             </CardHeader>
-            <CardBody className='px-5 py-5 space-y-4'>
+            <CardBody className='p-5 space-y-4'>
               <div className='flex items-start gap-3'>
-                <div className='flex-shrink-0 mt-0.5'>
+                <div className='shrink-0 mt-0.5'>
                   <Users className='size-4 text-default-400' />
                 </div>
                 <div className='flex-1 min-w-0'>
@@ -297,7 +297,7 @@ export default function AnnouncementDetailContent({
               <Divider className='my-2' />
 
               <div className='flex items-start gap-3'>
-                <div className='flex-shrink-0 mt-0.5'>
+                <div className='shrink-0 mt-0.5'>
                   <Calendar className='size-4 text-default-400' />
                 </div>
                 <div className='flex-1 min-w-0'>
@@ -311,7 +311,7 @@ export default function AnnouncementDetailContent({
               <Divider className='my-2' />
 
               <div className='flex items-start gap-3'>
-                <div className='flex-shrink-0 mt-0.5'>
+                <div className='shrink-0 mt-0.5'>
                   <Clock className='size-4 text-default-400' />
                 </div>
                 <div className='flex-1 min-w-0'>
@@ -323,7 +323,7 @@ export default function AnnouncementDetailContent({
               <Divider className='my-2' />
 
               <div className='flex items-start gap-3'>
-                <div className='flex-shrink-0 mt-0.5'>
+                <div className='shrink-0 mt-0.5'>
                   <ImageIcon className='size-4 text-default-400' />
                 </div>
                 <div className='flex-1 min-w-0'>
@@ -335,7 +335,7 @@ export default function AnnouncementDetailContent({
               <Divider className='my-2' />
 
               <div className='flex items-start gap-3'>
-                <div className='flex-shrink-0 mt-0.5'>
+                <div className='shrink-0 mt-0.5'>
                   <FileText className='size-4 text-default-400' />
                 </div>
                 <div className='flex-1 min-w-0'>
@@ -347,7 +347,7 @@ export default function AnnouncementDetailContent({
                       size='sm'
                       variant='light'
                       onPress={handleCopySlug}
-                      className='min-w-7 h-7 flex-shrink-0'
+                      className='min-w-7 h-7 shrink-0'
                     >
                       {copied ? <Check className='size-3.5 text-success' /> : <Copy className='size-3.5' />}
                     </Button>

@@ -21,13 +21,13 @@ export default function VisionMissionBanner() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className='absolute left-0 top-0 h-[800px] w-[800px] rounded-full bg-gradient-to-br from-[#33B54A]/50 via-[#33B54A]/20 to-transparent blur-3xl'
+          className='absolute left-0 top-0 size-[800px] rounded-full bg-gradient-to-br from-[#33B54A]/50 via-[#33B54A]/20 to-transparent blur-3xl'
         />
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className='absolute bottom-0 right-0 h-[700px] w-[700px] rounded-full bg-gradient-to-tl from-[#F78F1E]/50 via-[#F78F1E]/20 to-transparent blur-3xl'
+          className='absolute bottom-0 right-0 size-[700px] rounded-full bg-gradient-to-tl from-[#F78F1E]/50 via-[#F78F1E]/20 to-transparent blur-3xl'
         />
         
         {/* Animated floating orbs - more vibrant with stronger contrast */}
@@ -45,7 +45,7 @@ export default function VisionMissionBanner() {
             y: { duration: 20, repeat: Infinity, ease: 'easeInOut' },
             scale: { duration: 20, repeat: Infinity, ease: 'easeInOut' },
           }}
-          className='absolute left-[10%] top-[20%] h-[400px] w-[400px] rounded-full bg-gradient-to-br from-[#33B54A]/40 to-transparent blur-3xl'
+          className='absolute left-[10%] top-[20%] size-[400px] rounded-full bg-gradient-to-br from-[#33B54A]/40 to-transparent blur-3xl'
         />
         <motion.div
           initial={{ opacity: 0 }}
@@ -61,7 +61,7 @@ export default function VisionMissionBanner() {
             y: { duration: 25, repeat: Infinity, ease: 'easeInOut' },
             scale: { duration: 25, repeat: Infinity, ease: 'easeInOut' },
           }}
-          className='absolute right-[15%] bottom-[25%] h-[350px] w-[350px] rounded-full bg-gradient-to-tl from-[#F78F1E]/40 to-transparent blur-3xl'
+          className='absolute right-[15%] bottom-1/4 size-[350px] rounded-full bg-gradient-to-tl from-[#F78F1E]/40 to-transparent blur-3xl'
         />
         
         {/* Additional accent colors - stronger contrast */}
@@ -69,7 +69,7 @@ export default function VisionMissionBanner() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className='absolute left-[50%] top-[50%] h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-[#33B54A]/20 via-transparent to-[#F78F1E]/20 blur-3xl'
+          className='absolute left-[50%] top-[50%] size-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-[#33B54A]/20 via-transparent to-[#F78F1E]/20 blur-3xl'
         />
       </div>
 
@@ -86,7 +86,7 @@ export default function VisionMissionBanner() {
             <motion.div
               animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-              className='absolute right-0 top-1/2 h-32 w-32 -translate-y-1/2 rounded-full bg-gradient-to-r from-[#33B54A]/30 to-transparent blur-2xl'
+              className='absolute right-0 top-1/2 size-32 -translate-y-1/2 rounded-full bg-gradient-to-r from-[#33B54A]/30 to-transparent blur-2xl'
             />
             {/* Large number badge */}
             <motion.div
@@ -192,7 +192,7 @@ export default function VisionMissionBanner() {
             <motion.div
               animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-              className='absolute left-0 top-1/2 h-32 w-32 -translate-y-1/2 rounded-full bg-gradient-to-l from-[#F78F1E]/30 to-transparent blur-2xl'
+              className='absolute left-0 top-1/2 size-32 -translate-y-1/2 rounded-full bg-gradient-to-l from-[#F78F1E]/30 to-transparent blur-2xl'
             />
             {/* Large number badge */}
             <motion.div
