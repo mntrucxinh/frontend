@@ -20,6 +20,9 @@ function FacebookCallbackContent() {
   const linkFacebook = useLinkFacebook()
   const [processed, setProcessed] = useState(false)
   const timeoutRefs = useRef<NodeJS.Timeout[]>([])
+  
+  // Check if this is a popup window
+  const isPopup = typeof window !== "undefined" && !!window.opener
 
   const proceedWithLink = useCallback(
     async (fbAccessToken: string) => {
@@ -35,15 +38,20 @@ function FacebookCallbackContent() {
           "Bạn chưa đăng nhập. Vui lòng đăng nhập vào hệ thống trước khi liên kết Facebook."
         setErrorMessage(message)
         setStatus("error")
-        notifyParent(FACEBOOK_MESSAGE_TYPES.OAUTH_ERROR, {
-          error: "not_authenticated",
-          message: "Bạn chưa đăng nhập. Vui lòng đăng nhập trước.",
-        })
-        const timeoutId = setTimeout(
-          () => window.close(),
-          FACEBOOK_OAUTH.CLOSE_DELAY_ERROR_MS
-        )
-        timeoutRefs.current.push(timeoutId)
+      notifyParent(FACEBOOK_MESSAGE_TYPES.OAUTH_ERROR, {
+        error: "not_authenticated",
+        message: "Bạn chưa đăng nhập. Vui lòng đăng nhập trước.",
+      })
+      const timeoutId = setTimeout(() => {
+        if (isPopup && window.opener && !window.opener.closed) {
+          try {
+            window.close()
+          } catch (e) {
+            // Popup might be blocked, ignore
+          }
+        }
+      }, FACEBOOK_OAUTH.CLOSE_DELAY_ERROR_MS)
+      timeoutRefs.current.push(timeoutId)
         return
       }
 
@@ -55,10 +63,16 @@ function FacebookCallbackContent() {
             notifyParent(FACEBOOK_MESSAGE_TYPES.OAUTH_SUCCESS, {
               accessToken: fbAccessToken,
             })
-            const timeoutId = setTimeout(
-              () => window.close(),
-              FACEBOOK_OAUTH.CLOSE_DELAY_SUCCESS_MS
-            )
+            // Close popup immediately after notifying parent
+            const timeoutId = setTimeout(() => {
+              if (isPopup && window.opener && !window.opener.closed) {
+                try {
+                  window.close()
+                } catch (e) {
+                  // Popup might be blocked, ignore
+                }
+              }
+            }, FACEBOOK_OAUTH.CLOSE_DELAY_SUCCESS_MS)
             timeoutRefs.current.push(timeoutId)
           },
           onError: (error: unknown) => {
@@ -69,10 +83,15 @@ function FacebookCallbackContent() {
               error: "link_failed",
               message: errorMsg,
             })
-            const timeoutId = setTimeout(
-              () => window.close(),
-              FACEBOOK_OAUTH.CLOSE_DELAY_ERROR_MS
-            )
+            const timeoutId = setTimeout(() => {
+              if (isPopup && window.opener && !window.opener.closed) {
+                try {
+                  window.close()
+                } catch (e) {
+                  // Popup might be blocked, ignore
+                }
+              }
+            }, FACEBOOK_OAUTH.CLOSE_DELAY_ERROR_MS)
             timeoutRefs.current.push(timeoutId)
           },
         }
@@ -104,10 +123,15 @@ function FacebookCallbackContent() {
         error: error,
         message,
       })
-      const timeoutId = setTimeout(
-        () => window.close(),
-        FACEBOOK_OAUTH.CLOSE_DELAY_SUCCESS_MS
-      )
+      const timeoutId = setTimeout(() => {
+        if (isPopup && window.opener && !window.opener.closed) {
+          try {
+            window.close()
+          } catch (e) {
+            // Popup might be blocked, ignore
+          }
+        }
+      }, FACEBOOK_OAUTH.CLOSE_DELAY_SUCCESS_MS)
       timeoutRefs.current.push(timeoutId)
       return
     }
@@ -120,10 +144,15 @@ function FacebookCallbackContent() {
         error: "no_token",
         message: "Không nhận được access token từ Facebook",
       })
-      const timeoutId = setTimeout(
-        () => window.close(),
-        FACEBOOK_OAUTH.CLOSE_DELAY_SUCCESS_MS
-      )
+      const timeoutId = setTimeout(() => {
+        if (isPopup && window.opener && !window.opener.closed) {
+          try {
+            window.close()
+          } catch (e) {
+            // Popup might be blocked, ignore
+          }
+        }
+      }, FACEBOOK_OAUTH.CLOSE_DELAY_SUCCESS_MS)
       timeoutRefs.current.push(timeoutId)
       return
     }
@@ -180,12 +209,22 @@ function FacebookCallbackContent() {
             <p className="text-xs text-gray-500 mt-4">
               Cửa sổ sẽ tự động đóng sau vài giây...
             </p>
-            <button
-              onClick={() => window.close()}
-              className="mt-4 px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded-md transition-colors"
-            >
-              Đóng cửa sổ ngay
-            </button>
+            {isPopup && (
+              <button
+                onClick={() => {
+                  if (window.opener && !window.opener.closed) {
+                    try {
+                      window.close()
+                    } catch (e) {
+                      // Popup might be blocked, ignore
+                    }
+                  }
+                }}
+                className="mt-4 px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 rounded-md transition-colors"
+              >
+                Đóng cửa sổ ngay
+              </button>
+            )}
           </>
         )}
       </div>
