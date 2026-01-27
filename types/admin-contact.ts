@@ -5,6 +5,7 @@ export interface AdminContactMessage {
   full_name: string
   phone?: string | null
   email?: string | null
+  subject?: string | null
   message: string
   status: AdminContactStatus
   ip?: string | null

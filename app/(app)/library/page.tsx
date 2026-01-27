@@ -66,9 +66,43 @@ const LibraryPage = () => {
 
     // Ref for the tab switcher area
     const tabSwitcherRef = useRef<HTMLDivElement>(null);
+    const isInitialMount = useRef(true);
+    const hasUserInteracted = useRef(false);
+
+    // Ensure page starts at top on initial load
+    useEffect(() => {
+        // Disable browser scroll restoration for this page
+        if ('scrollRestoration' in window.history) {
+            window.history.scrollRestoration = 'manual';
+        }
+        
+        // Scroll to top on initial mount (even if browser tries to restore)
+        const scrollToTop = () => {
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        };
+        
+        // Immediate scroll
+        scrollToTop();
+        
+        // Also scroll after a short delay to override any browser restoration
+        const timeoutId = setTimeout(scrollToTop, 0);
+        
+        isInitialMount.current = false;
+        
+        return () => {
+            clearTimeout(timeoutId);
+            // Re-enable scroll restoration when leaving page
+            if ('scrollRestoration' in window.history) {
+                window.history.scrollRestoration = 'auto';
+            }
+        };
+    }, []);
 
     // Helper function to scroll to tab area
     const scrollToTab = () => {
+        // Only scroll if user has interacted (clicked tab or pagination)
+        if (!hasUserInteracted.current) return;
+        
         setTimeout(() => {
             if (tabSwitcherRef.current) {
                 // Get header height dynamically
@@ -86,28 +120,41 @@ const LibraryPage = () => {
         }, 100);
     };
 
-    // Reset page when switching tabs and scroll to tab area
+    // Reset page when switching tabs and scroll to tab area (but not on initial mount)
     useEffect(() => {
         setImagesPage(1);
         setVideosPage(1);
         setAlbumsPage(1);
-        scrollToTab();
+        
+        // Only scroll if user has interacted
+        if (hasUserInteracted.current) {
+            scrollToTab();
+        }
     }, [view]);
 
     // Handlers for pagination with scroll
     const handleImagesPageChange = (page: number) => {
+        hasUserInteracted.current = true;
         setImagesPage(page);
         scrollToTab();
     };
 
     const handleVideosPageChange = (page: number) => {
+        hasUserInteracted.current = true;
         setVideosPage(page);
         scrollToTab();
     };
 
     const handleAlbumsPageChange = (page: number) => {
+        hasUserInteracted.current = true;
         setAlbumsPage(page);
         scrollToTab();
+    };
+
+    // Handle view change from user interaction
+    const handleViewChange = (newView: View) => {
+        hasUserInteracted.current = true;
+        setView(newView);
     };
 
     // --- API DATA ---
@@ -337,7 +384,7 @@ const LibraryPage = () => {
                                             transition={{ duration: 0.6 }}
                                             className={`mb-3 inline-flex items-center justify-center rounded-xl bg-gradient-to-br ${stat.color} p-3 shadow-lg`}
                                         >
-                                            <IconComponent className='h-6 w-6 text-white' />
+                                            <IconComponent className='size-6 text-white' />
                                         </motion.div>
                                         <div className='mb-1 text-3xl font-black text-gray-900 md:text-4xl'>
                                             {stat.content}
@@ -356,7 +403,7 @@ const LibraryPage = () => {
             <main className='relative bg-white py-20 md:py-28'>
                 <div className='container mx-auto px-4'>
                     <div ref={tabSwitcherRef}>
-                        <ViewSwitcher view={view} setView={setView} />
+                        <ViewSwitcher view={view} setView={handleViewChange} />
                     </div>
                     {renderContent()}
                 </div>

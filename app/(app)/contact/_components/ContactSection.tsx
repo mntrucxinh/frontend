@@ -1,20 +1,21 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useCreateContactMessage } from '@/hook/contact/use-contact-mutation'
 import { motion } from 'framer-motion'
 import {
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  Clock,
   Building2,
-  MessageSquare,
-  User,
   CheckCircle2,
+  Clock,
+  Mail,
+  MapPin,
+  MessageSquare,
+  Phone,
+  Send,
+  User,
 } from 'lucide-react'
+
 import { CONTACT_INFO } from '@/types/constants/infomations'
-import { useCreateContactMessage } from '@/hook/contact/use-contact-mutation'
 
 const contactInfo = [
   {
@@ -57,8 +58,7 @@ export default function ContactSection() {
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const { mutateAsync: createContactMessage, isPending: isSubmitting } =
-    useCreateContactMessage()
+  const { mutateAsync: createContactMessage, isPending: isSubmitting } = useCreateContactMessage()
 
   const getErrorMessage = (error: unknown) => {
     const detail = (error as any)?.response?.data?.detail
@@ -133,7 +133,7 @@ export default function ContactSection() {
             }}
           />
           <motion.div
-            className='absolute right-0 bottom-0 size-96 rounded-full bg-white/10 blur-3xl'
+            className='absolute bottom-0 right-0 size-96 rounded-full bg-white/10 blur-3xl'
             animate={{
               scale: [1, 1.3, 1],
               x: [0, -50, 0],
@@ -166,8 +166,8 @@ export default function ContactSection() {
             transition={{ delay: 0.4 }}
             className='mx-auto max-w-3xl text-lg leading-relaxed text-white/95 md:text-xl'
           >
-            Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn. Hãy liên hệ với chúng tôi để được tư vấn
-            tốt nhất về chương trình học và dịch vụ của trường.
+            Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn. Hãy liên hệ với chúng tôi để được tư
+            vấn tốt nhất về chương trình học và dịch vụ của trường.
           </motion.p>
         </div>
       </motion.section>
@@ -178,7 +178,7 @@ export default function ContactSection() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.8 }}
-        className='relative -mt-16 z-20'
+        className='relative z-20 -mt-16'
       >
         <div className='container mx-auto px-4'>
           <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4'>
@@ -206,7 +206,9 @@ export default function ContactSection() {
                     >
                       <IconComponent className='size-6 text-white' />
                     </motion.div>
-                    <h3 className='mb-2 text-sm font-black text-gray-900 md:text-base'>{info.title}</h3>
+                    <h3 className='mb-2 text-sm font-black text-gray-900 md:text-base'>
+                      {info.title}
+                    </h3>
                     <p className='text-xs font-semibold text-gray-600 md:text-sm'>{info.content}</p>
                   </div>
                 </motion.a>
@@ -240,7 +242,7 @@ export default function ContactSection() {
         {/* Decorative blur elements */}
         <div className='pointer-events-none absolute inset-0'>
           <motion.div
-            className='absolute left-0 top-20 size-96 rounded-full bg-[#33B54A]/6 blur-3xl'
+            className='bg-[#33B54A]/6 absolute left-0 top-20 size-96 rounded-full blur-3xl'
             animate={{
               scale: [1, 1.25, 1],
               x: [0, 40, 0],
@@ -253,7 +255,7 @@ export default function ContactSection() {
             }}
           />
           <motion.div
-            className='absolute right-0 bottom-20 size-96 rounded-full bg-[#F78F1E]/6 blur-3xl'
+            className='bg-[#F78F1E]/6 absolute bottom-20 right-0 size-96 rounded-full blur-3xl'
             animate={{
               scale: [1, 1.35, 1],
               x: [0, -40, 0],
@@ -298,7 +300,8 @@ export default function ContactSection() {
                   <span className='text-[#F78F1E]'>cho chúng tôi</span>
                 </h2>
                 <p className='mb-8 text-base text-gray-600 md:text-lg'>
-                  Điền thông tin vào form bên dưới, chúng tôi sẽ liên hệ lại với bạn sớm nhất có thể.
+                  Điền thông tin vào form bên dưới, chúng tôi sẽ liên hệ lại với bạn sớm nhất có
+                  thể.
                 </p>
 
                 {isSubmitted ? (
@@ -329,7 +332,10 @@ export default function ContactSection() {
                         viewport={{ once: true }}
                         transition={{ delay: 0.3 }}
                       >
-                        <label htmlFor='name' className='mb-2 block text-sm font-bold text-gray-700'>
+                        <label
+                          htmlFor='name'
+                          className='mb-2 block text-sm font-bold text-gray-700'
+                        >
                           Họ và tên <span className='text-[#F78F1E]'>*</span>
                         </label>
                         <div className='relative'>
@@ -353,7 +359,10 @@ export default function ContactSection() {
                         viewport={{ once: true }}
                         transition={{ delay: 0.4 }}
                       >
-                        <label htmlFor='phone' className='mb-2 block text-sm font-bold text-gray-700'>
+                        <label
+                          htmlFor='phone'
+                          className='mb-2 block text-sm font-bold text-gray-700'
+                        >
                           Số điện thoại <span className='text-[#F78F1E]'>*</span>
                         </label>
                         <div className='relative'>
@@ -402,7 +411,10 @@ export default function ContactSection() {
                       viewport={{ once: true }}
                       transition={{ delay: 0.6 }}
                     >
-                      <label htmlFor='subject' className='mb-2 block text-sm font-bold text-gray-700'>
+                      <label
+                        htmlFor='subject'
+                        className='mb-2 block text-sm font-bold text-gray-700'
+                      >
                         Chủ đề <span className='text-[#F78F1E]'>*</span>
                       </label>
                       <select
@@ -411,7 +423,7 @@ export default function ContactSection() {
                         value={formData.subject}
                         onChange={handleChange}
                         required
-                        className='w-full rounded-xl border-2 border-gray-200 bg-white py-3 px-4 text-gray-900 transition-all focus:border-[#33B54A] focus:outline-none focus:ring-2 focus:ring-[#33B54A]/20'
+                        className='w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 transition-all focus:border-[#33B54A] focus:outline-none focus:ring-2 focus:ring-[#33B54A]/20'
                       >
                         <option value=''>Chọn chủ đề</option>
                         <option value='tuyen-sinh'>Tuyển sinh</option>
@@ -427,7 +439,10 @@ export default function ContactSection() {
                       viewport={{ once: true }}
                       transition={{ delay: 0.7 }}
                     >
-                      <label htmlFor='message' className='mb-2 block text-sm font-bold text-gray-700'>
+                      <label
+                        htmlFor='message'
+                        className='mb-2 block text-sm font-bold text-gray-700'
+                      >
                         Tin nhắn <span className='text-[#F78F1E]'>*</span>
                       </label>
                       <textarea
@@ -437,7 +452,7 @@ export default function ContactSection() {
                         onChange={handleChange}
                         required
                         rows={6}
-                        className='w-full rounded-xl border-2 border-gray-200 bg-white py-3 px-4 text-gray-900 transition-all focus:border-[#33B54A] focus:outline-none focus:ring-2 focus:ring-[#33B54A]/20'
+                        className='w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 transition-all focus:border-[#33B54A] focus:outline-none focus:ring-2 focus:ring-[#33B54A]/20'
                         placeholder='Nhập tin nhắn của bạn...'
                       />
                     </motion.div>
@@ -457,7 +472,7 @@ export default function ContactSection() {
                       transition={{ delay: 0.8 }}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className='group w-full rounded-full bg-gradient-to-r from-[#33B54A] to-[#2EA043] px-8 py-4 text-base font-black text-white shadow-xl transition-all hover:from-[#F78F1E] hover:to-[#E67E17] hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed md:py-5 md:text-lg'
+                      className='group w-full rounded-full bg-gradient-to-r from-[#33B54A] to-[#2EA043] px-8 py-4 text-base font-black text-white shadow-xl transition-all hover:from-[#F78F1E] hover:to-[#E67E17] hover:shadow-2xl disabled:cursor-not-allowed disabled:opacity-50 md:py-5 md:text-lg'
                     >
                       {isSubmitting ? (
                         <span className='flex items-center justify-center gap-2'>
@@ -528,13 +543,15 @@ export default function ContactSection() {
                 <div className='absolute inset-0 rounded-3xl bg-gradient-to-br from-white/5 via-transparent to-black/10' />
                 <div className='relative z-10'>
                   <div className='mb-6 flex items-center gap-3'>
-                    <div className='flex size-12 items-center justify-center rounded-2xl bg-white/25 backdrop-blur-sm shadow-lg ring-2 ring-white/40'>
+                    <div className='flex size-12 items-center justify-center rounded-2xl bg-white/25 shadow-lg ring-2 ring-white/40 backdrop-blur-sm'>
                       <Building2 className='size-6 text-white' />
                     </div>
                     <div className='h-1 flex-1 rounded-full bg-gradient-to-r from-white/50 via-white/30 to-transparent' />
                   </div>
 
-                  <h3 className='mb-4 text-2xl font-black text-white md:text-3xl'>Thông tin trường</h3>
+                  <h3 className='mb-4 text-2xl font-black text-white md:text-3xl'>
+                    Thông tin trường
+                  </h3>
                   <ul className='space-y-3 text-white/95'>
                     <motion.li
                       initial={{ opacity: 0, x: -10 }}
@@ -544,9 +561,7 @@ export default function ContactSection() {
                       className='flex items-start gap-3'
                     >
                       <span className='mt-1.5 size-2 shrink-0 rounded-full bg-white' />
-                      <span className='leading-relaxed'>
-                        Nhận trẻ từ 18 tháng đến 6 tuổi
-                      </span>
+                      <span className='leading-relaxed'>Nhận trẻ từ 18 tháng đến 6 tuổi</span>
                     </motion.li>
                     <motion.li
                       initial={{ opacity: 0, x: -10 }}
@@ -556,9 +571,7 @@ export default function ContactSection() {
                       className='flex items-start gap-3'
                     >
                       <span className='mt-1.5 size-2 shrink-0 rounded-full bg-white' />
-                      <span className='leading-relaxed'>
-                        Giáo viên có chứng chỉ quốc tế
-                      </span>
+                      <span className='leading-relaxed'>Giáo viên có chứng chỉ quốc tế</span>
                     </motion.li>
                     <motion.li
                       initial={{ opacity: 0, x: -10 }}
@@ -568,9 +581,7 @@ export default function ContactSection() {
                       className='flex items-start gap-3'
                     >
                       <span className='mt-1.5 size-2 shrink-0 rounded-full bg-white' />
-                      <span className='leading-relaxed'>
-                        Cơ sở vật chất đạt chuẩn
-                      </span>
+                      <span className='leading-relaxed'>Cơ sở vật chất đạt chuẩn</span>
                     </motion.li>
                     <motion.li
                       initial={{ opacity: 0, x: -10 }}
@@ -592,9 +603,7 @@ export default function ContactSection() {
                       className='flex items-start gap-3'
                     >
                       <span className='mt-1.5 size-2 shrink-0 rounded-full bg-white' />
-                      <span className='leading-relaxed'>
-                        Gần 20 năm kinh nghiệm giáo dục
-                      </span>
+                      <span className='leading-relaxed'>Gần 20 năm kinh nghiệm giáo dục</span>
                     </motion.li>
                     <motion.li
                       initial={{ opacity: 0, x: -10 }}
@@ -616,9 +625,7 @@ export default function ContactSection() {
                       className='flex items-start gap-3'
                     >
                       <span className='mt-1.5 size-2 shrink-0 rounded-full bg-white' />
-                      <span className='leading-relaxed'>
-                        Chương trình học phù hợp từng độ tuổi
-                      </span>
+                      <span className='leading-relaxed'>Chương trình học phù hợp từng độ tuổi</span>
                     </motion.li>
                   </ul>
                 </div>
@@ -643,4 +650,3 @@ export default function ContactSection() {
     </div>
   )
 }
-

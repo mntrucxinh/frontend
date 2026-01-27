@@ -74,11 +74,11 @@ export const VideoPlayer = ({ playlist, onClose }: VideoPlayerProps) => {
                         className="absolute top-4 right-4 z-20 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
                         aria-label="Close video player"
                     >
-                        <X className="w-8 h-8 text-white"/>
+                        <X className="size-8 text-white"/>
                     </button>
 
                     {/* Main Content */}
-                    <div className="relative w-full h-full flex items-center justify-center p-4 md:p-8 lg:p-16">
+                    <div className="relative size-full flex items-center justify-center p-4 md:p-8 lg:p-16">
                         {/* Previous Button */}
                         {hasMultipleVideos && (
                             <motion.button
@@ -88,7 +88,7 @@ export const VideoPlayer = ({ playlist, onClose }: VideoPlayerProps) => {
                                 className="absolute left-4 md:left-8 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
                                 aria-label="Previous video"
                             >
-                                <ChevronLeft className="w-8 h-8 text-white"/>
+                                <ChevronLeft className="size-8 text-white"/>
                             </motion.button>
                         )}
                         
@@ -103,7 +103,7 @@ export const VideoPlayer = ({ playlist, onClose }: VideoPlayerProps) => {
                         >
                             <iframe
                                 src={currentVideo.url}
-                                className="w-full h-full"
+                                className="size-full"
                                 frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowFullScreen
@@ -120,7 +120,7 @@ export const VideoPlayer = ({ playlist, onClose }: VideoPlayerProps) => {
                                 className="absolute right-4 md:right-8 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
                                 aria-label="Next video"
                             >
-                                <ChevronRight className="w-8 h-8 text-white"/>
+                                <ChevronRight className="size-8 text-white"/>
                             </motion.button>
                         )}
 

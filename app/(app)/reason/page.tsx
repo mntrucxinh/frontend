@@ -24,14 +24,14 @@ export default function ReasonPage() {
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
         className='relative min-h-[85vh] overflow-hidden bg-gradient-to-br from-[#33B54A] via-[#2EA043] to-[#F78F1E] py-20 md:py-32'
       >
         {/* Large "10" Background Element */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 0.15, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none'
         >
           <span className='text-[20rem] font-black leading-none text-white md:text-[30rem] lg:text-[35rem]'>
@@ -138,7 +138,7 @@ export default function ReasonPage() {
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
                 className='text-center md:text-left'
               >
                 <h1 className='mb-6 text-4xl font-black leading-tight text-white drop-shadow-2xl md:text-6xl lg:text-7xl'>
@@ -162,7 +162,7 @@ export default function ReasonPage() {
                       key={index}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
+                      transition={{ duration: 0.3, delay: 0.2 + index * 0.05 }}
                       className='rounded-2xl bg-white/10 p-4 backdrop-blur-sm ring-2 ring-white/20'
                     >
                       <div className='text-2xl font-black text-white md:text-3xl'>{stat.number}</div>
@@ -176,7 +176,7 @@ export default function ReasonPage() {
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
                 className='grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6'
               >
                 {[
@@ -193,7 +193,7 @@ export default function ReasonPage() {
                       key={index}
                       initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
                       animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                      transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                      transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
                       whileHover={{ y: -8, scale: 1.05, rotate: 5 }}
                       className='group'
                     >

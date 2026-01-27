@@ -11,9 +11,9 @@ export interface SidebarItem {
 }
 
 export const MAIN_SIDEBAR_ITEMS: SidebarItem[] = [
-  // 1> Quản lý tin tức
+  // 1> Quản lý hoạt động
   {
-    label: 'Quản lý tin tức',
+    label: 'Quản lý hoạt động',
     icon: <Newspaper className='size-5' />,
     path: APP_ROUTES.RESOURCES.NEWS_MANAGEMENT,
   },

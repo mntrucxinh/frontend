@@ -43,7 +43,7 @@ export type Album = {
   status?: AlbumStatus
   cover?: Asset | null
   items?: AlbumMediaItem[]
-  videos?: AlbumVideoItem[]
+  videos?: AlbumVideoItem[] | null
   item_count?: number
   image_count?: number
   video_count?: number

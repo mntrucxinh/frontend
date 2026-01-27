@@ -32,8 +32,8 @@ export default function NoticeListSkeleton() {
 
       <div className='flex items-center justify-center gap-2'>
         <Block className='h-10 w-20' />
-        <Block className='h-10 w-10' />
-        <Block className='h-10 w-10' />
+        <Block className='size-10' />
+        <Block className='size-10' />
         <Block className='h-10 w-20' />
       </div>
     </div>

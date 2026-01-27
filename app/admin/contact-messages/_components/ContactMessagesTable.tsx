@@ -30,6 +30,7 @@ const columns = [
   { uid: 'full_name', name: 'Người gửi', sortable: true },
   { uid: 'email', name: 'Địa chỉ email', sortable: false },
   { uid: 'phone', name: 'Số điện thoại', sortable: false },
+  { uid: 'subject', name: 'Chủ đề', sortable: false },
   { uid: 'message', name: 'Nội dung', sortable: false },
   { uid: 'status', name: 'Trạng thái', sortable: true },
   { uid: 'created_at', name: 'Thời gian', sortable: true },
@@ -185,12 +186,48 @@ export default function ContactMessagesTable() {
       case 'phone':
         return <span className='text-default-500'>{item.phone || '-'}</span>
 
-      case 'message':
+      case 'subject': {
+        // Parse subject from message if format is "Chu de: xxx\ncontent"
+        const parseMessage = (msg: string) => {
+          const subjectMatch = msg.match(/^Chu de:\s*([^\n]+)/i)
+          if (subjectMatch) {
+            return subjectMatch[1].trim()
+          }
+          return null
+        }
+
+        const parsedSubject = parseMessage(item.message) || item.subject
+        const subjectMap: Record<string, string> = {
+          'tuyen-sinh': 'Tuyển sinh',
+          'chuong-trinh-hoc': 'Chương trình học',
+          'co-so-vat-chat': 'Cơ sở vật chất',
+          'khac': 'Khác',
+        }
+        const subjectLabel = parsedSubject ? subjectMap[parsedSubject] || parsedSubject : '-'
         return (
-          <div className='max-w-[360px] truncate text-default-500' title={item.message}>
-            {item.message}
+          <div className='max-w-[200px]'>
+            <span className='font-medium text-default-700'>{subjectLabel}</span>
           </div>
         )
+      }
+
+      case 'message': {
+        // Extract actual message content (remove "Chu de: xxx\n" part)
+        const extractMessageContent = (msg: string) => {
+          const subjectMatch = msg.match(/^Chu de:\s*[^\n]+\n/i)
+          if (subjectMatch) {
+            return msg.replace(subjectMatch[0], '').trim()
+          }
+          return msg
+        }
+
+        const messageContent = extractMessageContent(item.message)
+        return (
+          <div className='max-w-[300px] truncate text-default-500' title={messageContent}>
+            {messageContent}
+          </div>
+        )
+      }
 
       case 'status':
         return statusChip(item.status)

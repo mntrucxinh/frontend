@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useCreateAdminNews, useUpdateAdminNews } from '@/hook/admin-news/use-admin-news-mutation'
+import { buildAssetUrl } from '@/utils/api-url'
 import {
   addToast,
   Button,
@@ -14,15 +15,14 @@ import {
   ModalHeader,
 } from '@heroui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Upload, X, FileText } from 'lucide-react'
-import { buildAssetUrl } from '@/utils/api-url'
+import { useQueryClient } from '@tanstack/react-query'
+import { FileText, Upload, X } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import CustomInput from '../../../../components/CustomInput'
 import CustomSelect from '../../../../components/CustomSelect'
 import CustomTextArea from '../../../../components/CustomTextArea'
-import { useQueryClient } from '@tanstack/react-query'
 
 // ========== ZOD SCHEMA ==========
 const CreateEditNewsSchema = z.object({
@@ -204,9 +204,13 @@ const ModalCreateEditNews = ({
     if (isOpen && !isCreateMode && newsEdit) {
       // Reset new files when opening
       setNewFiles([])
-      
+
       // Load existing files
-      if (newsEdit.content_assets && Array.isArray(newsEdit.content_assets) && newsEdit.content_assets.length > 0) {
+      if (
+        newsEdit.content_assets &&
+        Array.isArray(newsEdit.content_assets) &&
+        newsEdit.content_assets.length > 0
+      ) {
         const files = newsEdit.content_assets
           .sort((a, b) => (a.position || 0) - (b.position || 0))
           .map((item) => ({
@@ -383,12 +387,12 @@ const ModalCreateEditNews = ({
                         return (
                           <div
                             key={file.id}
-                            className='relative aspect-square overflow-hidden rounded-xl border border-default-200 group'
+                            className='group relative aspect-square overflow-hidden rounded-xl border border-default-200'
                           >
                             {isVideo ? (
                               <video
                                 src={assetUrl}
-                                className='h-full w-full object-cover'
+                                className='size-full object-cover'
                                 controls
                                 preload='metadata'
                               />
@@ -401,7 +405,7 @@ const ModalCreateEditNews = ({
                                 unoptimized
                               />
                             ) : (
-                              <div className='h-full w-full bg-default-100 flex items-center justify-center'>
+                              <div className='flex size-full items-center justify-center bg-default-100'>
                                 <FileText className='size-8 text-default-400' />
                               </div>
                             )}
@@ -411,13 +415,13 @@ const ModalCreateEditNews = ({
                               isIconOnly
                               color='danger'
                               radius='full'
-                              className='absolute right-2 top-2 h-6 w-6 min-w-0 opacity-0 group-hover:opacity-100 transition-opacity'
+                              className='absolute right-2 top-2 size-6 min-w-0 opacity-0 transition-opacity group-hover:opacity-100'
                             >
                               <X className='size-4 text-white' />
                             </Button>
                             {file.caption && (
-                              <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-1.5'>
-                                <p className='text-xs text-white truncate'>{file.caption}</p>
+                              <div className='absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-1.5'>
+                                <p className='truncate text-xs text-white'>{file.caption}</p>
                               </div>
                             )}
                           </div>
@@ -428,24 +432,24 @@ const ModalCreateEditNews = ({
                       {newFiles.map((file, index) => (
                         <div
                           key={`new-${file.name}-${file.lastModified}`}
-                          className='relative aspect-square overflow-hidden rounded-xl border border-primary-200 group'
+                          className='group relative aspect-square overflow-hidden rounded-xl border border-primary-200'
                         >
                           {file.type.startsWith('video') ? (
                             <video
                               src={previewUrls[index]}
-                              className='h-full w-full object-cover'
+                              className='size-full object-cover'
                               controls
                             />
                           ) : (
-                            <img
+                            <Image
                               src={previewUrls[index]}
                               alt='preview'
-                              className='h-full w-full object-cover'
+                              className='size-full object-cover'
                               loading='lazy'
                             />
                           )}
 
-                          <div className='absolute top-1 left-1 bg-primary text-white text-xs px-1.5 py-0.5 rounded'>
+                          <div className='absolute left-1 top-1 rounded bg-primary px-1.5 py-0.5 text-xs text-white'>
                             Mới
                           </div>
 
@@ -454,7 +458,7 @@ const ModalCreateEditNews = ({
                             isIconOnly
                             color='danger'
                             radius='full'
-                            className='absolute right-2 top-2 h-6 w-6 min-w-0'
+                            className='absolute right-2 top-2 size-6 min-w-0'
                           >
                             <X className='size-4 text-white' />
                           </Button>

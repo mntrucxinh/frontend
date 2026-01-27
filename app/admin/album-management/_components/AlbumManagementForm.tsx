@@ -1,13 +1,17 @@
 'use client'
 
 import React, { useMemo, useState } from 'react'
-import { useQueryClient } from '@tanstack/react-query'
-import { addToast } from '@heroui/react'
-
-import { useCreateAdminAlbum, useUpdateAdminAlbum, useDeleteAdminAlbum } from '@/hook/admin-album/use-admin-album-mutation'
+import {
+  useCreateAdminAlbum,
+  useDeleteAdminAlbum,
+  useUpdateAdminAlbum,
+} from '@/hook/admin-album/use-admin-album-mutation'
 import { useAdminAlbumList } from '@/hook/admin-album/use-admin-album-query'
-import type { AdminAlbumResponse } from '@/types/admin-album'
 import type { TPaginationResponse } from '@/validators'
+import { addToast } from '@heroui/react'
+import { useQueryClient } from '@tanstack/react-query'
+
+import type { AdminAlbumResponse } from '@/types/admin-album'
 
 import AlbumManagementFilter from '../_components/AlbumManagementFilter'
 import AlbumManagementTable, { type Album } from '../_components/AlbumManagementTable'
@@ -123,7 +127,8 @@ export default function AlbumManagementForm() {
           coverFile: args.coverFile,
           newFiles: args.newFiles,
           newCaptions: [], // TODO: Add caption support in modal
-          existingAssetPublicIds: existingAssetPublicIds.length > 0 ? existingAssetPublicIds : undefined,
+          existingAssetPublicIds:
+            existingAssetPublicIds.length > 0 ? existingAssetPublicIds : undefined,
           existingCaptions: existingCaptions.length > 0 ? existingCaptions : undefined,
           videoPublicIds: videoPublicIds.length > 0 ? videoPublicIds : undefined,
         })
@@ -211,6 +216,56 @@ export default function AlbumManagementForm() {
     }
   }
 
+  const tableData: Album[] = (data?.items ?? []).map((a) => ({
+    ...a,
+    description: a.description ?? undefined,
+
+    cover: a.cover
+      ? {
+          ...a.cover,
+          byte_size: a.cover.byte_size ?? 0,
+          width: a.cover.width ?? 0,
+          height: a.cover.height ?? 0,
+        }
+      : null,
+
+    items: (a.items ?? []).map((it) => ({
+      ...it,
+      caption: it.caption ?? '',
+      asset: {
+        ...it.asset,
+        byte_size: it.asset.byte_size ?? 0,
+        width: it.asset.width ?? 0,
+        height: it.asset.height ?? 0,
+      },
+    })),
+  }))
+
+  const albumEditMapped: Album | null | undefined = albumEdit
+    ? {
+        ...albumEdit,
+        description: albumEdit.description ?? undefined,
+        cover: albumEdit.cover
+          ? {
+              ...albumEdit.cover,
+              byte_size: albumEdit.cover.byte_size ?? 0,
+              width: albumEdit.cover.width ?? 0,
+              height: albumEdit.cover.height ?? 0,
+            }
+          : null,
+        items: (albumEdit.items ?? []).map((it) => ({
+          ...it,
+          caption: it.caption ?? '',
+          asset: {
+            ...it.asset,
+            byte_size: it.asset.byte_size ?? 0,
+            width: it.asset.width ?? 0,
+            height: it.asset.height ?? 0,
+          },
+        })),
+      }
+    : albumEdit
+
   return (
     <section className='space-y-6'>
       {/* Filter header */}
@@ -223,7 +278,7 @@ export default function AlbumManagementForm() {
       {/* Table */}
       <div className='mt-6'>
         <AlbumManagementTable
-          data={data?.items ?? []}
+          data={tableData}
           paginationResponse={paginationResponse}
           onEdit={openEdit}
           onDelete={handleDelete}
@@ -235,7 +290,7 @@ export default function AlbumManagementForm() {
       <ModalCreateEditAlbum
         isOpen={isModalOpen}
         onClose={closeModal}
-        albumEdit={albumEdit}
+        albumEdit={albumEditMapped}
         onSubmit={handleSubmitAlbum}
       />
     </section>

@@ -8,7 +8,7 @@ type Props = {
 export default function NewsDetailBreadCrumbs({ id, slug }: Props) {
   const crumbs: Crumb[] = [
     {
-      label: 'Quản lý tin tức',
+      label: 'Quản lý hoạt động',
       href: '/admin/news-management',
     },
     {

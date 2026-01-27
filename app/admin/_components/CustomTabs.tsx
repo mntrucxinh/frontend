@@ -112,7 +112,7 @@ export default function CustomTabs({
       </Tabs>
 
       {button && (
-        <Button color='primary' onPress={button.onPress} size='sm' className='ml-4 flex-shrink-0'>
+        <Button color='primary' onPress={button.onPress} size='sm' className='ml-4 shrink-0'>
           <span className='flex items-center gap-2'>
             {button.icon ? <button.icon className='size-4' /> : null}
             {button.label}

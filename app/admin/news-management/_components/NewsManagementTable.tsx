@@ -6,9 +6,9 @@ import { useSearchParams } from 'next/navigation'
 import { useDeleteAdminNews } from '@/hook/admin-news/use-admin-news-mutation'
 import { useAdminNewsList } from '@/hook/admin-news/use-admin-news-query'
 import type { TPaginationResponse } from '@/validators/index'
-import { addToast, Button, Chip } from '@heroui/react'
+import { addToast, Button, Chip, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/react'
 import { useQueryClient } from '@tanstack/react-query'
-import { Pencil, Trash2 } from 'lucide-react'
+import { MoreVertical, Pencil, Trash2 } from 'lucide-react'
 
 import type { AdminNewsResponse, AdminNewsStatus } from '@/types/admin-news'
 import ConfirmModal from '@/components/ConfirmModal'
@@ -128,28 +128,53 @@ export default function NewsManagementTable() {
       case 'files':
         return <span className='text-default-500'>{item.content_assets?.length ?? 0}</span>
 
-      case 'actions':
+      case 'actions': {
+        const isRowDeleting = isDeleting && deleteTarget?.id === item.id
+        const isRowDisabled = isDeleting && !isRowDeleting
         return (
           <div className='flex items-center justify-center gap-2'>
-            <Button
-              size='sm'
-              variant='flat'
-              onPress={() => setEditingNews(item)}
-              startContent={<Pencil className='size-4' />}
-            >
-              Sửa
-            </Button>
-            <Button
-              size='sm'
-              color='danger'
-              variant='light'
-              onPress={() => setDeleteTarget(item)}
-              startContent={<Trash2 className='size-4' />}
-            >
-              Xóa
-            </Button>
+            <Dropdown placement='bottom-end'>
+              <DropdownTrigger>
+                <Button
+                  size='sm'
+                  variant='light'
+                  isIconOnly
+                  isLoading={isRowDeleting}
+                  isDisabled={isRowDisabled}
+                  aria-label='Thao tác'
+                >
+                  <MoreVertical className='size-4' />
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu
+                aria-label='Thao tác'
+                onAction={(key) => {
+                  if (key === 'edit') {
+                    setEditingNews(item)
+                  } else if (key === 'delete') {
+                    setDeleteTarget(item)
+                  }
+                }}
+              >
+                <DropdownItem
+                  key='edit'
+                  startContent={<Pencil className='size-4' />}
+                >
+                  Sửa
+                </DropdownItem>
+                <DropdownItem
+                  key='delete'
+                  className='text-danger'
+                  color='danger'
+                  startContent={<Trash2 className='size-4' />}
+                >
+                  Xóa
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           </div>
         )
+      }
 
       default:
         return '—'

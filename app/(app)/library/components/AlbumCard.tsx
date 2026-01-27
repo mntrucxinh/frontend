@@ -49,7 +49,7 @@ export const AlbumCard = ({ album, index, onClick }: AlbumCardProps) => {
                         <div className='flex items-center gap-2.5 rounded-full bg-white/20 backdrop-blur-md px-4 py-2 border border-white/30 shadow-lg'>
                             {hasImages && (
                                 <div className="flex items-center gap-1.5">
-                                    <ImageIcon className="w-4 h-4 text-white" />
+                                    <ImageIcon className="size-4 text-white" />
                                     <span className="text-sm font-semibold">{album.items.length}</span>
                                 </div>
                             )}
@@ -58,7 +58,7 @@ export const AlbumCard = ({ album, index, onClick }: AlbumCardProps) => {
                             )}
                             {hasVideos && (
                                 <div className="flex items-center gap-1.5">
-                                    <Film className="w-4 h-4 text-white" />
+                                    <Film className="size-4 text-white" />
                                     <span className="text-sm font-semibold">{album.videos.length}</span>
                                 </div>
                             )}

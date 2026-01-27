@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+
 import { noticeData } from '../mock'
 import NoticeDetailClient from './_components/NoticeDetailClient'
 
@@ -45,4 +46,3 @@ export default async function NoticeDetailPage({ params }: NoticeDetailPageProps
 
   return <NoticeDetailClient notice={notice} latestNotices={latestNotices} />
 }
-

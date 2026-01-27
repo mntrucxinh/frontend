@@ -58,7 +58,7 @@ export default function CoreValues() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-      className='relative overflow-hidden pb-24 pt-24 md:pb-32 md:pt-32'
+      className='relative overflow-hidden py-24 md:py-32'
     >
       {/* Gradient background - full section */}
       <div className='absolute inset-0 bg-gradient-to-br from-[#E8F5E9] via-white to-[#FFF3E0]' />
@@ -158,7 +158,7 @@ export default function CoreValues() {
       </div>
 
       {/* Bottom wave - seamless transition to Schedule */}
-      <div className='pointer-events-none absolute inset-x-0 bottom-0 z-[10] h-32 w-full sm:h-36 md:h-40'>
+      <div className='pointer-events-none absolute inset-x-0 bottom-0 z-10 h-32 w-full sm:h-36 md:h-40'>
         <svg viewBox='0 0 1440 160' className='absolute bottom-0 size-full' preserveAspectRatio='none'>
           <motion.path
             fill='#33B54A'
