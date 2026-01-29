@@ -2,7 +2,9 @@
 
 import { useEffect, useMemo } from 'react'
 import { ThemeProvider } from 'next-themes'
+
 import TetFireworksPopup from '@/components/TetFireworksPopup'
+import WomenDayPopup from '@/components/WomenDayPopup'
 
 type Theme =
   | 'tet'
@@ -75,6 +77,7 @@ export default function AppThemeProvider({ children }: { children: React.ReactNo
       disableTransitionOnChange
     >
       <TetFireworksPopup />
+      <WomenDayPopup />
       {children}
     </ThemeProvider>
   )
