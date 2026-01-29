@@ -229,7 +229,7 @@ export default function ActivitiesAtSchool() {
                   stiffness: 300,
                   damping: 25,
                 }}
-                className={`relative overflow-hidden rounded-full border-2 px-7 py-3 text-sm font-semibold transition-all duration-300 ${
+                className={`relative overflow-hidden rounded-full border-2 px-7 py-3 text-sm font-semibold transition-all duration-300 min-w-[140px] ${
                   isActive
                     ? 'border-white bg-white text-[#33B54A] shadow-lg'
                     : 'border-white/50 bg-white/5 text-white backdrop-blur-sm hover:border-white/70 hover:bg-white/10'

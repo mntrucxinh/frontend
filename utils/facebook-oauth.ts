@@ -72,8 +72,26 @@ export function openFacebookOAuthPopup(
     const { type, message, error, token } = event.data
 
     if (type === FACEBOOK_MESSAGE_TYPES.OAUTH_SUCCESS) {
+      // Ensure popup is closed after success
+      if (popup && !popup.closed) {
+        try {
+          popup.close()
+        } catch (e) {
+          // Popup might be blocked, ignore
+        }
+      }
+      cleanup()
       config.onSuccess?.()
     } else if (type === FACEBOOK_MESSAGE_TYPES.OAUTH_ERROR) {
+      // Ensure popup is closed after error
+      if (popup && !popup.closed) {
+        try {
+          popup.close()
+        } catch (e) {
+          // Popup might be blocked, ignore
+        }
+      }
+      cleanup()
       config.onError?.(message || error || "Liên kết Facebook thất bại")
     } else if (type === FACEBOOK_MESSAGE_TYPES.REQUEST_JWT_TOKEN) {
       // Respond to token request from popup
@@ -107,6 +125,10 @@ export function openFacebookOAuthPopup(
     if (popup.closed) {
       cleanup()
     }
+    // Note: We don't check popup URL here because:
+    // 1. When popup is on Facebook domain, accessing popup.location.href will throw cross-origin error (expected)
+    // 2. When popup redirects to our callback page, that's the expected behavior
+    // 3. The callback page will send a message back to parent window, which we handle in handleMessage
   }, FACEBOOK_OAUTH.CHECK_INTERVAL_MS)
 
   // Timeout after configured duration
