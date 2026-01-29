@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Modal, ModalBody, ModalContent, ModalHeader } from '@heroui/react'
 import { useTheme } from 'next-themes'
 
-type Petal = {
+type Sakura = {
   x: number
   y: number
   vx: number
@@ -16,6 +16,7 @@ type Petal = {
   maxLife: number
   size: number
   alpha: number
+  hueShift: number
 }
 
 function rand(min: number, max: number) {
@@ -25,6 +26,62 @@ function clamp(v: number, min: number, max: number) {
   return Math.max(min, Math.min(max, v))
 }
 
+/** Vẽ bông hoa anh đào 5 cánh + nhụy */
+function drawSakura(ctx: CanvasRenderingContext2D, size: number, alpha: number, hueShift: number) {
+  // màu cánh
+  const petalGrad = ctx.createRadialGradient(0, 0, 1, 0, 0, size * 2.8)
+  petalGrad.addColorStop(0, `rgba(255, 235, 245, ${0.95 * alpha})`)
+  petalGrad.addColorStop(
+    1,
+    `rgba(255, ${120 + hueShift * 0.3}, ${190 + hueShift * 0.2}, ${0.65 * alpha})`
+  )
+
+  // 5 cánh (ellipse) -> đảm bảo nhìn ra hoa khi nhỏ
+  ctx.fillStyle = petalGrad
+  for (let i = 0; i < 5; i++) {
+    ctx.save()
+    ctx.rotate((i * Math.PI * 2) / 5)
+    ctx.translate(0, -size * 1.05)
+
+    // cánh
+    ctx.beginPath()
+    ctx.ellipse(0, 0, size * 0.62, size * 0.95, 0, 0, Math.PI * 2)
+    ctx.fill()
+
+    // notch (lõm nhẹ ở đầu cánh)
+    ctx.globalCompositeOperation = 'destination-out'
+    ctx.beginPath()
+    ctx.ellipse(0, -size * 0.55, size * 0.18, size * 0.22, 0, 0, Math.PI * 2)
+    ctx.fill()
+    ctx.globalCompositeOperation = 'source-over'
+
+    // highlight
+    ctx.fillStyle = `rgba(255,255,255,${0.18 * alpha})`
+    ctx.beginPath()
+    ctx.ellipse(-size * 0.12, -size * 0.15, size * 0.16, size * 0.25, 0, 0, Math.PI * 2)
+    ctx.fill()
+
+    ctx.restore()
+    ctx.fillStyle = petalGrad
+  }
+
+  // nhụy
+  const centerGrad = ctx.createRadialGradient(0, 0, 1, 0, 0, size * 1.1)
+  centerGrad.addColorStop(0, `rgba(255, 250, 210, ${0.95 * alpha})`)
+  centerGrad.addColorStop(1, `rgba(255, 170, 80, ${0.7 * alpha})`)
+
+  ctx.fillStyle = centerGrad
+  ctx.beginPath()
+  ctx.arc(0, 0, size * 0.48, 0, Math.PI * 2)
+  ctx.fill()
+
+  // hạt nhụy
+  ctx.fillStyle = `rgba(255,255,255,${0.22 * alpha})`
+  ctx.beginPath()
+  ctx.arc(-size * 0.14, -size * 0.16, size * 0.12, 0, Math.PI * 2)
+  ctx.fill()
+}
+
 export default function WomenDayPopup() {
   const { resolvedTheme } = useTheme()
   const isWomenDay = resolvedTheme === 'womenDay'
@@ -32,10 +89,9 @@ export default function WomenDayPopup() {
   const [open, setOpen] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const rafRef = useRef<number | null>(null)
-  const petalsRef = useRef<Petal[]>([])
+  const sakurasRef = useRef<Sakura[]>([])
   const lastSpawnRef = useRef<number>(0)
 
-  // mở khi đúng theme
   useEffect(() => {
     setOpen(isWomenDay)
   }, [isWomenDay])
@@ -44,7 +100,8 @@ export default function WomenDayPopup() {
     if (!open) {
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
       rafRef.current = null
-      petalsRef.current = []
+      sakurasRef.current = []
+      lastSpawnRef.current = 0
       return
     }
 
@@ -65,52 +122,56 @@ export default function WomenDayPopup() {
     resize()
     window.addEventListener('resize', resize)
 
-    // nền hồng tím nhẹ
-    const base = { r: 60, g: 10, b: 45 }
-    const fillBackground = (alpha: number) => {
-      ctx.fillStyle = `rgba(${base.r},${base.g},${base.b},${alpha})`
+    // Nền hồng tím
+    const base = { r: 55, g: 8, b: 42 }
+    const paintBackground = () => {
+      ctx.fillStyle = `rgb(${base.r},${base.g},${base.b})`
       ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight)
     }
 
-    const spawnPetals = () => {
-      const count = Math.floor(rand(8, 14))
+    const spawnSakuras = () => {
+      const count = Math.floor(rand(1, 5))
       for (let i = 0; i < count; i++) {
-        petalsRef.current.push({
-          x: rand(0, canvas.clientWidth),
-          y: -20,
+        sakurasRef.current.push({
+          x: rand(-40, canvas.clientWidth + 40),
+          y: rand(-120, -20),
           vx: rand(-0.35, 0.35),
-          vy: rand(0.9, 1.7),
+          vy: rand(0.9, 1.6),
           rot: rand(0, Math.PI * 2),
           vr: rand(-0.03, 0.03),
           life: 0,
-          maxLife: Math.floor(rand(260, 420)),
-          size: rand(3.5, 6.5),
+          maxLife: Math.floor(rand(320, 520)),
+          size: rand(4.2, 7.5),
           alpha: 1,
+          hueShift: rand(-25, 25),
         })
       }
     }
 
-    fillBackground(1)
+    // init
+    paintBackground()
+    spawnSakuras()
 
     const tick = (t: number) => {
-      // trail nhẹ cho “mềm”
-      fillBackground(0.12)
+      // ✅ Không dùng trail để tránh vệt dài
+      paintBackground()
 
-      // rải cánh hoa mỗi ~250ms
+      // rải hoa đều
       const spawnEvery = 260
       if (t - lastSpawnRef.current > spawnEvery) {
         lastSpawnRef.current = t
-        spawnPetals()
+        spawnSakuras()
       }
 
+      // gió nhẹ
       const wind = Math.sin(t / 900) * 0.25
 
-      const p = petalsRef.current
+      const p = sakurasRef.current
       for (let i = p.length - 1; i >= 0; i--) {
         const it = p[i]
-        it.life += 1
 
-        it.vx += wind * 0.001
+        it.life += 1
+        it.vx += wind * 0.004
         it.x += it.vx * 1.2
         it.y += it.vy * 1.2
         it.rot += it.vr
@@ -118,7 +179,8 @@ export default function WomenDayPopup() {
         const lifeRatio = it.life / it.maxLife
         it.alpha = 1 - lifeRatio
 
-        if (it.y > canvas.clientHeight + 40 || it.life >= it.maxLife || it.alpha <= 0) {
+        // out
+        if (it.y > canvas.clientHeight + 60 || it.alpha <= 0 || it.life >= it.maxLife) {
           p.splice(i, 1)
           continue
         }
@@ -126,17 +188,7 @@ export default function WomenDayPopup() {
         ctx.save()
         ctx.translate(it.x, it.y)
         ctx.rotate(it.rot)
-
-        // cánh hoa dạng ellipse + gradient hồng
-        const g = ctx.createRadialGradient(0, 0, 1, 0, 0, it.size)
-        g.addColorStop(0, `rgba(255, 210, 235, ${0.9 * it.alpha})`)
-        g.addColorStop(1, `rgba(255, 105, 180, ${0.6 * it.alpha})`)
-
-        ctx.fillStyle = g
-        ctx.beginPath()
-        ctx.ellipse(0, 0, it.size * 0.7, it.size, 0, 0, Math.PI * 2)
-        ctx.fill()
-
+        drawSakura(ctx, it.size, it.alpha, it.hueShift)
         ctx.restore()
       }
 
@@ -149,7 +201,7 @@ export default function WomenDayPopup() {
       window.removeEventListener('resize', resize)
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
       rafRef.current = null
-      petalsRef.current = []
+      sakurasRef.current = []
       lastSpawnRef.current = 0
     }
   }, [open])
@@ -163,7 +215,6 @@ export default function WomenDayPopup() {
         <canvas ref={canvasRef} className='absolute inset-0' />
       </div>
 
-      {/* Modal */}
       <Modal
         isOpen={open}
         onOpenChange={setOpen}
@@ -174,12 +225,12 @@ export default function WomenDayPopup() {
           base: 'bg-white/10 backdrop-blur-md border-none text-white',
           header: 'justify-center',
           body: 'flex flex-col items-center text-center gap-4',
-          closeButton: 'z-[20]',
+          closeButton: 'z-[50]', // ✅ đảm bảo bấm X được
         }}
       >
         <ModalContent className='relative overflow-hidden p-4'>
           <>
-            {/* decor */}
+            {/* decor glow */}
             <div className='pointer-events-none absolute inset-0 opacity-30'>
               <div className='absolute -left-24 -top-24 size-64 rounded-full bg-pink-400 blur-3xl' />
               <div className='absolute -bottom-28 -right-24 size-72 rounded-full bg-fuchsia-500 blur-3xl' />
