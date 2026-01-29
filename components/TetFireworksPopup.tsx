@@ -171,53 +171,51 @@ export default function TetFireworksPopup() {
         }}
       >
         <ModalContent className='relative overflow-hidden p-3'>
-          {(onClose) => (
-            <>
-              <Image
-                src='/assets/images/dao.png'
-                alt='Cây đào'
-                width={220}
-                height={220}
-                className='pointer-events-none absolute -left-8 -top-4 -scale-x-100 opacity-90'
-                priority
-              />
+          <>
+            <Image
+              src='/assets/images/dao.png'
+              alt='Cây đào'
+              width={100}
+              height={100}
+              className='pointer-events-none absolute -left-8 -top-4 w-44 -scale-x-100 opacity-90 md:w-52'
+              priority
+            />
 
-              {/* Nội dung nằm trên ảnh */}
-              <div className='relative z-10'>
-                <ModalHeader>
-                  <h2
-                    className='bg-gradient-to-r from-yellow-200 via-amber-300 to-orange-400 bg-clip-text text-center text-2xl font-extrabold tracking-tight text-transparent drop-shadow-[0_2px_10px_rgba(0,0,0,0.55)] md:text-5xl'
-                    style={{ WebkitTextStroke: '0.6px rgba(255,255,255,0.25)' }}
-                  >
-                    Chúc Mừng Năm Mới
-                  </h2>
-                </ModalHeader>
+            {/* Nội dung nằm trên ảnh */}
+            <div className='relative z-10'>
+              <ModalHeader>
+                <h2
+                  className='bg-gradient-to-r from-yellow-200 via-amber-300 to-orange-400 bg-clip-text text-center text-2xl font-extrabold tracking-tight text-transparent drop-shadow-[0_2px_10px_rgba(0,0,0,0.55)] md:text-5xl'
+                  style={{ WebkitTextStroke: '0.6px rgba(255,255,255,0.25)' }}
+                >
+                  Chúc Mừng Năm Mới
+                </h2>
+              </ModalHeader>
 
-                <ModalBody>
-                  <div className='mt-1 text-sm text-white/85 drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] md:text-base'>
-                    Năm mới bình an — vạn sự như ý!
-                  </div>
-                  <Image
-                    src='/assets/images/mualan.gif'
-                    alt='Tết'
-                    width={200}
-                    height={200}
-                    className='mx-auto mb-6 mt-1'
-                    priority
-                  />
-                </ModalBody>
-              </div>
+              <ModalBody>
+                <div className='mt-1 text-sm text-white/85 drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] md:text-base'>
+                  Năm mới bình an — vạn sự như ý!
+                </div>
+                <Image
+                  src='/assets/images/mualan.gif'
+                  alt='Tết'
+                  width={200}
+                  height={200}
+                  className='mx-auto mb-6 mt-1'
+                  priority
+                />
+              </ModalBody>
+            </div>
 
-              <Image
-                src='/assets/images/mai.png'
-                alt='Cây đào'
-                width={220}
-                height={220}
-                className='pointer-events-none absolute -bottom-8 -right-10 opacity-90'
-                priority
-              />
-            </>
-          )}
+            <Image
+              src='/assets/images/mai.png'
+              alt='Cây đào'
+              width={100}
+              height={100}
+              className='pointer-events-none absolute -bottom-8 -right-10 w-44 opacity-90 md:w-52'
+              priority
+            />
+          </>
         </ModalContent>
       </Modal>
     </>
