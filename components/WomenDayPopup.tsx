@@ -173,8 +173,8 @@ export default function WomenDayPopup() {
           wrapper: 'z-[9999]',
           base: 'bg-white/10 backdrop-blur-md border-none text-white',
           header: 'justify-center',
-          body: 'text-center',
-          closeButton: 'z-[20]', // ✅ để nút X luôn bấm được
+          body: 'flex flex-col items-center text-center gap-4',
+          closeButton: 'z-[20]',
         }}
       >
         <ModalContent className='relative overflow-hidden p-4'>
@@ -200,9 +200,8 @@ export default function WomenDayPopup() {
                   Chúc bạn luôn rạng rỡ, hạnh phúc và được yêu thương thật nhiều!
                 </div>
 
-                {/* nếu bạn có gif/ảnh riêng thì thay src */}
                 <Image
-                  src='/assets/images/women-day.gif'
+                  src='/assets/images/womenday.png'
                   alt='Women Day'
                   width={220}
                   height={220}
